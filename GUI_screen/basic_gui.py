@@ -2,18 +2,20 @@ from tkinter import *
   
   
 # create root window
-root = Tk()                           
+MainWindow = Tk()            
+
   
 # frame inside root window
-frame = Frame(root)                  
+frame = Frame(MainWindow, borderwidth=5)  
+              
   
 # geometry method
 frame.pack()                          
   
 # button inside frame which is 
 # inside root
-button = Button(frame, text ='Geek')  
+button = Button(frame, text ='CONTROLS',background='black',foreground='white',activebackground='black',activeforeground='white')  
 button.pack()                         
   
 # Tkinter event loop
-root.mainloop()   
+MainWindow.mainloop()   
