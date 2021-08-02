@@ -1,29 +1,27 @@
 from tkinter import * 
 
-#Variables for use
-my_Var = 0
+class GUI_Parent:
+    #Constructor
+    def _init_(self):
+        #Variables 
+        self.my_var=0
 
-#MainWindow
-MainWindow = Tk()
-MainWindow.geometry('500x500')
-    
-#Label
-label=Label(MainWindow,text=str(my_Var),borderwidth=5,)
-label.place(x=10,y=80,height=50,width=100)
+        #MainWindow
+        self.MainWindow=Tk()
+        self.MainWindow.geometry('500x500')
 
-#Functions for use
-def changeValue():
+        #GUI Components
+        self.incrementButton=Button(self.MainWindow,text='+1',background='black',foreground='white',
+                                    activeforeground='white',activebackground='dark blue',command=self.changeValue)
+        self.incrementButton.place(x=10,y=10,height=40,width=200)
 
-    global my_Var
-    my_Var+=1
+        self.textLabel=Label(self.MainWindow,text=self.my_var,borderwidth=5)
+        self.textLabel.place(x=10,y=60,height=40,width=200)
 
-    #Update text
-    label.configure(text = str(my_Var))
+    #Functions
+    def changeValue(self):
+        self.my_var+=1
+        self.textLabel.configure(text=self.my_Var)
 
-#Button
-button = Button(MainWindow, text ='DIE!',background='black',foreground='white',
-                activebackground='black',activeforeground='white', command=changeValue)  
-button.place(x=10,y=10,height=50,width=100) 
-
-# Tkinter event loop
-MainWindow.mainloop()   
+guiObject=GUI_Parent()
+guiObject.MainWindow.mainloop() 
