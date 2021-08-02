@@ -2,20 +2,13 @@ from tkinter import *
   
   
 # create root window
-MainWindow = Tk()            
+MainWindow = Tk()
 
-  
-# frame inside root window
-frame = Frame(MainWindow, borderwidth=5)  
-              
-  
-# geometry method
-frame.pack()                          
-  
-# button inside frame which is 
-# inside root
-button = Button(frame, text ='CONTROLS',background='black',foreground='white',activebackground='black',activeforeground='white')  
-button.pack()                         
+MainWindow.geometry('500x500')
+
+button = Button(MainWindow, text ='DIE!',background='black',foreground='white',activebackground='black',activeforeground='white', command=MainWindow.destroy)  
+
+button.place(x=10,y=10,height=50,width=100)                         
   
 # Tkinter event loop
 MainWindow.mainloop()   
