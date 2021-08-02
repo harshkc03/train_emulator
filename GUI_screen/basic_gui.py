@@ -14,6 +14,7 @@ button.place(x=10,y=10,height=50,width=100)
 
 #Button Command
 def changeValue():
+    global my_Var
     my_Var+=1
 
   
