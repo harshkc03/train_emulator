@@ -12,19 +12,29 @@ class GUI_Parent:
 
         #GUI Components
         self.incrementButton=Button(self.MainWindow,text='+1',background='black',foreground='white',
-                                    activeforeground='white',activebackground='dark blue',command=self.changeValue)
-        self.incrementButton.place(x=10,y=10,height=40,width=200)
+                                    activeforeground='white',activebackground='dark blue',command=self.incValue)
+        self.incrementButton.place(x=10,y=10,height=40,width=100)
+
+        self.decrementButton=Button(self.MainWindow,text='-1',background='black',foreground='white',
+                                    activeforeground='white',activebackground='dark blue',command=self.decValue)
+        self.decrementButton.place(x=120,y=10,height=40,width=100)
 
         self.closeButton=Button(self.MainWindow,text='Close',background='red',foreground='black',command=self.MainWindow.destroy)
-        self.closeButton.place(x=220,y=10,height=40,width=200)
+        self.closeButton.place(x=230,y=10,height=40,width=200)
 
         self.textLabel=Label(self.MainWindow,text=self.my_var,borderwidth=5)
         self.textLabel.place(x=10,y=60,height=40,width=200)
 
     #Functions
-    def changeValue(self):
+    def incValue(self):
         self.my_var+=1
         self.textLabel.configure(text=self.my_var)
+
+    def decValue(self):
+        if self.my_var!=0:
+            self.my_var-=1
+        self.textLabel.configure(text=self.my_var)
+
 
 guiObject=GUI_Parent()
 guiObject.MainWindow.mainloop() 
