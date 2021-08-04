@@ -1,4 +1,5 @@
 from tkinter import *  
+from tkinter.ttk import *  
 
 class GUI_Parent:
     #Constructor
@@ -10,6 +11,10 @@ class GUI_Parent:
         #MainWindow
         self.MainWindow=Tk()
         self.MainWindow.attributes("-fullscreen",True)
+
+        #RadioButton_Style
+        self.radioButtonStyle=Style(self.MainWindow)
+        self.radioButtonStyle.configure("TRadiobutton", background="light green",foreground="dark blue")
 
         ##GUI Components
 
@@ -47,15 +52,17 @@ class GUI_Parent:
         self.passwordEntry=Entry(self.MainWindow)
         self.passwordEntry.place(x=550,y=65,width=200,height=30)
 
+        
+
         #RadioButtons
         self.radioButton1=Radiobutton(self.MainWindow,text='Menu 1',variable=1,value=1,
-                                      indicator=0,background='light blue').place(x=760,y=10,width=100,height=40)
+                                      indicator=0).place(x=760,y=10,width=100,height=40)
         self.radioButton2=Radiobutton(self.MainWindow,text='Menu 2',variable=1,value=2,
-                                      indicator=0,background='light blue').place(x=760,y=50,width=100,height=40)
+                                      indicator=0).place(x=760,y=50,width=100,height=40)
         self.radioButton3=Radiobutton(self.MainWindow,text='Menu 3',variable=1,value=3,
-                                      indicator=0,background='light blue').place(x=760,y=90,width=100,height=40)
+                                      indicator=0).place(x=760,y=90,width=100,height=40)
         self.radioButton4=Radiobutton(self.MainWindow,text='Menu 4',variable=1,value=4,
-                                      indicator=0,background='light blue').place(x=760,y=130,width=100,height=40)
+                                      indicator=0).place(x=760,y=130,width=100,height=40)
 
     #Functions
     def incValue(self):
