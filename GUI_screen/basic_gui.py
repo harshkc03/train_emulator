@@ -12,7 +12,10 @@ class GUI_Parent:
         self.MainWindow=Tk()
         self.MainWindow.attributes("-fullscreen",True)
 
-        
+        #Login variables
+        self.username = StringVar()
+        self.password = StringVar()
+        self.message = StringVar()
 
         ##GUI Components
 
@@ -39,7 +42,7 @@ class GUI_Parent:
         self.usernameLabel.place(x=440,y=10,width=100,height=40)
 
         #Username_Entry
-        self.usernameEntry=Entry(self.MainWindow)
+        self.usernameEntry=Entry(self.MainWindow, textvariable=self.username)
         self.usernameEntry.place(x=550,y=15,width=200,height=30)
 
         #Password_Label
@@ -47,10 +50,16 @@ class GUI_Parent:
         self.passwordLabel.place(x=440,y=60,width=100,height=40)
 
         #Password_Entry
-        self.passwordEntry=Entry(self.MainWindow)
+        self.passwordEntry=Entry(self.MainWindow, textvariable=self.password)
         self.passwordEntry.place(x=550,y=65,width=200,height=30)
 
-        
+        #Login button
+        self.login_button = Button(self.MainWindow, text="Login", width=10, height=1, bg="orange",command=self.login)
+        self.login_button.place(x=550,y=115,width=200,height=30)
+
+        #Login info label
+        self.login_info = Label(self.MainWindow, text="",textvariable=self.message)
+        self.login_info.place(x=440,y=110)
 
         #RadioButtons
         self.radioButton1=Radiobutton(self.MainWindow,text='Menu 1',variable=1,value=1,
@@ -71,6 +80,19 @@ class GUI_Parent:
         if self.my_var!=0:
             self.my_var-=1
         self.textLabel.configure(text=self.my_var)
+    
+    def login(self):
+        #getting form data
+        uname=self.username.get()
+        pwd=self.password.get()
+        #applying empty validation
+        if uname=='' or pwd=='':
+            self.message.set("fill the empty field!!!")
+        else:
+            if uname=="abc@gmail.com" and pwd=="abc123":
+                self.message.set("Login success")
+            else:
+                self.message.set("Wrong username or password!!!")
 
 
 guiObject=GUI_Parent()
