@@ -1,5 +1,5 @@
-from tkinter import *  
-from tkinter.ttk import *  
+from tkinter import *
+
 
 class GUI_Parent:
     #Constructor
@@ -12,9 +12,7 @@ class GUI_Parent:
         self.MainWindow=Tk()
         self.MainWindow.attributes("-fullscreen",True)
 
-        #RadioButton_Style
-        self.radioButtonStyle=Style(self.MainWindow)
-        self.radioButtonStyle.configure("TRadiobutton", background="light green",foreground="dark blue")
+        
 
         ##GUI Components
 
