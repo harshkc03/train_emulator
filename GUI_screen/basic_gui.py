@@ -1,6 +1,5 @@
 from tkinter import *
 
-
 class GUI_Parent:
     #Constructor
     def __init__(self):
@@ -10,7 +9,7 @@ class GUI_Parent:
 
         #MainWindow
         self.MainWindow=Tk()
-        self.MainWindow.attributes("-fullscreen",True)
+        
 
         
 
@@ -18,16 +17,16 @@ class GUI_Parent:
 
         #Increment_Button        
         self.incrementButton=Button(self.MainWindow,text='+1',background='black',foreground='white',
-                                    activeforeground='white',activebackground='dark blue',command=self.incValue)
+                                    activeforeground='white',activebackground='gray14',command=self.incValue)
         self.incrementButton.place(x=10,y=10,height=40,width=100)
 
         #Decrement_Button
         self.decrementButton=Button(self.MainWindow,text='-1',background='black',foreground='white',
-                                    activeforeground='white',activebackground='dark blue',command=self.decValue)
+                                    activeforeground='white',activebackground='gray14',command=self.decValue)
         self.decrementButton.place(x=120,y=10,height=40,width=100)
 
         #Close_Button
-        self.closeButton=Button(self.MainWindow,text='Close',background='red',foreground='black',command=self.MainWindow.destroy)
+        self.closeButton=Button(self.MainWindow,text='Close',background='red',foreground='black',activebackground='pink',command=self.MainWindow.destroy)
         self.closeButton.place(x=230,y=10,height=40,width=200)
 
         #Label
