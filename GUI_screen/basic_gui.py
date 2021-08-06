@@ -9,7 +9,7 @@ class GUI_Parent:
 
         #MainWindow
         self.MainWindow=Tk()
-        
+        self.MainWindow.attributes('-fullscreen',True)
 
         
 
@@ -27,7 +27,7 @@ class GUI_Parent:
 
         #Close_Button
         self.closeButton=Button(self.MainWindow,text='Close',background='red',foreground='black',activebackground='pink',command=self.MainWindow.destroy)
-        self.closeButton.place(x=230,y=10,height=40,width=200)
+        self.closeButton.pack(side=BOTTOM,fill=X)
 
         #Label
         self.textLabel=Label(self.MainWindow,text=self.my_var,borderwidth=5,background='blue',foreground='yellow')
