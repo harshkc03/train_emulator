@@ -19,6 +19,11 @@ class TheContainerClass:
         self.label1.configure(text='I am from menu 1',justify=LEFT,background='black',foreground='white')
         self.label1.place(x=10,y=10,height=40,width=300)
 
+        #Frame2_Widgets
+        self.label2=Label(self.menu2)
+        self.label2.configure(text='I am from menu 2',justify=LEFT,background='green',foreground='white')
+        self.label2.place(x=10,y=110,height=40,width=300)
+
         #Frame_Control_Buttons
         self.menuButton1=Radiobutton(text='Menu 1',variable=9999,value=1,indicatoron=False,command=self.menuButton1Clicked)
         self.menuButton2=Radiobutton(text='Menu 2',variable=9999,value=2,indicatoron=False,command=self.menuButton2Clicked)
