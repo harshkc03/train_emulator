@@ -1,5 +1,5 @@
 from tkinter import *
-from typing import Mapping
+
 
 class TheContainerClass:
     #Constructor
@@ -20,11 +20,16 @@ class TheContainerClass:
         #LoginFrame_Widgets
         self.usernameLabel=Label(self.loginFrame)
         self.usernameLabel.configure(text='Username: ')
+        self.usernameLabel.place(x=100,y=100,height=40,width=100)
         self.passwordLabel=Label(self.loginFrame)
         self.passwordLabel.configure(text='Password: ')
+        self.passwordLabel.place(x=100,y=150,height=40,width=100)
         self.usernameEntry=Entry(self.loginFrame)
+        self.usernameEntry.place(x=200,y=100,width=100,height=40)
         self.passwordEntry=Entry(self.loginFrame,show='*')
-        self.submitButton=Button(text='log me in', command=self.logMeIn)
+        self.passwordEntry.place(x=200,y=150,width=100,height=40)
+        self.submitButton=Button(self.loginFrame,text='log me in', command=self.logMeIn)
+        self.submitButton.place(x=150,y=200,width=100,height=40)
         
         #Frame1_Widgets
         self.label1=Label(self.menu1)
@@ -48,12 +53,9 @@ class TheContainerClass:
         self.menuButton3=Radiobutton(text='Menu 3',variable=9999,value=3,indicatoron=False,command=self.menuButton3Clicked)
         self.menuButton1.select()
 
-        #Packing
-        self.mainFrame.pack(fill=BOTH,expand=True)
-        self.menu1.pack(fill=BOTH,expand=True)
-        self.menuButton1.pack(side=LEFT,fill=X,expand=True,ipady=5)
-        self.menuButton2.pack(side=LEFT,fill=X,expand=True,ipady=5)
-        self.menuButton3.pack(side=LEFT,fill=X,expand=True,ipady=5)
+        #Packing        
+        self.loginFrame.pack(fill=BOTH,expand=True)
+        
 
      #Functions
     def menuButton1Clicked(self):
@@ -72,7 +74,22 @@ class TheContainerClass:
          self.menu3.pack(fill=BOTH,expand=True)
    
     def logMeIn(self):
-         if self.usernameEntry
+         #getting form data
+        uname=self.usernameEntry.get()
+        pwd=self.passwordEntry.get()
+
+        #applying empty validation
+        if uname=='' or pwd=='':
+            self.message.set("Username or Password not filled")
+        else:
+            if uname=="abc" and pwd=="abc":
+                self.loginFrame.destroy()
+                self.mainFrame.pack(fill=BOTH,expand=True)
+                self.menu1.pack(fill=BOTH,expand=True)
+                self.menuButton1.pack(side=LEFT,fill=X,expand=True,ipady=5)
+                self.menuButton2.pack(side=LEFT,fill=X,expand=True,ipady=5)
+                self.menuButton3.pack(side=LEFT,fill=X,expand=True,ipady=5)       
+                
 
         
 
