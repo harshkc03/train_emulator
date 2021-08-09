@@ -54,8 +54,7 @@ class TheContainerClass:
         self.menuButton1.select()
 
         #Packing        
-        self.loginFrame.pack(fill=BOTH,expand=True)
-        
+        self.loginFrame.pack(fill=BOTH,expand=True)        
 
      #Functions
     def menuButton1Clicked(self):
@@ -89,9 +88,6 @@ class TheContainerClass:
                 self.menuButton1.pack(side=LEFT,fill=X,expand=True,ipady=5)
                 self.menuButton2.pack(side=LEFT,fill=X,expand=True,ipady=5)
                 self.menuButton3.pack(side=LEFT,fill=X,expand=True,ipady=5)       
-                
-
-        
 
 gui=TheContainerClass()
 gui.MainWindow.mainloop()     
