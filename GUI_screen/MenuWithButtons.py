@@ -9,11 +9,19 @@ class TheContainerClass:
         self.MainWindow.geometry('500x500')
 
         #Windows/Frames
+        self.loginFrame=Frame(self.MainWindow)
+        self.loginFrame.configure(bg='black')
         self.mainFrame=Frame(self.MainWindow)
         self.mainFrame.configure(background='black')
         self.menu1=Frame(self.mainFrame)
         self.menu2=Frame(self.mainFrame)
         self.menu3=Frame(self.mainFrame)
+
+        #LoginFrame_Widgets
+        self.usernameLabel=Label(self.loginFrame)
+        self.usernameLabel.configure(text='Username: ')
+        self.passwordLabel=Label(self.loginFrame)
+        self.passwordLabel.configure(text='Password: ')
         
         #Frame1_Widgets
         self.label1=Label(self.menu1)
