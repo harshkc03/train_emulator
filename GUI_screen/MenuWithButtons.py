@@ -22,6 +22,9 @@ class TheContainerClass:
         self.usernameLabel.configure(text='Username: ')
         self.passwordLabel=Label(self.loginFrame)
         self.passwordLabel.configure(text='Password: ')
+        self.usernameEntry=Entry(self.loginFrame)
+        self.passwordEntry=Entry(self.loginFrame,show='*')
+        self.submitButton=Button(text='log me in', command=self.logMeIn)
         
         #Frame1_Widgets
         self.label1=Label(self.menu1)
@@ -67,6 +70,9 @@ class TheContainerClass:
          self.menu1.pack_forget()
          self.menu2.pack_forget()
          self.menu3.pack(fill=BOTH,expand=True)
+   
+    def logMeIn(self):
+         if self.usernameEntry
 
         
 
