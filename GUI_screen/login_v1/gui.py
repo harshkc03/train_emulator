@@ -152,4 +152,4 @@ button_1.place(
     height=40.0
 )
 window.resizable(False, False)
-window.mainloop()
+# window.mainloop()

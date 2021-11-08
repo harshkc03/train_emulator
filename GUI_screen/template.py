@@ -38,7 +38,10 @@ class GUI_parent:
     
     def cur_clock(self):
         self.time = str(datetime.datetime.now().strftime("%H:%M:%S"))
+        self.header.itemconfig(self.time_text, text=self.time)
+        self.MainWindow.after(1000,self.cur_clock)
 
 guiObject=GUI_parent()
 guiObject.cur_clock()
+guiObject.MainWindow.after(0,guiObject.cur_clock)
 guiObject.MainWindow.mainloop() 
