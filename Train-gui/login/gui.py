@@ -137,7 +137,7 @@ class login_gui(Frame):
             font="-family {Roboto} -size -30 -weight normal -underline 0 -overstrike 0",
             fg="#FFFFFF",
             textvariable=self.entry_text,
-            # show="*"
+            show="*"
         )
         entry_1.place(
             x=1083.0,

@@ -28,8 +28,21 @@ class MainWindow(Tk):
         self.main_frame = background.gui.emu_gui(self)
         self.main_frame.pack(fill=BOTH, expand=True)
 
+        # Create the login frame
+        self.login_frame = login.gui.login_gui(self)
+
         # Timepass frame
         self.fun = funFrame(self)
+        self.mode_select = modeFrame(self)
+        self.overview = overviewFrame(self)
+        self.recreate = recreateFrame(self)
+        self.train_pos = trainposFrame(self)
+        self.camera = cameraFrame(self)
+        self.events = eventsFrame(self)
+        self.auto_mode = autoFrame(self)
+        self.legends = legendFrame(self)
+        self.brightness = brightnessFrame(self)
+        self.backlight = backlightFrame(self)
 
         # Activate the login frame
         self.button1pressed()
@@ -67,7 +80,7 @@ class MainWindow(Tk):
     def login_entry_check(self, *args):
 
         if self.login_frame.entry_text.get() == "696969":
-            self.login_frame.canvas.itemconfig(self.login_frame.valid_text_id, text="Bilseri")
+            self.login_frame.canvas.itemconfig(self.login_frame.valid_text_id, text="Exit")
         elif self.login_frame.entry_text.get() == "888888":
             self.login_frame.canvas.itemconfig(self.login_frame.valid_text_id, text="Driver")
         else:
@@ -96,16 +109,16 @@ class MainWindow(Tk):
                 self.main_frame.button_list[i].configure(state=NORMAL)
 
             # Change the text of all the enabled Radiobuttons
-            self.change_button_text(2, "Fun")
-            self.change_button_text(3, "mazze")
-            self.change_button_text(4, "mazze")
-            self.change_button_text(5, "mazze")
-            self.change_button_text(6, "mazze")
-            self.change_button_text(7, "mazze")
-            self.change_button_text(8, "maaze")
-            self.change_button_text(9, "mazze")
-            self.change_button_text(10, "op")
-            self.change_button_text(11, "op")
+            self.change_button_text(2, "Mode select")
+            self.change_button_text(3, "Overview")
+            self.change_button_text(4, "Recreate")
+            self.change_button_text(5, "Train pos")
+            self.change_button_text(6, "Camera")
+            self.change_button_text(7, "Events")
+            self.change_button_text(8, "Auto-mode")
+            self.change_button_text(9, "Legends")
+            self.change_button_text(10, "Brightness")
+            self.change_button_text(11, "Backlight")
 
             # Select button 2 and call the function associated with it
             self.main_frame.button_2.select()
@@ -115,10 +128,18 @@ class MainWindow(Tk):
         print("button1 pressed")
 
         # Forget all other frames
-        self.fun.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
 
         # Bring forward the login frame
-        self.login_frame = login.gui.login_gui(self)
         self.login_frame.place(x=18.0, y=204.0, width=1883.0, height=860.0)
         # Create a trace for the entry box text
         self.login_frame.entry_text.trace_add("write", self.login_entry_check)
@@ -129,36 +150,164 @@ class MainWindow(Tk):
 
         # Forget all other frames
         self.login_frame.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
 
         # Slap the fun frame on top of the main frame
-        self.fun.place(x=18.0, y=204.0, width=1883.0, height=860.0)
+        self.mode_select.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button3pressed(self):
         print("button3 pressed")
 
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
+
+        self.overview.place(x=18.0, y=204.0, width=1883.0, height=860.0)
+
     def button4pressed(self):
         print("button4 pressed")
 
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        # self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
+
+        self.recreate.place(x=18.0, y=204.0, width=1883.0, height=860.0)
+
+
     def button5pressed(self):
         print("button5 pressed")
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        # self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
+
+        self.train_pos.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button6pressed(self):
         print("button6 pressed")
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        # self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
+
+        self.camera.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button7pressed(self):
         print("button7 pressed")
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        # self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
+
+        self.events.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button8pressed(self):
         print("button8 pressed")
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        # self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
+
+        self.auto_mode.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button9pressed(self):
         print("button9 pressed")
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        # self.legends.place_forget()
+        self.brightness.place_forget()
+        self.backlight.place_forget()
+
+        self.legends.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button10pressed(self):
         print("button10 pressed")
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        # self.brightness.place_forget()
+        self.backlight.place_forget()
+
+        self.brightness.place(x=18.0, y=204.0, width=1883.0, height=860.0)
     
     def button11pressed(self):
         print("button11 pressed")
+        self.login_frame.place_forget()
+        self.mode_select.place_forget()
+        self.overview.place_forget()
+        self.recreate.place_forget()
+        self.train_pos.place_forget()
+        self.camera.place_forget()
+        self.events.place_forget()
+        self.auto_mode.place_forget()
+        self.legends.place_forget()
+        self.brightness.place_forget()
+        # self.backlight.place_forget()
+
+        self.backlight.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
 # Timepass frame
 class funFrame(Frame):
@@ -167,7 +316,97 @@ class funFrame(Frame):
 
         #tkinter add a label
         self.label = Label(self, text="C0ngratulati0ns, you've succesfully failed life", font="-family {Roboto} -size -30 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
-        self.label.place(x=900, y=540)
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class modeFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Mode select window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class overviewFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Train overview window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class recreateFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Recreate scenario selection window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class trainposFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Train position window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class cameraFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Camera feed view window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class eventsFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Events window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class autoFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Automatic mode window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class legendFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Legends view window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class backlightFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Backlight control window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
+
+# Timepass frame
+class brightnessFrame(Frame):
+    def __init__(self, window):
+        Frame.__init__(self, window)
+
+        #tkinter add a label
+        self.label = Label(self, text="Brightness control window", font="-family {Roboto} -size -70 -weight normal -underline 0 -overstrike 0", fg="#ffffff", bg="#000000")
+        self.label.place(x=4, y=3, width=1874, height=852)
 
 # Run the program
 if __name__ == "__main__":
