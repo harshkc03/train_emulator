@@ -377,7 +377,7 @@ class emu_gui(Frame):
             871.0,
             31.0,
             anchor="nw",
-            text=self.frame_id_text.get(),
+            text="Login User ID",
             fill="#FFFFFF",
             font=("Roboto", 30 * -1)
         )

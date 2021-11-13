@@ -139,6 +139,10 @@ class MainWindow(Tk):
         self.brightness.place_forget()
         self.backlight.place_forget()
 
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Login User ID")
+
+        self.login_frame.entry_text.set("")
+
         # Bring forward the login frame
         self.login_frame.place(x=18.0, y=204.0, width=1883.0, height=860.0)
         # Create a trace for the entry box text
@@ -160,6 +164,8 @@ class MainWindow(Tk):
         self.brightness.place_forget()
         self.backlight.place_forget()
 
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Mode of operation")
+
         # Slap the fun frame on top of the main frame
         self.mode_select.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
@@ -176,6 +182,8 @@ class MainWindow(Tk):
         self.legends.place_forget()
         self.brightness.place_forget()
         self.backlight.place_forget()
+
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Train Overview")
 
         self.overview.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
@@ -194,6 +202,8 @@ class MainWindow(Tk):
         self.brightness.place_forget()
         self.backlight.place_forget()
 
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Recreate scenarios")
+
         self.recreate.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
 
@@ -211,6 +221,8 @@ class MainWindow(Tk):
         self.brightness.place_forget()
         self.backlight.place_forget()
 
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Train position")
+
         self.train_pos.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button6pressed(self):
@@ -226,6 +238,8 @@ class MainWindow(Tk):
         self.legends.place_forget()
         self.brightness.place_forget()
         self.backlight.place_forget()
+
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Live FPP camera feed")
 
         self.camera.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
@@ -243,6 +257,8 @@ class MainWindow(Tk):
         self.brightness.place_forget()
         self.backlight.place_forget()
 
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Events")
+
         self.events.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button8pressed(self):
@@ -258,6 +274,8 @@ class MainWindow(Tk):
         self.legends.place_forget()
         self.brightness.place_forget()
         self.backlight.place_forget()
+
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Automatic mode")
 
         self.auto_mode.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
@@ -275,6 +293,8 @@ class MainWindow(Tk):
         self.brightness.place_forget()
         self.backlight.place_forget()
 
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Legends")
+
         self.legends.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
     def button10pressed(self):
@@ -291,6 +311,8 @@ class MainWindow(Tk):
         # self.brightness.place_forget()
         self.backlight.place_forget()
 
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Brightness")
+
         self.brightness.place(x=18.0, y=204.0, width=1883.0, height=860.0)
     
     def button11pressed(self):
@@ -306,6 +328,8 @@ class MainWindow(Tk):
         self.legends.place_forget()
         self.brightness.place_forget()
         # self.backlight.place_forget()
+
+        self.main_frame.canvas.itemconfig(self.main_frame.frame_id, text="Backlight")
 
         self.backlight.place(x=18.0, y=204.0, width=1883.0, height=860.0)
 
