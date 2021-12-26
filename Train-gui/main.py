@@ -5,7 +5,6 @@ import time
 import background.gui
 import login.gui
 
-
 class MainWindow(Tk):
 
     # Constructor
