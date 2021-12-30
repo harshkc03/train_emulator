@@ -24,7 +24,8 @@ class MainWIndow(Tk):
         self.button09=Radiobutton(self)
         self.button10=Radiobutton(self)
         self.button11=Radiobutton(self)
-              
+
+        #Dictionary having the buttons as objects     
         self.buttonArray={self.button01:1,
                           self.button02:2,
                           self.button03:3,
@@ -57,6 +58,7 @@ class MainWIndow(Tk):
         self.frame10=Frame(self.topLevelFrame,bg="#000000")
         self.frame11=Frame(self.topLevelFrame,bg="#000000")
 
+        #Dictionary having the frames as its objects
         self.frameArray={self.frame01:1,
                          self.frame02:2,
                          self.frame03:3,
@@ -123,22 +125,19 @@ class MainWIndow(Tk):
         self.update()        
         self.testWidgetGeometry()
 
+
+    #insert initialising function here
     def initialiseWidgets(self):
         print("Initialising.....")
+    
 
-    def testWidgetGeometry(self):
-        for button,buttonIndex in self.buttonArray.items():
-            print("Button "+str(buttonIndex))
-            print(button.winfo_geometry())
-            print('\n')
-
+    #Views one of the frames and makes all other frames invisible
     def viewFrame(self,frameIndex):
         for (frame,counter) in self.frameArray.items():
             if counter==frameIndex:
                 frame.grid(sticky=self.stickyValue,padx=2,pady=2)
             else:
-                frame.grid_remove()
-                
+                frame.grid_remove()                
 
     
     #Button Functions
