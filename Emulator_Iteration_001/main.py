@@ -2,6 +2,8 @@ from tkinter import*
 
 #MainWindow Class
 class MainWIndow(Tk):
+
+    #Default initiaiser
     def __init__(self,master=None):
         Tk.__init__(self,master)
         self.geometry('1200x675')
@@ -11,6 +13,7 @@ class MainWIndow(Tk):
         self.placeWidgets()
         self.initialiseWidgets()    
     
+    #Creating the necessary widgets that will remain embedded in the main Window
     def createWidgets(self):
         #RadioButtons
         self.button01=Radiobutton(self)
@@ -71,9 +74,7 @@ class MainWIndow(Tk):
                          self.frame10:10,
                          self.frame11:11}
 
-
-
-                 
+    #Placing the widgets onto the main frame using the grid() method             
     def placeWidgets(self):
         #Top Level Frame
         self.topLevelFrame.grid(sticky=self.stickyValue,row=2,column=0,columnspan=11,padx=5,pady=5,rowspan=11)
@@ -89,6 +90,7 @@ class MainWIndow(Tk):
         self.update()
         self.configureWidgets()    
 
+    #Configure widgets with essential attributes like commands, etc.
     def configureWidgets(self):
         #Top Level frame
         self.topLevelFrame.config(height=self.button01.winfo_height()*9)        
@@ -125,12 +127,10 @@ class MainWIndow(Tk):
         self.update()        
         self.testWidgetGeometry()
 
-
-    #insert initialising function here
+    #An extra init function to declutter the default init. Makes the code more modular
     def initialiseWidgets(self):
         print("Initialising.....")
     
-
     #Views one of the frames and makes all other frames invisible
     def viewFrame(self,frameIndex):
         for (frame,counter) in self.frameArray.items():
@@ -139,7 +139,6 @@ class MainWIndow(Tk):
             else:
                 frame.grid_remove()                
 
-    
     #Button Functions
     def button01Func(self):
         print("Button 1 is pressed")
@@ -184,8 +183,7 @@ class MainWIndow(Tk):
     def button11Func(self):
         print("Button 11 is pressed")
         self.viewFrame(11)
-
-    
+   
     #Variables
     mainRadioButtonVariable=1
     stickyValue="news"
