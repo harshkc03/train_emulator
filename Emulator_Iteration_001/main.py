@@ -1,4 +1,5 @@
 from tkinter import*
+import login_screen
 
 #MainWindow Class
 class MainWIndow(Tk):
@@ -125,7 +126,6 @@ class MainWIndow(Tk):
 
         #Updating and testing
         self.update()        
-        self.testWidgetGeometry()
 
     #An extra init function to declutter the default init. Makes the code more modular
     def initialiseWidgets(self):
@@ -186,9 +186,7 @@ class MainWIndow(Tk):
    
     #Variables
     mainRadioButtonVariable=1
-    stickyValue="news"
-    topLevelFrameHeight=900
-    
+    stickyValue="news"   
 
 app=MainWIndow()
 app.mainloop()
