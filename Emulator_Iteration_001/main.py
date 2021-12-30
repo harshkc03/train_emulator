@@ -127,18 +127,10 @@ class MainWIndow(Tk):
         self.update()
 
         #Child Frames
-        self.frame01.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame02.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame03.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame04.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame05.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame06.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame07.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame08.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame09.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame10.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
-        self.frame11.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())
+        for (frames) in self.frameArray:
+            frames.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())        
 
+        #Updating and testing
         self.update()        
         self.testWidgetGeometry()
 
