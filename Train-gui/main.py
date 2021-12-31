@@ -8,10 +8,10 @@ import login.gui
 class MainWindow(Tk):
 
     # Constructor
-    def __init__(self, window):
+    def __init__(self,window):
 
         # Initialize this class as the main Tk window
-        Tk.__init__(self, window)
+        Tk.__init__(self,window)
 
         # Set a few parameters for our main window
         self.geometry("1920x1080")
