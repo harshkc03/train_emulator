@@ -1,5 +1,5 @@
 from tkinter import*
-# import login_screen
+import login_screen
 
 #MainWindow Class
 class MainWIndow(Tk):
@@ -7,9 +7,9 @@ class MainWIndow(Tk):
     #Default initiaiser
     def __init__(self,master=None):
         Tk.__init__(self,master)
-        self.geometry('1200x675')
+        self.geometry('1280x720')
+        # self.geometry('1920x1080')
         self.config(bg="#000000")
-        self.rowconfigure(1,minsize=60)
         self.createWidgets()
         self.placeWidgets()
         self.initialiseWidgets()    
@@ -44,10 +44,16 @@ class MainWIndow(Tk):
                                                             
 
         #Top level Frame
-        self.topLevelFrame= Frame(bg="white")
+        self.topLevelFrame= Frame(self,bg="white")
         
         #Info Frame
-        self.infoFrame=Frame(self,bg="#000000")       
+        self.infoFrame=Frame(self,bg="white")      
+
+        #Child Frames of the Info Frame
+        self.train_no=Frame(self.infoFrame,bg="#000000") 
+        self.frame_title=Frame(self.infoFrame,bg="#00A2FF") 
+        self.date_text=Frame(self.infoFrame,bg="#000000") 
+        self.time_text=Frame(self.infoFrame,bg="#000000") 
 
         #Individual frames
         self.frame01=Frame(self.topLevelFrame,bg="#000000")
@@ -74,6 +80,8 @@ class MainWIndow(Tk):
                          self.frame09:9,
                          self.frame10:10,
                          self.frame11:11}
+        
+        self.update()
 
     #Placing the widgets onto the main frame using the grid() method             
     def placeWidgets(self):
@@ -81,9 +89,10 @@ class MainWIndow(Tk):
         self.topLevelFrame.grid(sticky=self.stickyValue,row=2,column=0,columnspan=11,padx=5,pady=5,rowspan=11)
 
         #info Frame
-        self.infoFrame.grid(row=0,rowspan=1,column=0,columnspan=11)
+        self.infoFrame.grid(sticky=self.stickyValue, row=0,rowspan=1,column=0,columnspan=11,padx=5,pady=5)   
         
         #Buttons
+        self.rowconfigure(1,minsize=self.winfo_height()/12)
         for (button,buttonIndex) in self.buttonArray.items():
             button.grid(sticky=self.stickyValue,row=1,column=buttonIndex-1,padx=5)      
 
@@ -93,11 +102,14 @@ class MainWIndow(Tk):
 
     #Configure widgets with essential attributes like commands, etc.
     def configureWidgets(self):
-        #Top Level frame
-        self.topLevelFrame.config(height=self.button01.winfo_height()*9)        
         
         #Info frame
-        self.infoFrame.config(width=self.winfo_width(),height=self.button01.winfo_height())
+        self.infoFrame.config(height=self.button01.winfo_height()/1.5, width=self.winfo_width()-10)
+
+        self.update()
+
+        #Top Level frame
+        self.topLevelFrame.config(height=self.winfo_height() - self.button01.winfo_height() - self.infoFrame.winfo_height() - 20)
 
         #Buttons
         for (button,buttonValue) in self.buttonArray.items():
@@ -122,7 +134,9 @@ class MainWIndow(Tk):
 
         #Child Frames
         for (frames) in self.frameArray:
-            frames.config(height=self.topLevelFrame.winfo_height(),width=self.topLevelFrame.winfo_width())        
+            frames.config(height=self.topLevelFrame.winfo_height()-6,width=self.topLevelFrame.winfo_width()-6)
+        
+        self.train_no.config(height=(self.infoFrame.winfo_height()-6),width=self.infoFrame.winfo_width()-6)   
 
         #Updating and testing
         self.update()        
@@ -130,12 +144,14 @@ class MainWIndow(Tk):
     #An extra init function to declutter the default init. Makes the code more modular
     def initialiseWidgets(self):
         print("Initialising.....")
+
+        self.train_no.grid(sticky=self.stickyValue, padx=3,pady=3)
     
     #Views one of the frames and makes all other frames invisible
     def viewFrame(self,frameIndex):
         for (frame,counter) in self.frameArray.items():
             if counter==frameIndex:
-                frame.grid(sticky=self.stickyValue,padx=2,pady=2)
+                frame.grid(sticky=self.stickyValue,padx=3,pady=3)
             else:
                 frame.grid_remove()                
 
