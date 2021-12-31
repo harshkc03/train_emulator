@@ -1,4 +1,5 @@
 from tkinter import*
+import datetime
 import login_screen
 
 #MainWindow Class
@@ -8,7 +9,7 @@ class MainWIndow(Tk):
     def __init__(self,master=None):
         Tk.__init__(self,master)
         self.geometry('1280x720')
-        # self.geometry('1920x1080')
+        # self.attributes("-fullscreen",True)
         self.config(bg="#000000")
         self.createWidgets()
         self.placeWidgets()
@@ -16,6 +17,7 @@ class MainWIndow(Tk):
     
     #Creating the necessary widgets that will remain embedded in the main Window
     def createWidgets(self):
+
         #RadioButtons
         self.button01=Radiobutton(self)
         self.button02=Radiobutton(self)
@@ -51,12 +53,24 @@ class MainWIndow(Tk):
 
         #Child Frames of the Info Frame
         self.train_no=Frame(self.infoFrame,bg="#000000") 
-        self.frame_title=Frame(self.infoFrame,bg="#00A2FF") 
+        self.frame_title=Frame(self.infoFrame,bg="#000000") 
         self.date_text=Frame(self.infoFrame,bg="#000000") 
         self.time_text=Frame(self.infoFrame,bg="#000000") 
 
+        #Labels
+        self.train_label=Label(self.train_no,text="Train: 69145",bg="#000000",fg="white")
+        self.frame_label=Label(self.frame_title,text="",bg="#000000",fg="white")
+        self.date_label=Label(self.date_text,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white")
+        self.time_label=Label(self.time_text,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white")
+
+        #Info frame child dictionary
+        self.infoFrameChild={self.train_no:1,
+                        self.frame_title:2,
+                        self.date_text:3,
+                        self.time_text:4}
+
         #Individual frames
-        self.frame01=Frame(self.topLevelFrame,bg="#000000")
+        self.frame01=login_screen.Login(self.topLevelFrame)
         self.frame02=Frame(self.topLevelFrame,bg="#000000")
         self.frame03=Frame(self.topLevelFrame,bg="#000000")
         self.frame04=Frame(self.topLevelFrame,bg="#000000")
@@ -85,17 +99,27 @@ class MainWIndow(Tk):
 
     #Placing the widgets onto the main frame using the grid() method             
     def placeWidgets(self):
-        #Top Level Frame
-        self.topLevelFrame.grid(sticky=self.stickyValue,row=2,column=0,columnspan=11,padx=5,pady=5,rowspan=11)
-
+             
         #info Frame
-        self.infoFrame.grid(sticky=self.stickyValue, row=0,rowspan=1,column=0,columnspan=11,padx=5,pady=5)   
-        
+        self.infoFrame.grid(sticky=self.stickyValue, row=0,rowspan=1,column=0,columnspan=11,padx=5,pady=5) 
+        self.train_no.grid(row=0,column=0,columnspan=2,sticky=self.stickyValue,padx=2,pady=2)
+        self.frame_title.grid(row=0,column=2,columnspan=5,sticky=self.stickyValue,padx=2,pady=2)
+        self.date_text.grid(row=0,column=7,columnspan=2,sticky=self.stickyValue,padx=2,pady=2)
+        self.time_text.grid(row=0,column=9,columnspan=2,sticky=self.stickyValue,padx=2,pady=2)
+
+        self.train_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.frame_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.date_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.time_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+
         #Buttons
         self.rowconfigure(1,minsize=self.winfo_height()/12)
         for (button,buttonIndex) in self.buttonArray.items():
-            button.grid(sticky=self.stickyValue,row=1,column=buttonIndex-1,padx=5)      
+            button.grid(sticky=self.stickyValue,row=1,column=buttonIndex-1,padx=5) 
 
+        #Top Level Frame
+        self.topLevelFrame.grid(sticky=self.stickyValue,row=2,column=0,columnspan=11,padx=5,pady=5,rowspan=11)      
+              
         #Update geometry and configure the widgets
         self.update()
         self.configureWidgets()    
@@ -105,6 +129,16 @@ class MainWIndow(Tk):
         
         #Info frame
         self.infoFrame.config(height=self.button01.winfo_height()/1.5, width=self.winfo_width()-10)
+
+        self.update()
+
+        for frame in self.infoFrameChild:
+            frame.config(height=self.button01.winfo_height()/1.5)
+
+        self.train_no.config(width=(self.winfo_width()/11)*2-6)
+        self.frame_title.config(width=(self.winfo_width()/11)*5-6)
+        self.date_text.config(width=(self.winfo_width()/11)*2-6)
+        self.time_text.config(width=(self.winfo_width()/11)*2-6)
 
         self.update()
 
@@ -135,8 +169,6 @@ class MainWIndow(Tk):
         #Child Frames
         for (frames) in self.frameArray:
             frames.config(height=self.topLevelFrame.winfo_height()-6,width=self.topLevelFrame.winfo_width()-6)
-        
-        self.train_no.config(height=(self.infoFrame.winfo_height()-6),width=self.infoFrame.winfo_width()-6)   
 
         #Updating and testing
         self.update()        
@@ -145,15 +177,16 @@ class MainWIndow(Tk):
     def initialiseWidgets(self):
         print("Initialising.....")
 
-        self.train_no.grid(sticky=self.stickyValue, padx=3,pady=3)
-    
+        self.after(0, self.update_clock)
+       
     #Views one of the frames and makes all other frames invisible
     def viewFrame(self,frameIndex):
         for (frame,counter) in self.frameArray.items():
             if counter==frameIndex:
                 frame.grid(sticky=self.stickyValue,padx=3,pady=3)
+                self.frame_label.config(text="Frame "+str(frameIndex))
             else:
-                frame.grid_remove()                
+                frame.grid_remove()               
 
     #Button Functions
     def button01Func(self):
@@ -199,6 +232,10 @@ class MainWIndow(Tk):
     def button11Func(self):
         print("Button 11 is pressed")
         self.viewFrame(11)
+
+    def update_clock(self):
+        self.time_label.config(text=str(datetime.datetime.now().strftime("%H:%M:%S")))
+        self.after(1000, self.update_clock)
    
     #Variables
     mainRadioButtonVariable=1

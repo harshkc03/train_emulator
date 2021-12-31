@@ -1,7 +1,10 @@
 from tkinter import *
+from types import CellType
 
 class Login(Frame):
     #Initializer
-    def __init__(self):
-        self.config(bg="#000000",height=800,width=450)
+    def __init__(self,window):
+        Frame.__init__(self,window)
+
+        self.config(bg="#000000")
         

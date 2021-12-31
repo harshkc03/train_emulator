@@ -17,7 +17,7 @@ class MainWindow(Tk):
         self.geometry("1920x1080")
         self.configure(bg = "#000000") # Pitch black background
         self.resizable(False, False)
-        self.attributes("-fullscreen", True)
+        # self.attributes("-fullscreen", True)
 
         # Create a thread for performing background tasks
         self.task = threading.Thread(target=self.run_commands, daemon=True)
