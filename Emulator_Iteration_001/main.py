@@ -1,6 +1,8 @@
 from tkinter import*
 import datetime
-import login_screen
+# import login_screen
+
+import gui
 
 #MainWindow Class
 class MainWIndow(Tk):
@@ -70,8 +72,9 @@ class MainWIndow(Tk):
                         self.time_text:4}
 
         #Individual frames
-        self.frame01=login_screen.Login(self.topLevelFrame)
-        self.frame02=Frame(self.topLevelFrame,bg="#000000")
+        # self.frame01=login_screen.Login(self.topLevelFrame)
+        self.frame01=Frame(self.topLevelFrame,bg="#000000")
+        self.frame02=gui.test_frame(self.topLevelFrame)
         self.frame03=Frame(self.topLevelFrame,bg="#000000")
         self.frame04=Frame(self.topLevelFrame,bg="#000000")
         self.frame05=Frame(self.topLevelFrame,bg="#000000")
