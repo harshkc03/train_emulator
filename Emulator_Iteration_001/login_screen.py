@@ -6,5 +6,5 @@ class Login(Frame):
     def __init__(self,window):
         Frame.__init__(self,window)
 
-        self.config(bg="#000000")
+        self.config(bg="red")
         
