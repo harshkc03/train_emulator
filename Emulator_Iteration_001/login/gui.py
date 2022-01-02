@@ -206,14 +206,18 @@ class login_frame(Frame):
 
         if entry == "69":
             exit(0)
+
         elif entry == "123":
             for (button,buttonIndex) in self.MainWindow.buttonArray.items():
                 if buttonIndex != 1:
                     button.config(text="Text Button "+str(buttonIndex),state='normal')
+            self.MainWindow.button02.invoke()
+
         elif entry == "96":
             for (button,buttonIndex) in self.MainWindow.buttonArray.items():
                 if buttonIndex != 1:
                     button.config(text="",state='disabled')
+
         else:
             self.valid_text.set("Invalid")
             self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
@@ -224,12 +228,15 @@ class login_frame(Frame):
         if entry == '69':
             self.valid_text.set("Exit")
             self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
+
         elif entry == '123':
             self.valid_text.set("Driver")
             self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
+
         elif entry == '96':
             self.valid_text.set("Lock")
             self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
+            
         else:
             self.valid_text.set("")
             self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
