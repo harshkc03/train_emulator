@@ -3,7 +3,6 @@ import datetime
 import login_screen
 
 import test_gui
-
 import login.gui
 
 #MainWindow Class
@@ -74,9 +73,9 @@ class MainWIndow(Tk):
                         self.time_text:4}
 
         #Individual frames
-        self.frame01=login_screen.Login(self.topLevelFrame)
-        self.frame02=test_gui.test_frame(self.topLevelFrame)
-        self.frame03=login.gui.login_frame(self.topLevelFrame)
+        self.frame01=login.gui.login_frame(self.topLevelFrame,self)
+        self.frame02=login_screen.Login(self.topLevelFrame)
+        self.frame03=test_gui.test_frame(self.topLevelFrame)
         self.frame04=Frame(self.topLevelFrame,bg="#000000")
         self.frame05=Frame(self.topLevelFrame,bg="#000000")
         self.frame06=Frame(self.topLevelFrame,bg="#000000")
@@ -118,6 +117,10 @@ class MainWIndow(Tk):
 
         #Buttons
         self.rowconfigure(1,minsize=self.winfo_height()/12)
+
+        for i in range(0,12):
+            self.columnconfigure(i,minsize=self.winfo_width()/11)
+
         for (button,buttonIndex) in self.buttonArray.items():
             button.grid(sticky=self.stickyValue,row=1,column=buttonIndex-1,padx=5) 
 
@@ -153,9 +156,11 @@ class MainWIndow(Tk):
         for (button,buttonValue) in self.buttonArray.items():
             button.config(variable=self.mainRadioButtonVariable,
                           value=buttonValue,indicatoron=0,
-                          text="Text Button "+str(buttonValue),
+                          text="",
                           bg="white",relief='flat')
-
+            if buttonValue == 1:
+                button.config(text="Login")
+        
         self.button01.config(command=self.button01Func)
         self.button02.config(command=self.button02Func)
         self.button03.config(command=self.button03Func)
@@ -181,14 +186,21 @@ class MainWIndow(Tk):
     def initialiseWidgets(self):
         print("Initialising.....")
 
+        #Start the clock
         self.after(0, self.update_clock)
-       
+
+        #Press radio button 1 to display Login frame at the start
+        self.button01.invoke()
+
     #Views one of the frames and makes all other frames invisible
     def viewFrame(self,frameIndex):
         for (frame,counter) in self.frameArray.items():
             if counter==frameIndex:
                 frame.grid(sticky=self.stickyValue,padx=3,pady=3)
-                self.frame_label.config(text="Frame "+str(frameIndex))
+                if frameIndex==1:
+                    self.frame_label.config(text=self.frame01.frame_name)
+                else:
+                    self.frame_label.config(text="Frame "+str(frameIndex))
             else:
                 frame.grid_remove()               
 

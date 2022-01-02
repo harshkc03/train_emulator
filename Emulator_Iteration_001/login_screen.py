@@ -7,4 +7,3 @@ class Login(Frame):
         Frame.__init__(self,window)
 
         self.config(bg="red")
-        

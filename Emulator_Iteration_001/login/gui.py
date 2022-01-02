@@ -5,12 +5,15 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Frame, Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Frame, Tk, Canvas, Entry, Text, Button, PhotoImage, StringVar
 
 class login_frame(Frame):
     
-    def __init__(self, window):
+    def __init__(self, window, root):
         Frame.__init__(self, window)
+
+        self.MainWindow = root
+        self.frame_name = "Login"
 
         OUTPUT_PATH = Path(__file__).parent
         ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -109,24 +112,30 @@ class login_frame(Frame):
             fill="#000000",
             outline="")
 
-        entry_image_1 = PhotoImage(
+        self.entry_image_1 = PhotoImage(
             file=relative_to_assets("entry_1.png"))
         entry_bg_1 = canvas.create_image(
             901.5,
             158.0,
-            image=entry_image_1
+            image=self.entry_image_1
         )
+
+        self.entry_text = StringVar(self)
         entry_1 = Entry(
             self,
             bd=0,
             bg="#000000",
-            highlightthickness=0
+            highlightthickness=0,
+            font="-family {Roboto} -size -30 -weight normal -underline 0 -overstrike 0",
+            fg="#FFFFFF",
+            textvariable=self.entry_text
+            # show="*"
         )
         entry_1.place(
-            x=776.0,
+            x=790.0,
             y=118.0,
-            width=251.0,
-            height=78.0
+            width=210.0,
+            height=80.0
         )
 
         canvas.create_text(
@@ -156,11 +165,12 @@ class login_frame(Frame):
             font=("Roboto", 30 * -1)
         )
 
-        canvas.create_text(
-            808.0,
+        self.valid_text = StringVar(self, "")
+        self.valid_text_id=canvas.create_text(
+            790.0,
             219.0,
             anchor="nw",
-            text="temp123",
+            text=self.valid_text.get(),
             fill="#FFFFFF",
             font=("Roboto", 30 * -1)
         )
@@ -172,7 +182,7 @@ class login_frame(Frame):
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=self.loginCheck,
             relief="flat"
         )
         button_1.image = button_image_1
@@ -184,3 +194,44 @@ class login_frame(Frame):
         )
 
         self.canvas = canvas
+        self.entry_text.trace_add("write", self.loginEntryCheck)
+
+        # Disable all the Radiobuttons except the login one
+        for (button,buttonIndex) in self.MainWindow.buttonArray.items():
+            if buttonIndex != 1:
+                button.config(state='disabled')
+
+    def loginCheck(self):
+        entry = self.entry_text.get()
+
+        if entry == "69":
+            exit(0)
+        elif entry == "123":
+            for (button,buttonIndex) in self.MainWindow.buttonArray.items():
+                if buttonIndex != 1:
+                    button.config(text="Text Button "+str(buttonIndex),state='normal')
+        elif entry == "96":
+            for (button,buttonIndex) in self.MainWindow.buttonArray.items():
+                if buttonIndex != 1:
+                    button.config(text="",state='disabled')
+        else:
+            self.valid_text.set("Invalid")
+            self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
+
+    def loginEntryCheck(self, *args):
+        entry = self.entry_text.get()
+
+        if entry == '69':
+            self.valid_text.set("Exit")
+            self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
+        elif entry == '123':
+            self.valid_text.set("Driver")
+            self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
+        elif entry == '96':
+            self.valid_text.set("Lock")
+            self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
+        else:
+            self.valid_text.set("")
+            self.canvas.itemconfig(self.valid_text_id, text=self.valid_text.get())
+        
+        return True
