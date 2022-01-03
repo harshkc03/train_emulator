@@ -1,6 +1,9 @@
 from tkinter import*
 import datetime
 
+import login.gui
+import Status.gui
+
 #MainWindow Class
 class MainWIndow(Tk):
 
@@ -57,10 +60,10 @@ class MainWIndow(Tk):
         self.time_text=Frame(self.infoFrame,bg="#000000") 
 
         #Labels
-        self.train_label=Label(self.train_no,text="Train: 69145",bg="#000000",fg="white")
-        self.frame_label=Label(self.frame_title,text="",bg="#000000",fg="white")
-        self.date_label=Label(self.date_text,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white")
-        self.time_label=Label(self.time_text,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white")
+        self.train_label=Label(self.train_no,text="Train: 69145",bg="#000000",fg="white",font=("Roboto", -18))
+        self.frame_label=Label(self.frame_title,text="",bg="#000000",fg="white",font=("Roboto", -18))
+        self.date_label=Label(self.date_text,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white",font=("Roboto", -18))
+        self.time_label=Label(self.time_text,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white",font=("Roboto", -18))
 
         #Info frame child dictionary
         self.infoFrameChild={self.train_no:1,
@@ -69,8 +72,8 @@ class MainWIndow(Tk):
                         self.time_text:4}
 
         #Individual frames
-        self.frame01=Frame(self.topLevelFrame,bg="#000000")
-        self.frame02=Frame(self.topLevelFrame,bg="#000000")
+        self.frame01=login.gui.login_frame(self.topLevelFrame,self)
+        self.frame02=Status.gui.statusFrame(self.topLevelFrame)
         self.frame03=Frame(self.topLevelFrame,bg="#000000")
         self.frame04=Frame(self.topLevelFrame,bg="#000000")
         self.frame05=Frame(self.topLevelFrame,bg="#000000")
@@ -152,8 +155,11 @@ class MainWIndow(Tk):
         for (button,buttonValue) in self.buttonArray.items():
             button.config(variable=self.mainRadioButtonVariable,
                           value=buttonValue,indicatoron=0,
-                          text="Text Button "+str(buttonValue),
-                          bg="white",relief='flat',)
+                          text="",
+                          bg="white",relief='flat',
+                          font=("Roboto", -15))
+            if buttonValue == 1:
+                button.config(text="Login")
         
         self.button01.config(command=self.button01Func)
         self.button02.config(command=self.button02Func)
@@ -182,6 +188,9 @@ class MainWIndow(Tk):
 
         #Start the clock
         self.after(0, self.update_clock)
+
+        #Press radio button 1 to display Login frame at the start
+        self.button01.invoke()
 
     #Views one of the frames and makes all other frames invisible
     def viewFrame(self,frameIndex):
