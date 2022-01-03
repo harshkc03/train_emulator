@@ -1,6 +1,8 @@
 from tkinter import*
 import datetime
 
+import login
+
 #MainWindow Class
 class MainWIndow(Tk):
 
@@ -69,7 +71,7 @@ class MainWIndow(Tk):
                         self.time_text:4}
 
         #Individual frames
-        self.frame01=Frame(self.topLevelFrame,bg="#000000")
+        self.frame01=login.loginFrame(self.topLevelFrame)
         self.frame02=Frame(self.topLevelFrame,bg="#000000")
         self.frame03=Frame(self.topLevelFrame,bg="#000000")
         self.frame04=Frame(self.topLevelFrame,bg="#000000")
