@@ -60,10 +60,10 @@ class MainWIndow(Tk):
         self.time_text=Frame(self.infoFrame,bg="#000000") 
 
         #Labels
-        self.train_label=Label(self.train_no,text="Train: 69145",bg="#000000",fg="white")
-        self.frame_label=Label(self.frame_title,text="",bg="#000000",fg="white")
-        self.date_label=Label(self.date_text,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white")
-        self.time_label=Label(self.time_text,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white")
+        self.train_label=Label(self.train_no,text="Train: 69145",bg="#000000",fg="white",font=("Roboto", -18))
+        self.frame_label=Label(self.frame_title,text="",bg="#000000",fg="white",font=("Roboto", -18))
+        self.date_label=Label(self.date_text,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white",font=("Roboto", -18))
+        self.time_label=Label(self.time_text,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white",font=("Roboto", -18))
 
         #Info frame child dictionary
         self.infoFrameChild={self.train_no:1,
@@ -156,7 +156,8 @@ class MainWIndow(Tk):
             button.config(variable=self.mainRadioButtonVariable,
                           value=buttonValue,indicatoron=0,
                           text="",
-                          bg="white",relief='flat')
+                          bg="white",relief='flat',
+                          font=("Roboto", -15))
             if buttonValue == 1:
                 button.config(text="Login")
         
