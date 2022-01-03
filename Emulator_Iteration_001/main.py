@@ -1,9 +1,8 @@
 from tkinter import*
 import datetime
-import login_screen
 
-import test_gui
 import login.gui
+import Status.gui
 
 #MainWindow Class
 class MainWIndow(Tk):
@@ -74,8 +73,8 @@ class MainWIndow(Tk):
 
         #Individual frames
         self.frame01=login.gui.login_frame(self.topLevelFrame,self)
-        self.frame02=login_screen.Login(self.topLevelFrame)
-        self.frame03=test_gui.test_frame(self.topLevelFrame)
+        self.frame02=Status.gui.statusFrame(self.topLevelFrame)
+        self.frame03=Frame(self.topLevelFrame,bg="#000000")
         self.frame04=Frame(self.topLevelFrame,bg="#000000")
         self.frame05=Frame(self.topLevelFrame,bg="#000000")
         self.frame06=Frame(self.topLevelFrame,bg="#000000")
@@ -197,10 +196,7 @@ class MainWIndow(Tk):
         for (frame,counter) in self.frameArray.items():
             if counter==frameIndex:
                 frame.grid(sticky=self.stickyValue,padx=3,pady=3)
-                if frameIndex==1:
-                    self.frame_label.config(text=self.frame01.frame_name)
-                else:
-                    self.frame_label.config(text="Frame "+str(frameIndex))
+                self.frame_label.config(text="Frame "+str(frameIndex))
             else:
                 frame.grid_remove()               
 
