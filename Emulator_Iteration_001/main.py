@@ -18,6 +18,7 @@ class MainWIndow(Tk):
         self.createWidgets()
         self.placeWidgets()
         self.initialiseWidgets()    
+        self.loginInit()
     
     #Creating the necessary widgets that will remain embedded in the main Window
     def createWidgets(self):
@@ -50,7 +51,7 @@ class MainWIndow(Tk):
                                                             
 
         #Top level Frame
-        self.topLevelFrame= Frame(self,bg="white")
+        self.topLevelFrame= Frame(self,bg="#000000")
         
         #Info Frame
         self.infoFrame=Frame(self,bg="white")      
@@ -74,7 +75,7 @@ class MainWIndow(Tk):
                         self.time_text:4}
 
         #Individual frames
-        self.frame01=login_screen.Login(self.topLevelFrame)
+        self.frame01=Frame(self.topLevelFrame,bg="#000000")
         self.frame02=test_gui.test_frame(self.topLevelFrame)
         self.frame03=login.gui.login_frame(self.topLevelFrame)
         self.frame04=Frame(self.topLevelFrame,bg="#000000")
@@ -182,9 +183,17 @@ class MainWIndow(Tk):
         print("Initialising.....")
 
         self.after(0, self.update_clock)
-       
+
+    #Login implementation
+    def loginInit(self):
+        for button in self.buttonArray:
+            button.config(state='disabled')
+        self.login=login_screen.Login(self.topLevelFrame)
+
+        
     #Views one of the frames and makes all other frames invisible
     def viewFrame(self,frameIndex):
+
         for (frame,counter) in self.frameArray.items():
             if counter==frameIndex:
                 frame.grid(sticky=self.stickyValue,padx=3,pady=3)
