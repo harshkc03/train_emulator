@@ -4,7 +4,7 @@ class Login(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)
-        self.gridConfigure(3,1,self)
+        self.gridConfigure(9,16,self)
         self.createWidgets()
         self.configureWidgets()
         self.placeWidgets()
@@ -17,8 +17,8 @@ class Login(Frame):
         pass
 
     def placeWidgets(self):
-        self.userFrame.grid(columnspan=1,rowspan=1,sticky="news")
-        self.keypadFrame.grid(columnspan=1,rowspan=2,sticky="news")
+        self.userFrame.grid(sticky="news",row=1,column=4,rowspan=2,columnspan=8)
+        self.keypadFrame.grid(sticky="news",row=4,column=6,rowspan=4,columnspan=4)
     
     def gridConfigure(self,rows,columns,root):
         root.update()
