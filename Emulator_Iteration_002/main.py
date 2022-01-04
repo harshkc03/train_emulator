@@ -1,6 +1,7 @@
 from tkinter import *
 import datetime
-import loginScreen
+import tkinter.font as tkFont
+import loginScreen, ModeScreen
 
 class MainWindow(Tk):
 
@@ -9,6 +10,10 @@ class MainWindow(Tk):
         self.geometry("1152x648")
         self.config(bg="#000000")
         self.gridConfigure(self.numberOfRows,self.numberOfColumns,self)
+
+        self.default_font = tkFont.nametofont("TkDefaultFont")
+        # self.default_font.configure(size=12,family="Roboto")
+
         self.createWidgets()
         self.configureWidgets()
         self.placeWidgets()
@@ -48,7 +53,7 @@ class MainWindow(Tk):
 
         #Sub Frames
         self.frame01=loginScreen.Login(master=self.topLevelFrame)
-        self.frame02=Frame(master=self.topLevelFrame)
+        self.frame02=ModeScreen.ModeSelect(master=self.topLevelFrame)
         self.frame03=Frame(master=self.topLevelFrame)
         self.frame04=Frame(master=self.topLevelFrame)
         self.frame05=Frame(master=self.topLevelFrame)
@@ -103,13 +108,11 @@ class MainWindow(Tk):
                           bg="#FFFFFF",offrelief='flat',command=lambda temp=index: self.displayFrame(temp))
 
         #configuring topLevelFrame grid       
-        # self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
-        self.gridConfigure(1,1,self.topLevelFrame)
+        self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
 
         #configuring sub frames of topLevelFrame
         for frame in self.frameDict:
             frame.config(bg="#000000")
-            # self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,frame)
         
     def placeWidgets(self):
         #infoFrame
@@ -146,8 +149,7 @@ class MainWindow(Tk):
     def displayFrame(self,frameIndex):
         for frame,index in self.frameDict.items():
             if index==frameIndex:
-                # frame.grid(rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns,padx=2,pady=2,sticky="news",row=0)
-                frame.grid(padx=2,pady=2,sticky="news",row=0)
+                frame.grid(rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns,padx=2,pady=2,sticky="news",row=0)
             else:
                 frame.grid_remove()
 
