@@ -13,12 +13,12 @@ class MainWIndow(Tk):
     def __init__(self,master=None):
         Tk.__init__(self,master)
         self.geometry('1280x720')
-        # self.attributes("-fullscreen",True)
+        self.attributes("-fullscreen",True)
         self.config(bg="#000000")
         self.createWidgets()
         self.placeWidgets()
         self.initialiseWidgets()    
-        self.loginInit()
+        #self.loginInit()
     
     #Creating the necessary widgets that will remain embedded in the main Window
     def createWidgets(self):
@@ -51,7 +51,7 @@ class MainWIndow(Tk):
                                                             
 
         #Top level Frame
-        self.topLevelFrame= Frame(self,bg="#000000")
+        self.topLevelFrame= Frame(self,bg="white")
         
         #Info Frame
         self.infoFrame=Frame(self,bg="white")      
@@ -185,10 +185,10 @@ class MainWIndow(Tk):
         self.after(0, self.update_clock)
 
     #Login implementation
-    def loginInit(self):
-        for button in self.buttonArray:
-            button.config(state='disabled')
-        self.login=login_screen.Login(self.topLevelFrame)
+    # def loginInit(self):
+    #     for button in self.buttonArray:
+    #         button.config(state='disabled')
+    #     self.login=login_screen.Login(self.topLevelFrame)
 
         
     #Views one of the frames and makes all other frames invisible
