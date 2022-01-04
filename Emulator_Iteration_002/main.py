@@ -1,3 +1,4 @@
+import login_screen
 from tkinter import *
 
 class MainWindow(Tk):
@@ -9,6 +10,7 @@ class MainWindow(Tk):
         self.createWidgets()
         self.configureWidgets()
         self.placeWidgets()
+        self.initWidgets()
 
     def createWidgets(self):
         #Info frame
@@ -49,6 +51,9 @@ class MainWindow(Tk):
         self.frame10=Frame(master=self.topLevelFrame)
         self.frame11=Frame(master=self.topLevelFrame)
 
+        #Login test
+        
+
         
         #Dictionary containing buttons and an index
         self.buttonDict={self.button01:1,
@@ -74,7 +79,7 @@ class MainWindow(Tk):
                         self.frame08:8,
                         self.frame09:9,
                         self.frame10:10,
-                        self.frame11:11,}
+                        self.frame11:11}
 
     def configureWidgets(self):
         #info Frame grid configuration
@@ -84,7 +89,21 @@ class MainWindow(Tk):
         for button,index in self.buttonDict.items():
             button.config(text="Button "+str(index),value=index,indicatoron=0,
                           variable=self.mainRadioButtonVar,relief='flat',
-                          bg="#FFFFFF",offrelief='flat',command=self.buttonFunc(index))
+                          bg="#FFFFFF",offrelief='flat')
+
+        self.button01.config(command=self.button01Func)
+        self.button02.config(command=self.button02Func)
+        self.button03.config(command=self.button03Func)
+        self.button04.config(command=self.button04Func)
+        self.button05.config(command=self.button05Func)
+        self.button06.config(command=self.button06Func)
+        self.button07.config(command=self.button07Func)
+        self.button08.config(command=self.button08Func)
+        self.button09.config(command=self.button09Func)
+        self.button10.config(command=self.button10Func)
+        self.button11.config(command=self.button11Func)
+
+
 
         
 
@@ -115,6 +134,9 @@ class MainWindow(Tk):
                                        column=0,columnspan=self.numberOfColumns,
                                        sticky="news",pady=2)
 
+    def initWidgets(self):
+        print("Initializing......")
+       
     def gridConfigure(self,rows,columns,root):
         root.update()
         for x in range(rows):
@@ -123,17 +145,46 @@ class MainWindow(Tk):
             root.columnconfigure(x,weight=1)
     
     def displayFrame(self,frameIndex):
-        for frame,index in self.frameDict.items():
+        for (frame,index) in self.frameDict.items():
             if index==frameIndex:
-                frame.grid(rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns,
+                frame.grid(row=0,column=0,rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns,
                            padx=2,pady=2,sticky="news")
             else:
                 frame.grid_remove()
 
-    def buttonFunc(self,index):
-        print(str(index))
-        self.displayFrame(index)
+    def button01Func(self):
+        self.displayFrame(1)
 
+    def button02Func(self):
+        self.displayFrame(2)
+    
+    def button03Func(self):
+        self.displayFrame(3)
+
+    def button04Func(self):
+        self.displayFrame(4)
+
+    def button05Func(self):
+        self.displayFrame(5)
+
+    def button06Func(self):
+        self.displayFrame(6)
+
+    def button07Func(self):
+        self.displayFrame(7)
+
+    def button08Func(self):
+        self.displayFrame(8)
+
+    def button09Func(self):
+        self.displayFrame(9)
+       
+    def button10Func(self):
+        self.displayFrame(10)
+    
+    def button11Func(self):
+        self.displayFrame(11)
+    
     #Variables
     numberOfRows=12
     numberOfColumns=11
