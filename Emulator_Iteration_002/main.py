@@ -6,7 +6,7 @@ class MainWindow(Tk):
 
     def __init__(self):
         Tk.__init__(self)
-        self.geometry("1200x625")
+        self.geometry("1152x648")
         self.config(bg="#000000")
         self.gridConfigure(self.numberOfRows,self.numberOfColumns,self)
         self.createWidgets()
@@ -103,12 +103,13 @@ class MainWindow(Tk):
                           bg="#FFFFFF",offrelief='flat',command=lambda temp=index: self.displayFrame(temp))
 
         #configuring topLevelFrame grid       
-        self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
+        # self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
+        self.gridConfigure(1,1,self.topLevelFrame)
 
         #configuring sub frames of topLevelFrame
         for frame in self.frameDict:
             frame.config(bg="#000000")
-            self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,frame)
+            # self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,frame)
         
     def placeWidgets(self):
         #infoFrame
@@ -128,10 +129,10 @@ class MainWindow(Tk):
 
         #Buttons
         for button,index in self.buttonDict.items():
-            button.grid(row=1,column=index-1,sticky="news",padx=2)
+            button.grid(row=1,column=index-1,sticky="news",padx=2,rowspan=3)
 
         #TopLevelFrame
-        master=self.topLevelFrame.grid(row=2,rowspan=self.numberOfRows-2,
+        master=self.topLevelFrame.grid(row=4,rowspan=self.numberOfRows-2,
                                        column=0,columnspan=self.numberOfColumns,
                                        sticky="news",pady=2)
 
@@ -145,7 +146,8 @@ class MainWindow(Tk):
     def displayFrame(self,frameIndex):
         for frame,index in self.frameDict.items():
             if index==frameIndex:
-                frame.grid(rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns,padx=2,pady=2,sticky="news",row=0)
+                # frame.grid(rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns,padx=2,pady=2,sticky="news",row=0)
+                frame.grid(padx=2,pady=2,sticky="news",row=0)
             else:
                 frame.grid_remove()
 
@@ -154,7 +156,7 @@ class MainWindow(Tk):
         self.after(1000, self.update_clock)
 
     #Variables
-    numberOfRows=12
+    numberOfRows=40
     numberOfColumns=11
     mainRadioButtonVar=1
 
