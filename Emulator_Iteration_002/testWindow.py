@@ -20,7 +20,6 @@ class MainWindow:
         for x in range(columns):
             root.columnconfigure(x,weight=1,minsize=(root.winfo_width()/columns))
         
-    
     numberOfRows=1
     numberOfColumns=1
 

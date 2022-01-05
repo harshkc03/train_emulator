@@ -52,8 +52,8 @@ class MainWindow(Tk):
         self.frame10=Frame(master=self.topLevelFrame)
         self.frame11=Frame(master=self.topLevelFrame)
 
-        #Login test
-        
+        #Login
+        self.loginFrame=login_screen.Login(self.frame01)
 
         
         #Dictionary containing buttons and an index
@@ -122,6 +122,8 @@ class MainWindow(Tk):
                                        column=0,columnspan=self.numberOfColumns,
                                        sticky="news",pady=2)
 
+        self.loginFrame.grid(row=0,rowspan=(self.numberOfRows-2),column=3,columnspan=5,sticky="news")
+
     def initWidgets(self):
         print("Initializing......")
        
@@ -141,26 +143,37 @@ class MainWindow(Tk):
                 frame.grid_remove()
 
     def launchLogin(self):
+        print("launching login")  
+
         self.button01.invoke()
 
-        self.disableButtonsExcept([1 , 2])
-        
+        self.setState("Maintenance")
 
-        self.loginFrame=login_screen.Login(self.frame01)
-        self.loginFrame.grid(row=0,rowspan=(self.numberOfRows-2),column=3,columnspan=5,sticky="news")
+        self.startTasks()
     
-    def disableButtonsExcept(self,buttonsToBeLeft):
-        
-        for button2 in buttonsToBeLeft:
-            for value in self.buttonDict.values():    
-                if (value != button2):
-                    print(str(value))
-                    self.get_key(value,self.buttonDict).config(state='disabled')
+    def disableButtonsExcept(self,buttonsToBeLeft):      
+
+        for button in self.buttonDict:
+            if self.buttonDict[button] not in buttonsToBeLeft:
+                button.config(state="disabled")
+            else:
+                button.config(state="normal")
+
+    def setState(self,state):
+        if state == "Driver":
+            self.disableButtonsExcept([1,3,5,7,9,11])
+        elif state == "Maintenance":
+            self.enableAll()
+        elif state=="Exit":
+            quit()
+
+    def enableAll(self):
+        for button in self.buttonDict:
+            button.config(state="normal")
                     
-    def get_key(self,val,myDict):
-        for key, value in myDict.items():
-            if (val == value):
-                 return key
+    def startTasks(self):
+        print("Starting all tasks..")
+
                     
 
     #Variables
