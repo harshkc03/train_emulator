@@ -11,6 +11,7 @@ class MainWindow(Tk):
         self.configureWidgets()
         self.placeWidgets()
         self.initWidgets()
+        self.launchLogin()
 
     def createWidgets(self):
         #Info frame
@@ -39,7 +40,7 @@ class MainWindow(Tk):
         self.topLevelFrame=Frame(self,bg="white")
 
         #Sub Frames
-        self.frame01=login_screen.Login(master=self.topLevelFrame)
+        self.frame01=Frame(master=self.topLevelFrame)
         self.frame02=Frame(master=self.topLevelFrame)
         self.frame03=Frame(master=self.topLevelFrame)
         self.frame04=Frame(master=self.topLevelFrame)
@@ -95,11 +96,13 @@ class MainWindow(Tk):
         #configuring topLevelFrame grid       
         self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
 
+        #Configuring frame 01 grid
+        self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.frame01)
+
         #configuring sub frames of topLevelFrame
         for frame in self.frameDict:
             frame.config(bg="#000000")
-            
-        
+                    
     def placeWidgets(self):
         #infoFrame
         self.infoFrame.grid(row=0,column=0,columnspan=self.numberOfColumns,sticky="news",pady=2)
@@ -125,9 +128,9 @@ class MainWindow(Tk):
     def gridConfigure(self,rows,columns,root):
         root.update()
         for x in range(rows):
-            root.rowconfigure(x,weight=1)
+            root.rowconfigure(x,weight=1,minsize=(root.winfo_height()/rows))
         for x in range(columns):
-            root.columnconfigure(x,weight=1)
+            root.columnconfigure(x,weight=1,minsize=(root.winfo_width()/columns))
     
     def displayFrame(self,frameIndex):
         for (frame,index) in self.frameDict.items():
@@ -137,8 +140,29 @@ class MainWindow(Tk):
             else:
                 frame.grid_remove()
 
+    def launchLogin(self):
+        self.button01.invoke()
+
+        self.disableButtonsExcept([1 , 2])
+        
+
+        self.loginFrame=login_screen.Login(self.frame01)
+        self.loginFrame.grid(row=0,rowspan=(self.numberOfRows-2),column=3,columnspan=5,sticky="news")
     
-    
+    def disableButtonsExcept(self,buttonsToBeLeft):
+        
+        for button2 in buttonsToBeLeft:
+            for value in self.buttonDict.values():    
+                if (value != button2):
+                    print(str(value))
+                    self.get_key(value,self.buttonDict).config(state='disabled')
+                    
+    def get_key(self,val,myDict):
+        for key, value in myDict.items():
+            if (val == value):
+                 return key
+                    
+
     #Variables
     numberOfRows=12
     numberOfColumns=11
