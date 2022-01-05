@@ -21,11 +21,11 @@ class Login(Frame):
         self.gridConfigure(4,3,self.keypadFrame)
 
     def placeWidgets(self):
-        # self.userFrame.grid(sticky="news",row=1,column=4,rowspan=2,columnspan=8)
+        self.userFrame.grid(sticky="news",row=1,column=4,rowspan=2,columnspan=8)
         # self.keypadFrame.grid(sticky="news",row=4,column=6,rowspan=4,columnspan=4)
 
-        self.userFrame.place(relx=0.5, rely=0.25, relwidth=0.5, relheight=0.25, anchor=CENTER)
-        self.keypadFrame.place(relx=0.5, rely=0.7, relwidth=0.25, relheight=0.45, anchor=CENTER)
+        # self.userFrame.place(relx=0.5, rely=0.25, relwidth=0.5, relheight=0.25, anchor=CENTER)
+        # self.keypadFrame.place(relx=0.5, rely=0.7, relwidth=0.25, relheight=0.45, anchor=CENTER)
 
         self.userIDLabel.grid(sticky="news",row=0,column=0,rowspan=2,columnspan=1,padx=2,pady=2)
         self.entryLabel.grid(sticky="news",row=0,column=1,rowspan=1,columnspan=1,padx=2,pady=2)

@@ -142,9 +142,11 @@ class MainWindow(Tk):
     def gridConfigure(self,rows,columns,root):
         root.update()
         for x in range(rows):
-            root.rowconfigure(x,weight=1)
+            # root.rowconfigure(x,weight=1)
+            root.grid_rowconfigure(x,weight=1)
         for x in range(columns):
-            root.columnconfigure(x,weight=1)
+            # root.columnconfigure(x,weight=1)
+            root.grid_columnconfigure(x,weight=1)
     
     def displayFrame(self,frameIndex):
         for frame,index in self.frameDict.items():
@@ -158,7 +160,7 @@ class MainWindow(Tk):
         self.after(1000, self.update_clock)
 
     #Variables
-    numberOfRows=40
+    numberOfRows=12
     numberOfColumns=11
     mainRadioButtonVar=1
 
