@@ -53,7 +53,7 @@ class MainWindow(Tk):
         self.frame11=Frame(master=self.topLevelFrame)
 
         #Login
-        self.loginFrame=login_screen.Login(self.frame01)
+        self.loginFrame=login_screen.Login(self.frame01,self)
 
         
         #Dictionary containing buttons and an index
@@ -68,6 +68,18 @@ class MainWindow(Tk):
                          self.button09:9,
                          self.button10:10,
                          self.button11:11}
+
+        self.buttonNamesDict={1:"Login",
+                              2:"button02",
+                              3:"Mode",
+                              4:"Button 04",
+                              5:"Button 05",
+                              6:"Button 06",
+                              7:"Button 07",
+                              8:"Button 08",
+                              9:"Button 09",
+                              10:"Button 10",
+                              11:"Button 11"}
 
         #Dictionary containing frames and an index
         self.frameDict={self.frame01:1,
@@ -88,7 +100,7 @@ class MainWindow(Tk):
 
         #configuring buttons
         for button,index in self.buttonDict.items():
-            button.config(text="Button "+str(index),value=index,indicatoron=0,
+            button.config(text=self.buttonNamesDict[index],value=index,indicatoron=0,
                           variable=self.mainRadioButtonVar,relief='flat',
                           bg="#FFFFFF",offrelief='flat',command=lambda temp=index : self.displayFrame(temp))
         
@@ -96,8 +108,7 @@ class MainWindow(Tk):
         #configuring topLevelFrame grid       
         self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
 
-        #Configuring frame 01 grid
-        self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.frame01)
+        
 
         #configuring sub frames of topLevelFrame
         for frame in self.frameDict:
@@ -122,7 +133,7 @@ class MainWindow(Tk):
                                        column=0,columnspan=self.numberOfColumns,
                                        sticky="news",pady=2)
 
-        self.loginFrame.grid(row=0,rowspan=(self.numberOfRows-2),column=3,columnspan=5,sticky="news")
+        self.loginFrame.place(relx=0.5,rely=0.5,relheight=1,relwidth=0.8,anchor='center')
 
     def initWidgets(self):
         print("Initializing......")
@@ -146,8 +157,7 @@ class MainWindow(Tk):
         print("launching login")  
 
         self.button01.invoke()
-
-        self.setState("Maintenance")
+        self.disableButtonsExcept([1])
 
         self.startTasks()
     
@@ -173,8 +183,7 @@ class MainWindow(Tk):
                     
     def startTasks(self):
         print("Starting all tasks..")
-
-                    
+     
 
     #Variables
     numberOfRows=12

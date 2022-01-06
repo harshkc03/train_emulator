@@ -5,10 +5,10 @@ class MainWindow:
     def __init__(self):
         root=Tk()
         root.geometry('450x450')
-        root.config(bg="white")
+        root.config(bg="#000000")
         self.gridConfigure(self.numberOfRows,self.numberOfColumns,root)
         
-        self.frame01=login_screen.Login(root)    
+        self.frame01=login_screen.Login(root,root)    
         self.frame01.grid(sticky="news")
 
         root.mainloop()
