@@ -40,9 +40,17 @@ class MainWindow(Tk):
         self.topLevelFrame=Frame(self,bg="white")
 
         #Sub Frames
+        #login Frame
         self.frame01=Frame(master=self.topLevelFrame)
-        self.frame02=Frame(master=self.topLevelFrame)
+        self.loginFrame=login_screen.Login(self.frame01,self)
+
+        #Mode Selector Frame
         self.frame03=Frame(master=self.topLevelFrame)
+        self.mode01=Radiobutton(self.frame03,text="Drive",variable=self.modeSelectButtonVar,value=0,selectcolor="light Green",indicatoron=0)
+        self.mode02=Radiobutton(self.frame03,text="Simulate",variable=self.modeSelectButtonVar,value=1,selectcolor="light Green",indicatoron=0)
+        self.mode03=Radiobutton(self.frame03,text="Demo",variable=self.modeSelectButtonVar,value=2,selectcolor="light Green",indicatoron=0)
+
+        self.frame02=Frame(master=self.topLevelFrame)   
         self.frame04=Frame(master=self.topLevelFrame)
         self.frame05=Frame(master=self.topLevelFrame)
         self.frame06=Frame(master=self.topLevelFrame)
@@ -52,8 +60,12 @@ class MainWindow(Tk):
         self.frame10=Frame(master=self.topLevelFrame)
         self.frame11=Frame(master=self.topLevelFrame)
 
-        #Login
+ 
         self.loginFrame=login_screen.Login(self.frame01,self)
+
+        
+        
+
 
         
         #Dictionary containing buttons and an index
@@ -108,7 +120,7 @@ class MainWindow(Tk):
         #configuring topLevelFrame grid       
         self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
 
-        
+        self.gridConfigure(1,3,self.frame03)
 
         #configuring sub frames of topLevelFrame
         for frame in self.frameDict:
@@ -134,6 +146,12 @@ class MainWindow(Tk):
                                        sticky="news",pady=2)
 
         self.loginFrame.place(relx=0.5,rely=0.5,relheight=1,relwidth=0.8,anchor='center')
+
+        #Mode Selector buttons
+        self.mode01.grid(row=0,column=0,sticky="news",padx=2,pady=2)
+        self.mode02.grid(row=0,column=1,sticky="news",padx=2,pady=2)
+        self.mode03.grid(row=0,column=2,sticky="news",padx=2,pady=2)
+
 
     def initWidgets(self):
         print("Initializing......")
@@ -165,9 +183,9 @@ class MainWindow(Tk):
 
         for button in self.buttonDict:
             if self.buttonDict[button] not in buttonsToBeLeft:
-                button.config(state="disabled")
+                button.config(state="disabled",text="")
             else:
-                button.config(state="normal")
+                button.config(state="normal",text=self.buttonNamesDict[self.buttonDict[button]])
 
     def setState(self,state):
         if state == "Driver":
@@ -179,7 +197,7 @@ class MainWindow(Tk):
 
     def enableAll(self):
         for button in self.buttonDict:
-            button.config(state="normal")
+            button.config(state="normal",text=self.buttonNamesDict[self.buttonDict[button]])
                     
     def startTasks(self):
         print("Starting all tasks..")
@@ -189,6 +207,7 @@ class MainWindow(Tk):
     numberOfRows=12
     numberOfColumns=11
     mainRadioButtonVar=1
+    modeSelectButtonVar=2
 
 
 app=MainWindow()
