@@ -20,8 +20,10 @@ class MainWindow(Tk):
         #Info Frame Children
         self.trainNoFrame=Frame(self.infoFrame,bg="#000000")
         self.titleFrame=Frame(self.infoFrame,bg="#000000")
+        self.modeFrame=Frame(self.infoFrame,bg="#000000")
         self.dateFrame=Frame(self.infoFrame,bg="#000000")
         self.timeFrame=Frame(self.infoFrame,bg="#000000")
+
 
         #Buttons
         self.button01=Radiobutton(self)
@@ -132,7 +134,8 @@ class MainWindow(Tk):
 
         #info Frame Children
         self.trainNoFrame.grid(row=0,column=0,columnspan=2,padx=2,pady=2,sticky="news")
-        self.titleFrame.grid(row=0,column=2,columnspan=5,padx=2,pady=2,sticky="news")
+        self.titleFrame.grid(row=0,column=2,columnspan=3,padx=2,pady=2,sticky="news")
+        self.modeFrame.grid(row=0,column=5,columnspan=2,padx=2,pady=2,sticky="news")
         self.dateFrame.grid(row=0,column=7,columnspan=2,padx=2,pady=2,sticky="news")
         self.timeFrame.grid(row=0,column=9,columnspan=2,padx=2,pady=2,sticky="news")
 
