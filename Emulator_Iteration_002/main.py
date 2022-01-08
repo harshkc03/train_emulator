@@ -1,5 +1,6 @@
 import login_screen
 from tkinter import *
+import datetime
 
 class MainWindow(Tk):
     def __init__(self):
@@ -20,8 +21,16 @@ class MainWindow(Tk):
         #Info Frame Children
         self.trainNoFrame=Frame(self.infoFrame,bg="#000000")
         self.titleFrame=Frame(self.infoFrame,bg="#000000")
+        self.modeFrame=Frame(self.infoFrame,bg="#000000")
         self.dateFrame=Frame(self.infoFrame,bg="#000000")
         self.timeFrame=Frame(self.infoFrame,bg="#000000")
+
+        #Labels
+        self.train_label=Label(self.trainNoFrame,text="Train: 69145",bg="#000000",fg="white")
+        self.frame_label=Label(self.titleFrame,text="",bg="#000000",fg="white")
+        self.date_label=Label(self.dateFrame,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white")
+        self.time_label=Label(self.timeFrame,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white")
+        self.modeLabel=Label(self.modeFrame,text="Select mode!",bg="#000000",fg="white")
 
         #Buttons
         self.button01=Radiobutton(self)
@@ -40,9 +49,17 @@ class MainWindow(Tk):
         self.topLevelFrame=Frame(self,bg="white")
 
         #Sub Frames
+        #login Frame
         self.frame01=Frame(master=self.topLevelFrame)
-        self.frame02=Frame(master=self.topLevelFrame)
+        self.loginFrame=login_screen.Login(self.frame01,self)
+
+        #Mode Selector Frame
         self.frame03=Frame(master=self.topLevelFrame)
+        self.mode01=Radiobutton(self.frame03,text="Drive",variable=self.modeSelectButtonVar,value=0,selectcolor="light Green",indicatoron=0,command=lambda : self.modeLabel.config(text="Drive"))
+        self.mode02=Radiobutton(self.frame03,text="Simulate",variable=self.modeSelectButtonVar,value=1,selectcolor="light Green",indicatoron=0,command=lambda : self.modeLabel.config(text="Simulate"))
+        self.mode03=Radiobutton(self.frame03,text="Demo",variable=self.modeSelectButtonVar,value=2,selectcolor="light Green",indicatoron=0,command=lambda : self.modeLabel.config(text="Demo"))
+
+        self.frame02=Frame(master=self.topLevelFrame)   
         self.frame04=Frame(master=self.topLevelFrame)
         self.frame05=Frame(master=self.topLevelFrame)
         self.frame06=Frame(master=self.topLevelFrame)
@@ -51,8 +68,7 @@ class MainWindow(Tk):
         self.frame09=Frame(master=self.topLevelFrame)
         self.frame10=Frame(master=self.topLevelFrame)
         self.frame11=Frame(master=self.topLevelFrame)
-
-        #Login
+ 
         self.loginFrame=login_screen.Login(self.frame01,self)
 
         
@@ -68,6 +84,18 @@ class MainWindow(Tk):
                          self.button09:9,
                          self.button10:10,
                          self.button11:11}
+
+        self.buttonNamesDict={1:"Login",
+                              2:"button02",
+                              3:"Mode",
+                              4:"Button 04",
+                              5:"Button 05",
+                              6:"Button 06",
+                              7:"Button 07",
+                              8:"Button 08",
+                              9:"Button 09",
+                              10:"Button 10",
+                              11:"Button 11"}
 
         #Dictionary containing frames and an index
         self.frameDict={self.frame01:1,
@@ -88,7 +116,7 @@ class MainWindow(Tk):
 
         #configuring buttons
         for button,index in self.buttonDict.items():
-            button.config(text="Button "+str(index),value=index,indicatoron=0,
+            button.config(text=self.buttonNamesDict[index],value=index,indicatoron=0,
                           variable=self.mainRadioButtonVar,relief='flat',
                           bg="#FFFFFF",offrelief='flat',command=lambda temp=index : self.displayFrame(temp))
         
@@ -96,8 +124,7 @@ class MainWindow(Tk):
         #configuring topLevelFrame grid       
         self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
 
-        #Configuring frame 01 grid
-        self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.frame01)
+        self.gridConfigure(1,3,self.frame03)
 
         #configuring sub frames of topLevelFrame
         for frame in self.frameDict:
@@ -109,9 +136,16 @@ class MainWindow(Tk):
 
         #info Frame Children
         self.trainNoFrame.grid(row=0,column=0,columnspan=2,padx=2,pady=2,sticky="news")
-        self.titleFrame.grid(row=0,column=2,columnspan=5,padx=2,pady=2,sticky="news")
+        self.titleFrame.grid(row=0,column=2,columnspan=3,padx=2,pady=2,sticky="news")
+        self.modeFrame.grid(row=0,column=5,columnspan=2,padx=2,pady=2,sticky="news")
         self.dateFrame.grid(row=0,column=7,columnspan=2,padx=2,pady=2,sticky="news")
         self.timeFrame.grid(row=0,column=9,columnspan=2,padx=2,pady=2,sticky="news")
+
+        self.train_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.frame_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.date_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.time_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.modeLabel.place(anchor=CENTER,relx=0.5,rely=0.5)
 
         #Buttons
         for button,index in self.buttonDict.items():
@@ -122,10 +156,19 @@ class MainWindow(Tk):
                                        column=0,columnspan=self.numberOfColumns,
                                        sticky="news",pady=2)
 
-        self.loginFrame.grid(row=0,rowspan=(self.numberOfRows-2),column=3,columnspan=5,sticky="news")
+        self.loginFrame.place(relx=0.5,rely=0.5,relheight=1,relwidth=0.8,anchor='center')
+
+        #Mode Selector buttons
+        self.mode01.grid(row=0,column=0,sticky="news",padx=2,pady=2)
+        self.mode02.grid(row=0,column=1,sticky="news",padx=2,pady=2)
+        self.mode03.grid(row=0,column=2,sticky="news",padx=2,pady=2)
+
 
     def initWidgets(self):
         print("Initializing......")
+
+        #Start the clock
+        self.after(0, self.update_clock)
        
     def gridConfigure(self,rows,columns,root):
         root.update()
@@ -137,8 +180,8 @@ class MainWindow(Tk):
     def displayFrame(self,frameIndex):
         for (frame,index) in self.frameDict.items():
             if index==frameIndex:
-                frame.grid(row=0,column=0,rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns,
-               padx=2,pady=2,sticky="news")
+                frame.grid(row=0,column=0,rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns, padx=2,pady=2,sticky="news")
+                self.frame_label.config(text=self.buttonNamesDict[frameIndex])
             else:
                 frame.grid_remove()
 
@@ -154,9 +197,9 @@ class MainWindow(Tk):
 
         for button in self.buttonDict:
             if self.buttonDict[button] not in buttonsToBeLeft:
-                button.config(state="disabled")
+                button.config(state="disabled",text="")
             else:
-                button.config(state="normal")
+                button.config(state="normal",text=self.buttonNamesDict[self.buttonDict[button]])
 
     def setState(self,state):
         if state == "Driver":
@@ -168,16 +211,20 @@ class MainWindow(Tk):
 
     def enableAll(self):
         for button in self.buttonDict:
-            button.config(state="normal")
+            button.config(state="normal",text=self.buttonNamesDict[self.buttonDict[button]])
                     
     def startTasks(self):
         print("Starting all tasks..")
-     
+    
+    def update_clock(self):
+        self.time_label.config(text=str(datetime.datetime.now().strftime("%H:%M:%S")))
+        self.after(1000, self.update_clock)
 
     #Variables
     numberOfRows=12
     numberOfColumns=11
     mainRadioButtonVar=1
+    modeSelectButtonVar=2
 
 
 app=MainWindow()

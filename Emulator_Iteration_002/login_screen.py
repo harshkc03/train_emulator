@@ -6,7 +6,6 @@ class Login(Frame):
     def __init__(self,master,root):
         Frame.__init__(self,master,bg="#000000")
         self.root=root
-        self.gridConfigure(self.numberOfRows,self.numberOfColumns,self)
         print("creating login frame")
         self.createWidgets()
         self.configureWidgets()
@@ -17,7 +16,7 @@ class Login(Frame):
         self.northFrame=Frame(self,bg="white")
 
         #User ID label
-        self.userIDLabel=Label(self.northFrame,bg="#000000",text="User ID",font=self.font,fg="white")
+        self.userIDLabel=Label(self.northFrame,bg="#000000",text="User ID",font=self.font,fg="white",padx=0,pady=0)
 
         #Entry label
         self.entryLabel=Label(self.northFrame,bg="#000000",text="Entry",font=self.font,fg="white")
@@ -26,7 +25,7 @@ class Login(Frame):
         self.validLabel=Label(self.northFrame,bg="#000000",text="Valid",font=self.font,fg="white")
 
         #actual entry box
-        self.entryBoxLabel=Label(self.northFrame,bg="#000000",font=self.font,fg="white")
+        self.entryBoxLabel=Label(self.northFrame,bg="#000000",font=self.font,fg="white",padx=0,anchor="w")
 
         #Validity label
         self.validBoxLabel=Label(self.northFrame,bg="#000000",font=self.font,fg="white")
@@ -62,26 +61,23 @@ class Login(Frame):
                                 self.buttonEnter:12}
 
     def configureWidgets(self):
-        self.gridConfigure(2,3,self.northFrame)
-        self.gridConfigure(4,3,self.keyPadFrame)
-
         for button,val in self.keyPadButtonDict.items():
             button.configure(font=self.font,command=lambda val=val:self.buttonPressed(val))
 
     def placeWidgets(self):
-        self.northFrame.grid(row=0,column=0,rowspan=2,columnspan=7,sticky="news",pady=5)
+        self.northFrame.place(relx=0.2,rely=0.1,relwidth=0.6,relheight=0.33)
 
-        self.userIDLabel.grid(row=0,column=0,rowspan=2,sticky="news",padx=2,pady=2)
-        self.entryLabel.grid(row=0,column=1,sticky="news",padx=2,pady=2)
-        self.validLabel.grid(row=1,column=1,sticky="news",padx=2,pady=2)
-        self.entryBoxLabel.grid(row=0,column=2,sticky="news",padx=2,pady=2)
-        self.validBoxLabel.grid(row=1,column=2,sticky="news",padx=2,pady=2)
+        self.userIDLabel.place(relx=0.003,rely=0.01,relwidth=0.294,relheight=0.98)
+        self.entryLabel.place(relx=0.303,rely=0.01,relwidth=0.344,relheight=0.48)
+        self.validLabel.place(relx=0.303,rely=0.51,relwidth=0.344,relheight=0.48)
+        self.entryBoxLabel.place(relx=0.653,rely=0.01,relwidth=0.344,relheight=0.48)
+        self.validBoxLabel.place(relx=0.653,rely=0.51,relwidth=0.344,relheight=0.48)
 
-        self.keyPadFrame.grid(row=2,rowspan=3,column=2,columnspan=3,sticky="news")
+        self.keyPadFrame.place(relx=0.5,rely=0.7,relheight=0.4,relwidth=0.3,anchor="center")
 
-        for x in range(4):
-            for y in range(3):
-                self.getKey(self.loopIndex,self.keyPadButtonDict).grid(row=x,column=y,sticky="news",padx=2,pady=2)
+        for y in range(4):
+            for x in range(3):
+                self.getKey(self.loopIndex,self.keyPadButtonDict).place(relheight=0.23,relwidth=(1/3-1/60),rely=((0.23*y)+(0.01)*(2*y+1)),relx=((1/3-1/60)*x)+(1/80)*(x+1))
                 self.loopIndex+=1
            
     def gridConfigure(self,rows,columns,root):
@@ -121,8 +117,10 @@ class Login(Frame):
     
             if entry_text == "123":
                 self.root.setState("Driver")
+                self.root.button03.invoke()
             elif entry_text == "321":
                 self.root.setState("Maintenance")
+                self.root.button02.invoke()
             elif entry_text == "69":
                 self.root.setState("Exit")
             elif entry_text == "96":
@@ -141,7 +139,7 @@ class Login(Frame):
             self.validBoxLabel.configure(text="Exit")
         elif self.entryBoxLabel.cget("text")=="96":
             self.validBoxLabel.configure(text="Lock")
-        elif val is not 12:
+        elif val != 12:
             self.validBoxLabel.configure(text="")
 
     #Variables
