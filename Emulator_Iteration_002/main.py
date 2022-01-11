@@ -1,5 +1,6 @@
 import login_screen
 from tkinter import *
+import datetime
 
 class MainWindow(Tk):
     def __init__(self):
@@ -24,6 +25,12 @@ class MainWindow(Tk):
         self.dateFrame=Frame(self.infoFrame,bg="#000000")
         self.timeFrame=Frame(self.infoFrame,bg="#000000")
 
+        #Labels
+        self.train_label=Label(self.trainNoFrame,text="Train: 69145",bg="#000000",fg="white")
+        self.frame_label=Label(self.titleFrame,text="",bg="#000000",fg="white")
+        self.date_label=Label(self.dateFrame,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white")
+        self.time_label=Label(self.timeFrame,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white")
+        self.modeLabel=Label(self.modeFrame,text="Select mode!",bg="#000000",fg="white")
 
         #Buttons
         self.button01=Radiobutton(self)
@@ -48,9 +55,9 @@ class MainWindow(Tk):
 
         #Mode Selector Frame
         self.frame03=Frame(master=self.topLevelFrame)
-        self.mode01=Radiobutton(self.frame03,text="Drive",variable=self.modeSelectButtonVar,value=0,selectcolor="light Green",indicatoron=0)
-        self.mode02=Radiobutton(self.frame03,text="Simulate",variable=self.modeSelectButtonVar,value=1,selectcolor="light Green",indicatoron=0)
-        self.mode03=Radiobutton(self.frame03,text="Demo",variable=self.modeSelectButtonVar,value=2,selectcolor="light Green",indicatoron=0)
+        self.mode01=Radiobutton(self.frame03,text="Drive",variable=self.modeSelectButtonVar,value=0,selectcolor="light Green",indicatoron=0,command=lambda : self.modeLabel.config(text="Drive"))
+        self.mode02=Radiobutton(self.frame03,text="Simulate",variable=self.modeSelectButtonVar,value=1,selectcolor="light Green",indicatoron=0,command=lambda : self.modeLabel.config(text="Simulate"))
+        self.mode03=Radiobutton(self.frame03,text="Demo",variable=self.modeSelectButtonVar,value=2,selectcolor="light Green",indicatoron=0,command=lambda : self.modeLabel.config(text="Demo"))
 
         self.frame02=Frame(master=self.topLevelFrame)   
         self.frame04=Frame(master=self.topLevelFrame)
@@ -61,13 +68,8 @@ class MainWindow(Tk):
         self.frame09=Frame(master=self.topLevelFrame)
         self.frame10=Frame(master=self.topLevelFrame)
         self.frame11=Frame(master=self.topLevelFrame)
-
  
         self.loginFrame=login_screen.Login(self.frame01,self)
-
-        
-        
-
 
         
         #Dictionary containing buttons and an index
@@ -139,6 +141,12 @@ class MainWindow(Tk):
         self.dateFrame.grid(row=0,column=7,columnspan=2,padx=2,pady=2,sticky="news")
         self.timeFrame.grid(row=0,column=9,columnspan=2,padx=2,pady=2,sticky="news")
 
+        self.train_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.frame_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.date_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.time_label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.modeLabel.place(anchor=CENTER,relx=0.5,rely=0.5)
+
         #Buttons
         for button,index in self.buttonDict.items():
             button.grid(row=1,column=index-1,sticky="news",padx=2)
@@ -158,6 +166,9 @@ class MainWindow(Tk):
 
     def initWidgets(self):
         print("Initializing......")
+
+        #Start the clock
+        self.after(0, self.update_clock)
        
     def gridConfigure(self,rows,columns,root):
         root.update()
@@ -169,8 +180,8 @@ class MainWindow(Tk):
     def displayFrame(self,frameIndex):
         for (frame,index) in self.frameDict.items():
             if index==frameIndex:
-                frame.grid(row=0,column=0,rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns,
-               padx=2,pady=2,sticky="news")
+                frame.grid(row=0,column=0,rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns, padx=2,pady=2,sticky="news")
+                self.frame_label.config(text=self.buttonNamesDict[frameIndex])
             else:
                 frame.grid_remove()
 
@@ -204,7 +215,10 @@ class MainWindow(Tk):
                     
     def startTasks(self):
         print("Starting all tasks..")
-     
+    
+    def update_clock(self):
+        self.time_label.config(text=str(datetime.datetime.now().strftime("%H:%M:%S")))
+        self.after(1000, self.update_clock)
 
     #Variables
     numberOfRows=12
