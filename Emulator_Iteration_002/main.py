@@ -26,11 +26,11 @@ class MainWindow(Tk):
         self.timeFrame=Frame(self.infoFrame,bg="#000000")
 
         #Labels
-        self.train_label=Label(self.trainNoFrame,text="Train: 69145",bg="#000000",fg="white")
-        self.frame_label=Label(self.titleFrame,text="",bg="#000000",fg="white")
-        self.date_label=Label(self.dateFrame,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white")
-        self.time_label=Label(self.timeFrame,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white")
-        self.modeLabel=Label(self.modeFrame,text="Select mode!",bg="#000000",fg="white")
+        self.train_label=Label(self.trainNoFrame,text="Train: 69145",bg="#000000",fg="white",font=self.defaultFont)
+        self.frame_label=Label(self.titleFrame,text="",bg="#000000",fg="white",font=self.defaultFont)
+        self.date_label=Label(self.dateFrame,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white",font=self.defaultFont)
+        self.time_label=Label(self.timeFrame,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white",font=self.defaultFont)
+        self.modeLabel=Label(self.modeFrame,text="Select mode!",bg="#000000",fg="white",font=self.defaultFont)
 
         #Buttons
         self.button01=Radiobutton(self)
@@ -118,8 +118,9 @@ class MainWindow(Tk):
         for button,index in self.buttonDict.items():
             button.config(text=self.buttonNamesDict[index],value=index,indicatoron=0,
                           variable=self.mainRadioButtonVar,relief='flat',
-                          bg="#FFFFFF",offrelief='flat',command=lambda temp=index : self.displayFrame(temp))
+                          bg="#FFFFFF",offrelief='flat',command=lambda temp=index : self.displayFrame(temp),font=self.defaultFont)
         
+        self.button11.config(command=self.sayHitoRpi)
 
         #configuring topLevelFrame grid       
         self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
@@ -162,7 +163,6 @@ class MainWindow(Tk):
         self.mode01.grid(row=0,column=0,sticky="news",padx=2,pady=2)
         self.mode02.grid(row=0,column=1,sticky="news",padx=2,pady=2)
         self.mode03.grid(row=0,column=2,sticky="news",padx=2,pady=2)
-
 
     def initWidgets(self):
         print("Initializing......")
@@ -220,12 +220,16 @@ class MainWindow(Tk):
         self.time_label.config(text=str(datetime.datetime.now().strftime("%H:%M:%S")))
         self.after(1000, self.update_clock)
 
+    def sayHitoRpi(self):
+        print("hello Rpi!")
+        
+
     #Variables
     numberOfRows=12
     numberOfColumns=11
     mainRadioButtonVar=1
     modeSelectButtonVar=2
-
+    defaultFont="Calibri 15"
 
 app=MainWindow()
 app.mainloop()

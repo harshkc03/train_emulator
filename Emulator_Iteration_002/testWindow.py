@@ -1,20 +1,28 @@
 import login_screen
 from tkinter import *
+from Custom_Classes import custom_frame
 
 class MainWindow:
     def __init__(self):
         root=Tk()
         root.geometry('450x450')
-        root.config(bg="#000000")
+        root.config(bg="green")
         self.gridConfigure(self.numberOfRows,self.numberOfColumns,root)
 
-        self.button01=Radiobutton(text="Button 01",indicatoron=0,variable=1,value=1,selectcolor="light green")
-        self.button02=Radiobutton(text="Button 02",indicatoron=0,variable=1,value=2,selectcolor="light green")
-        self.button03=Radiobutton(text="Button 03",indicatoron=0,variable=1,value=3,selectcolor="light green")
+        self.frame=custom_frame.CustomFrame(root)
+        self.frame.config(bg="#000000")
+        self.frame.grid(sticky="news")
 
-        self.button01.grid(row=0,column=0,sticky="news")
-        self.button02.grid(row=0,column=1,sticky="news")
-        self.button03.grid(row=0,column=2,sticky="news")
+
+
+        self.button01=Button(self.frame)
+        self.frame.placeInGrid(self.button01,1,1)
+
+        self.button02=Button(self.frame)
+        self.frame.placeInGrid(self.button02,0,2)
+
+        self.button03=Button(self.frame)
+        self.frame.placeInGrid(self.button03,0,0)
 
        
 
@@ -28,7 +36,7 @@ class MainWindow:
             root.columnconfigure(x,weight=1,minsize=(root.winfo_width()/columns))
         
     numberOfRows=1
-    numberOfColumns=3
+    numberOfColumns=1
 
 app=MainWindow()
     
