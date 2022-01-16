@@ -19,21 +19,7 @@ class MainWindow(Tk):
 
     def createWidgets(self):
         #Info frame
-        self.infoFrame=Frame(self,bg="white")
-
-        #Info Frame Children
-        self.trainNoFrame=Frame(self.infoFrame,bg="#000000")
-        self.titleFrame=Frame(self.infoFrame,bg="#000000")
-        self.modeFrame=Frame(self.infoFrame,bg="#000000")
-        self.dateFrame=Frame(self.infoFrame,bg="#000000")
-        self.timeFrame=Frame(self.infoFrame,bg="#000000")
-
-        #Labels
-        self.train_label=Label(self.trainNoFrame,text="Train: 69145",bg="#000000",fg="white",font=self.defaultFont)
-        self.frame_label=Label(self.titleFrame,text="",bg="#000000",fg="white",font=self.defaultFont)
-        self.date_label=Label(self.dateFrame,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white",font=self.defaultFont)
-        self.time_label=Label(self.timeFrame,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white",font=self.defaultFont)
-        self.modeLabel=Label(self.modeFrame,text="Select mode!",bg="#000000",fg="white",font=self.defaultFont)
+        self.infoFrame=infoFrame.InfoFrame(self)        
 
         #Buttons
         self.button01=Radiobutton(self)
@@ -51,7 +37,6 @@ class MainWindow(Tk):
         #Parent frame for all sub frames
         self.topLevelFrame=Frame(self,bg="red")
 
-        #Sub Frames
         #login Frame
         self.frame01=Frame(master=self.topLevelFrame)
         self.loginFrame=login_screen.Login(self.frame01,self)
@@ -114,8 +99,6 @@ class MainWindow(Tk):
                         self.frame11:11}
 
     def configureWidgets(self):
-        #info Frame grid configuration
-        self.gridConfigure(1,self.numberOfColumns,self.infoFrame)
 
         #configuring buttons
         for button,index in self.buttonDict.items():
@@ -132,25 +115,14 @@ class MainWindow(Tk):
 
         #configuring sub frames of topLevelFrame
         for frame in self.frameDict:
-            frame.config(bg="#000000")
+            if frame!=self.frame02:
+                frame.config(bg="#000000")
                     
     def placeWidgets(self):
         #infoFrame
         self.infoFrame.grid(row=0,column=0,columnspan=self.numberOfColumns,sticky="news",pady=2)
 
-        #info Frame Children
-        self.trainNoFrame.grid(row=0,column=0,columnspan=2,padx=2,pady=2,sticky="news")
-        self.titleFrame.grid(row=0,column=2,columnspan=3,padx=2,pady=2,sticky="news")
-        self.modeFrame.grid(row=0,column=5,columnspan=2,padx=2,pady=2,sticky="news")
-        self.dateFrame.grid(row=0,column=7,columnspan=2,padx=2,pady=2,sticky="news")
-        self.timeFrame.grid(row=0,column=9,columnspan=2,padx=2,pady=2,sticky="news")
-
-        self.train_label.place(anchor=CENTER,relx=0.5,rely=0.5)
-        self.frame_label.place(anchor=CENTER,relx=0.5,rely=0.5)
-        self.date_label.place(anchor=CENTER,relx=0.5,rely=0.5)
-        self.time_label.place(anchor=CENTER,relx=0.5,rely=0.5)
-        self.modeLabel.place(anchor=CENTER,relx=0.5,rely=0.5)
-
+       
         #Buttons
         for button,index in self.buttonDict.items():
             button.grid(row=1,column=index-1,sticky="news",padx=2)
@@ -169,9 +141,6 @@ class MainWindow(Tk):
 
     def initWidgets(self):
         print("Initializing......")
-
-        #Start the clock
-        self.after(0, self.update_clock)
        
     def gridConfigure(self,rows,columns,root):
         root.update()
@@ -184,7 +153,7 @@ class MainWindow(Tk):
         for (frame,index) in self.frameDict.items():
             if index==frameIndex:
                 frame.grid(row=0,column=0,rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns, padx=2,pady=2,sticky="news")
-                self.frame_label.config(text=self.buttonNamesDict[frameIndex])
+                self.infoFrame.frame_label.config(text=self.buttonNamesDict[frameIndex])
             else:
                 frame.grid_remove()
 
@@ -218,10 +187,6 @@ class MainWindow(Tk):
                     
     def startTasks(self):
         print("Starting all tasks..")
-    
-    def update_clock(self):
-        self.time_label.config(text=str(datetime.datetime.now().strftime("%H:%M:%S")))
-        self.after(1000, self.update_clock)
 
     def sayHitoRpi(self):
         print("hello Rpi!")
