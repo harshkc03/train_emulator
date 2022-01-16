@@ -1,6 +1,9 @@
 import login_screen
 from tkinter import *
 import datetime
+from child_frames import *
+
+
 
 class MainWindow(Tk):
     def __init__(self):
@@ -46,7 +49,7 @@ class MainWindow(Tk):
         self.button11=Radiobutton(self)
 
         #Parent frame for all sub frames
-        self.topLevelFrame=Frame(self,bg="white")
+        self.topLevelFrame=Frame(self,bg="red")
 
         #Sub Frames
         #login Frame
@@ -59,7 +62,7 @@ class MainWindow(Tk):
         self.mode02=Radiobutton(self.frame03,text="Simulate",variable=self.modeSelectButtonVar,value=1,selectcolor="light Green",indicatoron=0,command=lambda : self.modeLabel.config(text="Simulate"))
         self.mode03=Radiobutton(self.frame03,text="Demo",variable=self.modeSelectButtonVar,value=2,selectcolor="light Green",indicatoron=0,command=lambda : self.modeLabel.config(text="Demo"))
 
-        self.frame02=Frame(master=self.topLevelFrame)   
+        self.frame02=frame02.Frame02(self.topLevelFrame)
         self.frame04=Frame(master=self.topLevelFrame)
         self.frame05=Frame(master=self.topLevelFrame)
         self.frame06=Frame(master=self.topLevelFrame)
@@ -69,7 +72,7 @@ class MainWindow(Tk):
         self.frame10=Frame(master=self.topLevelFrame)
         self.frame11=Frame(master=self.topLevelFrame)
  
-        self.loginFrame=login_screen.Login(self.frame01,self)
+        
 
         
         #Dictionary containing buttons and an index

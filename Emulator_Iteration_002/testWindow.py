@@ -1,6 +1,6 @@
-import login_screen
 from tkinter import *
-from Custom_Classes import custom_frame
+from child_frames import *
+
 
 class MainWindow:
     def __init__(self):
@@ -9,20 +9,8 @@ class MainWindow:
         root.config(bg="green")
         self.gridConfigure(self.numberOfRows,self.numberOfColumns,root)
 
-        self.frame=custom_frame.CustomFrame(root)
-        self.frame.config(bg="#000000")
-        self.frame.grid(sticky="news")
-
-
-
-        self.button01=Button(self.frame)
-        self.frame.placeInGrid(self.button01,1,1)
-
-        self.button02=Button(self.frame)
-        self.frame.placeInGrid(self.button02,0,2)
-
-        self.button03=Button(self.frame)
-        self.frame.placeInGrid(self.button03,0,0)
+        self.frame=frame02.Frame02(root)
+        self.frame.grid(row=0,column=0,sticky="news",padx=5,pady=5)
 
        
 
