@@ -1,1 +1,1 @@
-__all__=["frame02","frame03"]
+__all__=["frame02","frame03","infoFrame"]
