@@ -10,10 +10,8 @@ class MainWindow:
         root.config(bg="green")
         self.gridConfigure(self.numberOfRows,self.numberOfColumns,root)
 
-        self.frame=infoFrame.InfoFrame(root)
-        self.frame.grid(row=0,column=0,sticky="news",padx=5,pady=5)
-
-       
+        self.frame=buttonFrame.ButtonHolder(root)
+        self.frame.grid(row=0,column=0,sticky="news")       
 
         root.mainloop()
 
