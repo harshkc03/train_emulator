@@ -1,9 +1,6 @@
 from turtle import st
-import login_screen
 from tkinter import *
-from child_frames import *
-
-
+import child_frames
 
 class MainWindow(Tk):
     def __init__(self):
@@ -19,38 +16,28 @@ class MainWindow(Tk):
 
     def createWidgets(self):
         #Info frame
-        self.infoFrame=infoFrame.InfoFrame(self)        
+        self.infoFrame=child_frames.InfoFrame(self)        
 
         #Button Holder Frame
-        self.buttonsFrame=buttonFrame.ButtonHolder(self)
+        self.buttonsFrame=child_frames.ButtonHolder(self)
         
         #Parent frame for all sub frames
-        self.topLevelFrame=Frame(self,bg="red")
+        self.topLevelFrame=Frame(self,bg="#000000")
 
         #login Frame
-        self.frame01=Frame(master=self.topLevelFrame)
-        self.loginFrame=login_screen.Login(self.frame01,self)
-
-        #Mode Selector Frame
-        self.frame03=Frame(master=self.topLevelFrame)
-        self.mode01=Radiobutton(self.frame03,text="Drive",variable=self.modeSelectButtonVar,value=0,selectcolor="light Green",indicatoron=0,command=lambda : self.infoFrame.modeLabel.config(text="Drive"))
-        self.mode02=Radiobutton(self.frame03,text="Simulate",variable=self.modeSelectButtonVar,value=1,selectcolor="light Green",indicatoron=0,command=lambda : self.infoFrame.modeLabel.config(text="Simulate"))
-        self.mode03=Radiobutton(self.frame03,text="Demo",variable=self.modeSelectButtonVar,value=2,selectcolor="light Green",indicatoron=0,command=lambda : self.infoFrame.modeLabel.config(text="Demo"))
-
-        self.frame02=frame02.Frame02(self.topLevelFrame)
-        self.frame04=Frame(master=self.topLevelFrame)
-        self.frame05=Frame(master=self.topLevelFrame)
-        self.frame06=Frame(master=self.topLevelFrame)
-        self.frame07=Frame(master=self.topLevelFrame)
-        self.frame08=Frame(master=self.topLevelFrame)
-        self.frame09=Frame(master=self.topLevelFrame)
-        self.frame10=Frame(master=self.topLevelFrame)
-        self.frame11=Frame(master=self.topLevelFrame)
- 
-        
-
-        
-    
+        self.frame01=Frame(master=self.topLevelFrame,bg="#000000")
+        self.loginFrame=child_frames.Login(self.frame01,self)      
+        self.frame02=child_frames.Frame02(self.topLevelFrame,root=self)
+        self.frame03=child_frames.Frame03(master=self.topLevelFrame,root=self)   
+        self.frame04=child_frames.Frame04(master=self.topLevelFrame,root=self)
+        self.frame05=child_frames.Frame05(master=self.topLevelFrame,root=self)
+        self.frame06=child_frames.Frame06(master=self.topLevelFrame,root=self)
+        self.frame07=child_frames.Frame07(master=self.topLevelFrame,root=self)
+        self.frame08=child_frames.Frame08(master=self.topLevelFrame,root=self)
+        self.frame09=child_frames.Frame09(master=self.topLevelFrame,root=self)
+        self.frame10=child_frames.Frame10(master=self.topLevelFrame,root=self)
+        self.frame11=child_frames.Frame11(master=self.topLevelFrame,root=self)   
+          
         #Dictionary containing frames and an index
         self.frameDict={self.frame01:1,
                         self.frame02:2,
@@ -71,11 +58,6 @@ class MainWindow(Tk):
 
         self.gridConfigure(1,3,self.frame03)
 
-        #configuring sub frames of topLevelFrame
-        for frame in self.frameDict:
-            if frame!=self.frame02:
-                frame.config(bg="#000000")
-                    
     def placeWidgets(self):
         #infoFrame
         self.infoFrame.grid(row=0,column=0,columnspan=self.numberOfColumns,sticky="news",pady=2)       
@@ -89,12 +71,7 @@ class MainWindow(Tk):
                                        sticky="news",pady=2)
 
         self.loginFrame.place(relx=0.5,rely=0.5,relheight=1,relwidth=0.8,anchor='center')
-
-        #Mode Selector buttons
-        self.mode01.grid(row=0,column=0,sticky="news",padx=2,pady=2)
-        self.mode02.grid(row=0,column=1,sticky="news",padx=2,pady=2)
-        self.mode03.grid(row=0,column=2,sticky="news",padx=2,pady=2)
-
+     
     def initWidgets(self):
         print("Initializing......")
        
@@ -104,33 +81,24 @@ class MainWindow(Tk):
             root.rowconfigure(x,weight=1,minsize=(root.winfo_height()/rows))
         for x in range(columns):
             root.columnconfigure(x,weight=1,minsize=(root.winfo_width()/columns))
-    
-    def displayFrame(self,frameIndex):
-        for (frame,index) in self.frameDict.items():
-            if index==frameIndex:
-                frame.grid(row=0,column=0,rowspan=self.numberOfRows-2,columnspan=self.numberOfColumns, padx=2,pady=2,sticky="news")
-                self.infoFrame.frame_label.config(text=self.buttonsFrame.buttonNamesDict[frameIndex])
-            else:
-                frame.grid_remove()
 
     def launchLogin(self):
-        print("launching login")  
-
-        self.buttonsFrame.button01.invoke()
-   
+        print("launching login")
+        self.buttonsFrame.disableButtonsExcept([1])
+        self.buttonsFrame.button01.invoke()   
         self.startTasks()
         
     def setState(self,state):
         if state == "Driver":
-            self.disableButtonsExcept([1,3,5,7,9,11])
+            self.buttonsFrame.disableButtonsExcept([1,3,5,7,9,11])
         elif state == "Maintenance":
-            self.enableAll()
+            self.buttonsFrame.enableAll()
         elif state=="Exit":
             quit()
+        elif state=="Lock":
+            self.buttonsFrame.disableButtonsExcept([1])
 
-    def enableAll(self):
-        for button in self.buttonDict:
-            button.config(state="normal",text=self.buttonNamesDict[self.buttonDict[button]])
+    
                     
     def startTasks(self):
         print("Starting all tasks..")
