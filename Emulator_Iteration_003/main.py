@@ -1,13 +1,12 @@
-from turtle import st
 from tkinter import *
-import child_frames
+from resources import *
 
 class MainWindow(Tk):
     def __init__(self):
         Tk.__init__(self)
         self.geometry("1200x625")
         self.config(bg="#000000")
-        self.gridConfigure(self.numberOfRows,self.numberOfColumns,self)
+        utils.gridConfigure(self.numberOfRows,self.numberOfColumns,self)
         self.createWidgets()
         self.configureWidgets()
         self.placeWidgets()
@@ -54,9 +53,9 @@ class MainWindow(Tk):
     def configureWidgets(self):
             
         #configuring topLevelFrame grid       
-        self.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
+        utils.gridConfigure(self.numberOfRows-2,self.numberOfColumns,self.topLevelFrame)
 
-        self.gridConfigure(1,3,self.frame03)
+        utils.gridConfigure(1,3,self.frame03)
 
     def placeWidgets(self):
         #infoFrame
@@ -75,13 +74,6 @@ class MainWindow(Tk):
     def initWidgets(self):
         print("Initializing......")
        
-    def gridConfigure(self,rows,columns,root):
-        root.update()
-        for x in range(rows):
-            root.rowconfigure(x,weight=1,minsize=(root.winfo_height()/rows))
-        for x in range(columns):
-            root.columnconfigure(x,weight=1,minsize=(root.winfo_width()/columns))
-
     def launchLogin(self):
         print("launching login")
         self.buttonsFrame.disableButtonsExcept([1])
@@ -97,8 +89,6 @@ class MainWindow(Tk):
             quit()
         elif state=="Lock":
             self.buttonsFrame.disableButtonsExcept([1])
-
-    
                     
     def startTasks(self):
         print("Starting all tasks..")

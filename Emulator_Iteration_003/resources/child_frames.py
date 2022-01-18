@@ -1,8 +1,6 @@
-from cgitb import text
-from logging import root
 from tkinter import *
 import datetime
-import utils
+from resources import utils
  
 class InfoFrame(Frame):
     def __init__(self,master):
@@ -134,6 +132,7 @@ class ButtonHolder(Frame):
             button.config(state="normal",text=self.buttonNamesDict[self.buttonDict[button]])
 
     radioButtonVar=1
+    numberOfColumns=11
 
 class Login(Frame):
     def __init__(self,master,root):
@@ -310,9 +309,7 @@ class Frame03(Frame):
     def modeCommand(self,label):
         self.root.infoFrame.modeLabel.config(text=label)
         self.root.buttonsFrame.button05.invoke()
-
-    
-
+        
     radioButtonVar=2
 
 class Frame04(Frame):

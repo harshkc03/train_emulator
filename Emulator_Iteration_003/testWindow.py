@@ -1,8 +1,6 @@
 from tkinter import *
 from child_frames import *
 
-
-
 class MainWindow:
     def __init__(self):
         root=Tk()
