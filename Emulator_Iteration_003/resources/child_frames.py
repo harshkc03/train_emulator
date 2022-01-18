@@ -290,10 +290,9 @@ class Frame03(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="#000000")
         utils.gridConfigure(1,3,self)
         self.createWidgets()
-
         self.placeWidgets()
 
     def createWidgets(self):
@@ -316,47 +315,80 @@ class Frame04(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="#000000")
 
 class Frame05(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="White")
+        utils.gridConfigure(7,9,self)
+        self.createWidgets()
+        self.placeWidgets()
+
+
+    def createWidgets(self):
+        self.vFrame=Frame(self,bg="#000000")
+        self.vLabel=Label(self.vFrame,text="OHE Voltage",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+        
+        self.cFrame=Frame(self,bg="#000000")
+        self.cLabel=Label(self.cFrame,text="OHE Current",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+
+        self.coastFrame=Frame(self,bg="#000000")
+        self.coastLabel=Label(self.coastFrame,text="COAST",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+
+        self.speedFrame=Frame(self,bg="#000000")
+        self.speedLabel=Label(self.speedFrame,text="Speed(km/hr)",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+
+    def placeWidgets(self):
+        self.vFrame.grid(row=0,column=0,columnspan=3,sticky="news",padx=2,pady=2)
+
+        self.cFrame.grid(row=0,column=3,columnspan=3,sticky="news",padx=2,pady=2)
+
+        self.coastFrame.grid(row=0,column=6,columnspan=1,sticky="news",padx=2,pady=2)
+
+        self.speedFrame.grid(row=0,column=7,columnspan=2,sticky="news",padx=2,pady=2)
+
+
+
+
+
+    
+
 
 class Frame06(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="#000000")
 
 class Frame07(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="#000000")
 
 class Frame08(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="#000000")
 
 class Frame09(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="#000000")
 
 class Frame10(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="#000000")
 
 class Frame11(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="pink")
+        Frame.__init__(self,master,bg="#000000")
 
