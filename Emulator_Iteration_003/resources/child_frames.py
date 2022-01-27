@@ -321,9 +321,10 @@ class Frame05(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="White")
-        utils.gridConfigure(7,9,self)
+        Frame.__init__(self,master,bg="white")
+        utils.placeGridConfigure(self,20,20,0.001,self)
         self.createWidgets()
+        self.configureWidgets()
         self.placeWidgets()
 
 
@@ -340,21 +341,83 @@ class Frame05(Frame):
         self.speedFrame=Frame(self,bg="#000000")
         self.speedLabel=Label(self.speedFrame,text="Speed(km/hr)",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
 
+        self.statusFrame1=Frame(self,bg='#000000')
+        self.unit1Label=Label(self.statusFrame1,fg="white",bg="#000000",text="Unit 1",font=utils.defaultFont)
+        self.subStatus01=SubStatus(self.statusFrame1,self)
+
+        self.statusFrame2=Frame(self,bg='#000000')
+        self.unit2Label=Label(self.statusFrame2,fg="white",bg="#000000",text="Unit 2",font=utils.defaultFont)
+        self.subStatus02=SubStatus(self.statusFrame2,self)
+
+        self.statusFrame3=Frame(self,bg='#000000')
+        self.unit3Label=Label(self.statusFrame3,fg="white",bg="#000000",text="Unit 3",font=utils.defaultFont)
+        self.subStatus03=SubStatus(self.statusFrame3,self)
+
+        
+
+    def configureWidgets(self):
+        utils.gridConfigure(10,1,self.statusFrame1)
+        utils.gridConfigure(10,1,self.statusFrame2)
+        utils.gridConfigure(10,1,self.statusFrame3)
+
     def placeWidgets(self):
-        self.vFrame.grid(row=0,column=0,columnspan=3,sticky="news",padx=2,pady=2)
+        utils.placeInGrid(self,self.vFrame,0,0,columnspan=6,rowspan=3)
+        self.vLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')
+        utils.placeInGrid(self,self.cFrame,0,6,columnspan=6,rowspan=3)
+        self.cLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')        
+        utils.placeInGrid(self,self.coastFrame,0,12,columnspan=4,rowspan=3)
+        self.coastLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')
+        utils.placeInGrid(self,self.speedFrame,0,16,columnspan=4,rowspan=3)
+        self.speedLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.6,anchor='nw')
 
-        self.cFrame.grid(row=0,column=3,columnspan=3,sticky="news",padx=2,pady=2)
+        utils.placeInGrid(self,self.statusFrame1,4,1,15,4)
+        self.unit1Label.grid(row=0,column=0,sticky="news")
+        self.subStatus01.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)
 
-        self.coastFrame.grid(row=0,column=6,columnspan=1,sticky="news",padx=2,pady=2)
+        utils.placeInGrid(self,self.statusFrame2,4,6,15,4)
+        self.unit2Label.grid(row=0,column=0,sticky="news")
+        self.subStatus02.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)
 
-        self.speedFrame.grid(row=0,column=7,columnspan=2,sticky="news",padx=2,pady=2)
+        utils.placeInGrid(self,self.statusFrame3,4,11,15,4)
+        self.unit3Label.grid(row=0,column=0,sticky="news")
+        self.subStatus03.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)
+        
+class SubStatus(Frame):
+    def __init__(self,master,root):
+        self.root=root
+        self.master=master
+        Frame.__init__(self,master,bg="#000000")
+        utils.placeGridConfigure(self,4,3,0.003,self)
+        self.createWidgets()
+        self.placeWidgets()
 
+    def createWidgets(self):
+        self.frame01=Button(self,bg="cyan")
+        self.frame02=Button(self,bg="cyan")
+        self.frame03=Button(self,bg="cyan")
+        self.frame04=Button(self,bg="cyan")
+        self.frame05=Button(self,bg="cyan")
+        self.frame06=Button(self,bg="cyan")
+        self.frame07=Button(self,bg="cyan")
+        self.frame08=Button(self,bg="cyan")
+        self.frame09=Button(self,bg="cyan")
+        self.frame10=Button(self,bg="cyan")
+        self.frame11=Button(self,bg="cyan")
+        self.frame12=Button(self,bg="cyan")
 
-
-
-
-    
-
+    def placeWidgets(self):
+        utils.placeInGrid(self,self.frame01,0,0)
+        utils.placeInGrid(self,self.frame02,0,1)
+        utils.placeInGrid(self,self.frame03,0,2)
+        utils.placeInGrid(self,self.frame04,1,0)
+        utils.placeInGrid(self,self.frame05,1,1)
+        utils.placeInGrid(self,self.frame06,1,2)
+        utils.placeInGrid(self,self.frame07,2,0)
+        utils.placeInGrid(self,self.frame08,2,1)
+        utils.placeInGrid(self,self.frame09,2,2)
+        utils.placeInGrid(self,self.frame10,3,0)
+        utils.placeInGrid(self,self.frame11,3,1)
+        utils.placeInGrid(self,self.frame12,3,2)
 
 class Frame06(Frame):
     def __init__(self,master,root):
