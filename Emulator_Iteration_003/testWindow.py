@@ -1,24 +1,22 @@
 from tkinter import *
-from child_frames import *
+from resources import *
+
 
 class MainWindow:
     def __init__(self):
-        root=Tk()
-        root.geometry('800x70')
-        root.config(bg="green")
-        self.gridConfigure(self.numberOfRows,self.numberOfColumns,root)
+        self.root=Tk()
+        self.root.geometry('1000x700')
+        self.root.config(bg="#000000")
+        utils.placeGridConfigure(self,1,1,0,self.root)
+        self.createWidgets()
+        self.placeWidgets()
+        self.root.mainloop()
 
-        self.frame=buttonFrame.ButtonHolder(root)
-        self.frame.grid(row=0,column=0,sticky="news")       
+    def createWidgets(self):
+       self.button07=child_frames.Frame05(self.root,self.root)     
 
-        root.mainloop()
-
-    def gridConfigure(self,rows,columns,root):
-        root.update()
-        for x in range(rows):
-            root.rowconfigure(x,weight=1,minsize=(root.winfo_height()/rows))
-        for x in range(columns):
-            root.columnconfigure(x,weight=1,minsize=(root.winfo_width()/columns))
+    def placeWidgets(self):
+        utils.placeInGrid(self,self.button07,0,0)
         
     numberOfRows=1
     numberOfColumns=1
