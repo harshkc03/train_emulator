@@ -327,9 +327,10 @@ class Frame05(Frame):
         self.placeWidgets()
 
 
+
     def createWidgets(self):
         self.vFrame=Frame(self,bg="#000000")
-        self.vLabel=Label(self.vFrame,text="OHE Voltage",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+        self.vLabel=Label(self.vFrame,text="OHE Voltage",bg="#000000",fg="white",font=utils.defaultFont )
         
         self.cFrame=Frame(self,bg="#000000")
         self.cLabel=Label(self.cFrame,text="OHE Current",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
@@ -340,19 +341,52 @@ class Frame05(Frame):
         self.speedFrame=Frame(self,bg="#000000")
         self.speedLabel=Label(self.speedFrame,text="Speed(km/hr)",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
 
+        self.unitFrame=Frame(self,bg="#000000")
+        self.unitLabel=Label(self.unitFrame,text="Unit 1",bg="Grey",fg="#FFFFFF",font=utils.defaultFont)
+
+        self.unit_1Label=Label(self.unitFrame,text="1",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+
+        self.unit_2Label=Label(self.unitFrame,text="2",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+
+        self.unit_3Label=Label(self.unitFrame,text="3",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+
+        self.unit_4Label=Label(self.unitFrame,text="4",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+
+        self.unit_5Label=Label(self.unitFrame,text="5",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+
+        self.unit_6Label=Label(self.unitFrame,text="6",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+
+        self.unit_7Label=Label(self.unitFrame,text="7",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+
+        self.unit_8Label=Label(self.unitFrame,text="8",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+
+        self.unit_9Label=Label(self.unitFrame,text="9",bg="#00FFFF",fg="#000000",font=utils.defaultFont)
+        
     def placeWidgets(self):
         self.vFrame.grid(row=0,column=0,columnspan=3,sticky="news",padx=2,pady=2)
+        self.vLabel.place(relx=0,rely=0,relheight=0.3, relwidth=0.25, anchor='nw')
 
         self.cFrame.grid(row=0,column=3,columnspan=3,sticky="news",padx=2,pady=2)
+        self.cLabel.place(relx=0,rely=0,relheight=0.2,relwidth=0.25,anchor='nw')
 
         self.coastFrame.grid(row=0,column=6,columnspan=1,sticky="news",padx=2,pady=2)
+        self.coastLabel.place(relx=0,rely=0,relheight=0.3, relwidth=0.45, anchor='nw')
 
         self.speedFrame.grid(row=0,column=7,columnspan=2,sticky="news",padx=2,pady=2)
+        self.speedLabel.place(relx=0,rely=0,relheight=0.3, relwidth=0.4, anchor='nw')
 
+        self.unitFrame.grid(row=2,column=0,rowspan=4,columnspan=2,sticky="news",padx=2,pady=0)
+        self.unitLabel.place(relx=0,rely=0,relheight=0.3, relwidth=1,anchor ='nw')
 
-
-
-
+        self.unit_1Label.place(relx=0.025,rely=0.325,relheight=0.2, relwidth=0.3,anchor='nw')
+        self.unit_2Label.place(relx=0.350,rely=0.325,relheight=0.2, relwidth=0.3,anchor='nw')
+        self.unit_3Label.place(relx=0.675,rely=0.325,relheight=0.2, relwidth=0.3,anchor='nw')
+        self.unit_4Label.place(relx=0.025,rely=0.550,relheight=0.2, relwidth=0.3,anchor='nw')
+        self.unit_5Label.place(relx=0.350,rely=0.550,relheight=0.2, relwidth=0.3,anchor='nw')
+        self.unit_6Label.place(relx=0.675,rely=0.550,relheight=0.2, relwidth=0.3,anchor='nw')
+        self.unit_7Label.place(relx=0.025,rely=0.775,relheight=0.2, relwidth=0.3,anchor='nw')
+        self.unit_8Label.place(relx=0.350,rely=0.775,relheight=0.2, relwidth=0.3,anchor='nw')
+        self.unit_9Label.place(relx=0.675,rely=0.775,relheight=0.2, relwidth=0.3,anchor='nw')
     
 
 

@@ -1,14 +1,14 @@
 from tkinter import *
-from child_frames import *
+from resources import *
 
 class MainWindow:
     def __init__(self):
         root=Tk()
-        root.geometry('800x70')
+        root.geometry('2000x1000')
         root.config(bg="green")
         self.gridConfigure(self.numberOfRows,self.numberOfColumns,root)
 
-        self.frame=buttonFrame.ButtonHolder(root)
+        self.frame=child_frames.Frame05(root,root)
         self.frame.grid(row=0,column=0,sticky="news")       
 
         root.mainloop()
