@@ -341,17 +341,21 @@ class Frame05(Frame):
         self.speedFrame=Frame(self,bg="#000000")
         self.speedLabel=Label(self.speedFrame,text="Speed(km/hr)",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
 
-        self.statusFrame1=Frame(self,bg='#000000')
+        self.beautyFrame=Frame(self,bg="#000000")
+
+        self.statusFrame1=Frame(self,bg='grey')
         self.unit1Label=Label(self.statusFrame1,fg="white",bg="#000000",text="Unit 1",font=utils.defaultFont)
         self.subStatus01=SubStatus(self.statusFrame1,self)
 
-        self.statusFrame2=Frame(self,bg='#000000')
+        self.statusFrame2=Frame(self,bg='grey')
         self.unit2Label=Label(self.statusFrame2,fg="white",bg="#000000",text="Unit 2",font=utils.defaultFont)
         self.subStatus02=SubStatus(self.statusFrame2,self)
 
-        self.statusFrame3=Frame(self,bg='#000000')
+        self.statusFrame3=Frame(self,bg='grey')
         self.unit3Label=Label(self.statusFrame3,fg="white",bg="#000000",text="Unit 3",font=utils.defaultFont)
         self.subStatus03=SubStatus(self.statusFrame3,self)
+
+
 
         
 
@@ -370,6 +374,8 @@ class Frame05(Frame):
         utils.placeInGrid(self,self.speedFrame,0,16,columnspan=4,rowspan=3)
         self.speedLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.6,anchor='nw')
 
+
+
         utils.placeInGrid(self,self.statusFrame1,4,1,15,4)
         self.unit1Label.grid(row=0,column=0,sticky="news")
         self.subStatus01.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)
@@ -381,6 +387,8 @@ class Frame05(Frame):
         utils.placeInGrid(self,self.statusFrame3,4,11,15,4)
         self.unit3Label.grid(row=0,column=0,sticky="news")
         self.subStatus03.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)
+
+        
         
 class SubStatus(Frame):
     def __init__(self,master,root):
