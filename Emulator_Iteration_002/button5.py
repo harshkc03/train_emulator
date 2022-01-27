@@ -13,7 +13,7 @@ class MainWindow(Tk):
         self.configureWidgets()
         self.placeWidgets()
         self.initWidgets()
-        self.launchLogin()
+        #self.launchLogin()
 
     def createWidgets(self):
         #Info frame
@@ -26,12 +26,20 @@ class MainWindow(Tk):
         self.dateFrame=Frame(self.infoFrame,bg="#000000")
         self.timeFrame=Frame(self.infoFrame,bg="#000000")
 
+        self.unitNoFrame=Frame(self.inforFrame,bg="#000000")
+        self.voltageFrame=Frame(self.inforFrame,bg="#000000")
+
+
         #Labels
         self.train_label=Label(self.trainNoFrame,text="Train: 69145",bg="#000000",fg="white",font=self.defaultFont)
         self.frame_label=Label(self.titleFrame,text="",bg="#000000",fg="white",font=self.defaultFont)
         self.date_label=Label(self.dateFrame,text=str(datetime.datetime.today().strftime('%d/%m/%Y')),bg="#000000",fg="white",font=self.defaultFont)
         self.time_label=Label(self.timeFrame,text=str(datetime.datetime.now().strftime("%H:%M:%S")),bg="#000000",fg="white",font=self.defaultFont)
         self.modeLabel=Label(self.modeFrame,text="Select mode!",bg="#000000",fg="white",font=self.defaultFont)
+
+        self.unit_label=Label(self.unitNoFrame,text="Unit 1",bg="#000000",fg="white",font=self.defaultFont)
+        self.voltage_label=Label(self.voltageFrame,text="OHE Voltage",bg="#000000",fg="white",font=self.defaultFont)
+
 
         #Buttons
         self.button01=Radiobutton(self)
@@ -69,6 +77,8 @@ class MainWindow(Tk):
         self.frame09=Frame(master=self.topLevelFrame)
         self.frame10=Frame(master=self.topLevelFrame)
         self.frame11=Frame(master=self.topLevelFrame)
+
+        self.frame12=Frame(master=self.topLevelFrame) #OHE Voltage waala frame
  
         self.loginFrame=login_screen.Login(self.frame01,self)
 
@@ -84,7 +94,16 @@ class MainWindow(Tk):
                          self.button08:8,
                          self.button09:9,
                          self.button10:10,
-                         self.button11:11}
+                         self.button11:11,
+                         self.button12:12,
+                         self.button13:13,
+                         self.button14:14,
+                         self.button15:15,
+                         self.button16:16,
+                         self.button17:17,
+                         self.button18:18,
+                         self.button19:19,
+                         self.button20:20}
 
         self.buttonNamesDict={1:"Login",
                               2:"button02",
@@ -96,7 +115,16 @@ class MainWindow(Tk):
                               8:"Button 08",
                               9:"Button 09",
                               10:"Button 10",
-                              11:"Button 11"}
+                              11:"Button 11",
+                              12:"One 1",
+                              13:"Two 2",
+                              14:"Three 3",
+                              15:"Four 4",
+                              16:"Five 5",
+                              17:"Six 6",
+                              18:"Seven 7",
+                              19:"Eight 8",                                                                                                                                                                                                                  
+                              20:"Nine 9"}
 
         #Dictionary containing frames and an index
         self.frameDict={self.frame01:1,
@@ -109,7 +137,8 @@ class MainWindow(Tk):
                         self.frame08:8,
                         self.frame09:9,
                         self.frame10:10,
-                        self.frame11:11}
+                        self.frame11:11,
+                        self.frame12:12}
 
     def configureWidgets(self):
         #info Frame grid configuration
@@ -143,11 +172,19 @@ class MainWindow(Tk):
         self.dateFrame.grid(row=0,column=7,columnspan=2,padx=2,pady=2,sticky="news")
         self.timeFrame.grid(row=0,column=9,columnspan=2,padx=2,pady=2,sticky="news")
 
+        self.voltageFrame.grid(row=4,column=0,columnspan=2,padx=2,pady=2,sticky="news")
+        self.unitNoFrame.grid(row=6,column=0,columnspan=2,padx=2,pady=2,sticky="news")
+
+
+
         self.train_label.place(anchor=CENTER,relx=0.5,rely=0.5)
         self.frame_label.place(anchor=CENTER,relx=0.5,rely=0.5)
         self.date_label.place(anchor=CENTER,relx=0.5,rely=0.5)
         self.time_label.place(anchor=CENTER,relx=0.5,rely=0.5)
         self.modeLabel.place(anchor=CENTER,relx=0.5,rely=0.5)
+
+        self.voltage_Label.place(anchor=CENTER,relx=0.5,rely=0.5)
+        self.unit_Label.place(anchor=CENTER,relx=0.5,rely=0.5)
 
         #Buttons
         for button,index in self.buttonDict.items():

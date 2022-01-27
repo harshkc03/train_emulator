@@ -13,7 +13,7 @@ class Login(Frame):
 
     def createWidgets(self):
         #Frame that contains user label and entry boxes
-        self.northFrame=Frame(self,bg="white")
+        self.northFrame=Frame(self,bg="yellow")
 
         #User ID label
         self.userIDLabel=Label(self.northFrame,bg="#000000",text="User ID",font=self.font,fg="white",padx=0,pady=0)
@@ -62,7 +62,7 @@ class Login(Frame):
 
     def configureWidgets(self):
         for button,val in self.keyPadButtonDict.items():
-            button.configure(font=self.font,command=lambda val=val:self.buttonPressed(val))
+            button.configure(font=self.font,bg='yellow',command=lambda val=val:self.buttonPressed(val))
 
     def placeWidgets(self):
         self.northFrame.place(relx=0.2,rely=0.1,relwidth=0.6,relheight=0.33)
