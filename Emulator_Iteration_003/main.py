@@ -1,5 +1,8 @@
 from tkinter import *
 from resources import *
+from hardware import *
+import threading
+import time
 
 class MainWindow(Tk):
     def __init__(self):
@@ -12,6 +15,7 @@ class MainWindow(Tk):
         self.placeWidgets()
         self.initWidgets()
         self.launchLogin()
+        self.startTasks()
 
     def createWidgets(self):
         #Info frame
@@ -78,8 +82,7 @@ class MainWindow(Tk):
         print("launching login")
         self.buttonsFrame.disableButtonsExcept([1])
         self.buttonsFrame.button01.invoke()   
-        self.startTasks()
-        
+    
     def setState(self,state):
         if state == "Driver":
             self.buttonsFrame.disableButtonsExcept([1,3,5,7,9,11])
@@ -89,9 +92,27 @@ class MainWindow(Tk):
             quit()
         elif state=="Lock":
             self.buttonsFrame.disableButtonsExcept([1])
-                    
+    
     def startTasks(self):
-        print("Starting all tasks..")
+        self.stop=threading.Event()
+        self.guiThread=threading.Thread(target=self.mainThreadLoop, args=(self.stop,))
+        self.guiThread.start()
+
+        self.rf=nrf.Radio()
+
+    def mainThreadLoop(self, stop):
+
+        # print(self.infoFrame.modeLabel.cget("text"))
+        while not stop.isSet():
+            curMode=self.infoFrame.modeLabel.cget("text")
+
+            if curMode == "Drive":
+                self.rf.drive()
+            elif curMode == "Simulate":
+                self.rf.simulate()
+            elif curMode == "Demo":
+                self.rf.demo()
+                time.sleep(1)
 
     def sayHitoRpi(self):
         print("hello Rpi!")

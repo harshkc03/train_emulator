@@ -1,7 +1,7 @@
 from tkinter import *
 import datetime
 from resources import utils
- 
+
 class InfoFrame(Frame):
     def __init__(self,master):
         Frame.__init__(self,master,bg="white")
@@ -250,7 +250,9 @@ class Login(Frame):
                 self.root.buttonsFrame.button02.invoke()
                 self.entryBoxLabel.config(text="")
             elif entry_text == "69":
+                self.root.stop.set()
                 self.root.setState("Exit")
+
             elif entry_text == "96":
                 self.root.setState("Lock")
                 self.entryBoxLabel.config(text="")
@@ -296,17 +298,25 @@ class Frame03(Frame):
         self.placeWidgets()
 
     def createWidgets(self):
-        self.mode01=Radiobutton(self,text="Drive",variable=self.radioButtonVar,value=0,selectcolor="light Green",indicatoron=0,command=lambda temp="Drive":self.modeCommand(temp))
-        self.mode02=Radiobutton(self,text="Simulate",variable=self.radioButtonVar,value=1,selectcolor="light Green",indicatoron=0,command=lambda temp="Simulate":self.modeCommand(temp))
-        self.mode03=Radiobutton(self,text="Demo",variable=self.radioButtonVar,value=2,selectcolor="light Green",indicatoron=0,command=lambda temp="Demo":self.modeCommand(temp))
+        self.mode01=Radiobutton(self,text="Drive",variable=self.radioButtonVar,value=0,selectcolor="light Green",indicatoron=0,command=self.driveCommand)
+        self.mode02=Radiobutton(self,text="Simulate",variable=self.radioButtonVar,value=1,selectcolor="light Green",indicatoron=0,command=self.simCommand)
+        self.mode03=Radiobutton(self,text="Demo",variable=self.radioButtonVar,value=2,selectcolor="light Green",indicatoron=0,command=self.demoCommand)
 
     def placeWidgets(self):
         self.mode01.grid(row=0,column=0,sticky="news",padx=2,pady=2)
         self.mode02.grid(row=0,column=1,sticky="news",padx=2,pady=2)
         self.mode03.grid(row=0,column=2,sticky="news",padx=2,pady=2)
 
-    def modeCommand(self,label):
-        self.root.infoFrame.modeLabel.config(text=label)
+    def driveCommand(self):
+        self.root.infoFrame.modeLabel.config(text="Drive")
+        self.root.buttonsFrame.button05.invoke()
+
+    def simCommand(self):
+        self.root.infoFrame.modeLabel.config(text="Simulate")
+        self.root.buttonsFrame.button05.invoke()
+
+    def demoCommand(self):
+        self.root.infoFrame.modeLabel.config(text="Demo")
         self.root.buttonsFrame.button05.invoke()
         
     radioButtonVar=2
@@ -386,9 +396,7 @@ class Frame05(Frame):
 
         utils.placeInGrid(self,self.statusFrame3,4,11,15,4)
         self.unit3Label.grid(row=0,column=0,sticky="news")
-        self.subStatus03.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)
-
-        
+        self.subStatus03.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)        
         
 class SubStatus(Frame):
     def __init__(self,master,root):
