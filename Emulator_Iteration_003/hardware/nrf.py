@@ -1,6 +1,7 @@
 import sys
 import time
 from RF24 import RF24
+from resources import utils
 
 class Radio():
     def __init__(self):
@@ -14,25 +15,31 @@ class Radio():
             self.radio.openReadingPipe(1,address[0])    
             self.radio.payloadSize=8
 
-    def demo(self):
+    def demo(self, spd, direction):
         self.radio.stopListening()
-        buffer=b"DE.....\x00"
+        temp="DE"+str(10*spd+direction)+"...\x00"
+        buffer=bytes(temp, encoding='utf8')
         result=self.radio.write(buffer)
 
         if not result:
             print("Demo Transmission failed or timed out")
-            time.sleep(1)
+            # time.sleep(1)
         else:
             print("Transmission Successful")
 
-    def drive(self):
+    def drive(self, spd, direction):
         self.radio.stopListening()
-        buffer=b"DR.....\x00"
+        spd= list(str(utils.convert_int(spd, 3)))
+        temp0=int(spd[0])
+        temp1=int(spd[1])
+        temp2=int(spd[2])
+        temp="DR"+str(temp0)+str(temp1)+str(temp2)+str(direction)+".\x00"
+        buffer=bytes(temp, encoding='utf8')
         result=self.radio.write(buffer)
 
         if not result:
             print("Drive Transmission failed or timed out")
-            time.sleep(1)
+            # time.sleep(1)
         else:
             print("Transmission Successful")
 
@@ -58,9 +65,6 @@ class Radio():
             return self.test()
         
         print("Radio is ready to go")
-            
-   
-    interrupt=False    
             
 # if __name__=="__main__":
 #     rf=Radio()

@@ -55,10 +55,7 @@ class ButtonHolder(Frame):
     def __init__(self,master):
         self.master=master
         Frame.__init__(self,master,bg="black")
-        utils.gridConfigure(1,11,self)
         self.createWidgets()
-        self.configureWidgets()
-        self.placeWidgets()
 
     def createWidgets(self):
         #Buttons
@@ -75,17 +72,17 @@ class ButtonHolder(Frame):
         self.button11=Radiobutton(self)
 
         #Dictionary containing buttons and an index
-        self.buttonDict={self.button01:1,
-                         self.button02:2,
-                         self.button03:3,
-                         self.button04:4,
-                         self.button05:5,
-                         self.button06:6,
-                         self.button07:7,
-                         self.button08:8,
-                         self.button09:9,
-                         self.button10:10,
-                         self.button11:11}
+        self.buttonDict={1:self.button01,
+                         2:self.button02,
+                         3:self.button03,
+                         4:self.button04,
+                         5:self.button05,
+                         6:self.button06,
+                         7:self.button07,
+                         8:self.button08,
+                         9:self.button09,
+                         10:self.button10,
+                         11:self.button11}
 
         self.buttonNamesDict={1:"Login",
                               2:"button02",
@@ -101,23 +98,39 @@ class ButtonHolder(Frame):
 
     def configureWidgets(self):
         #configuring buttons
-        for button,index in self.buttonDict.items():
-            button.config(text=self.buttonNamesDict[index],value=index,indicatoron=0,
+        utils.placeGridConfigure(self, 1, 11, 0.003, self)
+
+        for key in self.buttonDict:
+            self.buttonDict[key].config(text=self.buttonNamesDict[key],value=key,indicatoron=0,
                           variable=self.radioButtonVar,relief='flat',
-                          bg="#FFFFFF",offrelief='flat',command= lambda temp=index: self.displayFrame(temp))
+                          bg="#FFFFFF",offrelief='flat',command= lambda temp=key: self.displayFrame(temp))
+        
+        
+
+        print(self.winfo_geometry())
 
     def placeWidgets(self):
         #Buttons
-        for button,index in self.buttonDict.items():
-            button.grid(row=0,column=index-1,sticky="news",padx=2)
+        utils.placeInGrid(self,self.button01,0,0)
+        utils.placeInGrid(self,self.button02,0,1)
+        utils.placeInGrid(self,self.button03,0,2)
+        utils.placeInGrid(self,self.button04,0,3)
+        utils.placeInGrid(self,self.button05,0,4)
+        utils.placeInGrid(self,self.button06,0,5)
+        utils.placeInGrid(self,self.button07,0,6)
+        utils.placeInGrid(self,self.button08,0,7)
+        utils.placeInGrid(self,self.button09,0,8)
+        utils.placeInGrid(self,self.button10,0,9)
+        utils.placeInGrid(self,self.button11,0,10)
+        
 
     def disableButtonsExcept(self,buttonsToBeLeft):         
 
-        for button in self.buttonDict:
-            if self.buttonDict[button] not in buttonsToBeLeft:
-                button.config(state="disabled",text="")
+        for key in self.buttonDict:
+            if key not in buttonsToBeLeft:
+                self.buttonDict[key].config(state="disabled",text="")
             else:
-                button.config(state="normal",text=self.buttonNamesDict[self.buttonDict[button]])
+                self.buttonDict[key].config(state="normal",text=self.buttonNamesDict[key])
 
     def displayFrame(self,frameIndex):
         for (frame,index) in self.master.frameDict.items():
@@ -128,8 +141,8 @@ class ButtonHolder(Frame):
                 frame.grid_remove()
 
     def enableAll(self):
-        for button in self.buttonDict:
-            button.config(state="normal",text=self.buttonNamesDict[self.buttonDict[button]])
+        for key in self.buttonDict:
+            self.buttonDict[key].config(state="normal",text=self.buttonNamesDict[key])
 
     radioButtonVar=1
     numberOfColumns=11
@@ -346,7 +359,7 @@ class Frame05(Frame):
         self.cLabel=Label(self.cFrame,text="OHE Current",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
 
         self.coastFrame=Frame(self,bg="#000000")
-        self.coastLabel=Label(self.coastFrame,text="COAST",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+        self.coastLabel=Label(self.coastFrame,text="MODE",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
 
         self.speedFrame=Frame(self,bg="#000000")
         self.speedLabel=Label(self.speedFrame,text="Speed(km/hr)",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )

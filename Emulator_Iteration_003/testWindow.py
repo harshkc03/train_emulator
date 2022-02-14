@@ -13,10 +13,12 @@ class MainWindow:
         self.root.mainloop()
 
     def createWidgets(self):
-       self.button07=child_frames.Frame05(self.root,self.root)     
-
+       self.button07=child_frames.ButtonHolder(self.root)
+     
     def placeWidgets(self):
         utils.placeInGrid(self,self.button07,0,0)
+        self.button07.configureWidgets()
+        self.button07.placeWidgets()
         
     numberOfRows=1
     numberOfColumns=1

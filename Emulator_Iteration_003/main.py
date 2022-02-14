@@ -1,13 +1,15 @@
 from tkinter import *
 from resources import *
 from hardware import *
+from ina219 import INA219
 import threading
 import time
 
 class MainWindow(Tk):
     def __init__(self):
         Tk.__init__(self)
-        self.geometry("1200x625")
+        self.geometry("1200x800")
+        self.attributes("-fullscreen")
         self.config(bg="#000000")
         utils.gridConfigure(self.numberOfRows,self.numberOfColumns,self)
         self.createWidgets()
@@ -67,7 +69,9 @@ class MainWindow(Tk):
 
         #Buttons
         self.buttonsFrame.grid(row=1,column=0,columnspan=self.numberOfColumns,sticky="news")
-        
+        self.buttonsFrame.configureWidgets()
+        self.buttonsFrame.placeWidgets()
+
         #TopLevelFrame
         self.topLevelFrame.grid(row=2,rowspan=self.numberOfRows-2,
                                        column=0,columnspan=self.numberOfColumns,
@@ -99,6 +103,12 @@ class MainWindow(Tk):
         self.guiThread.start()
 
         self.rf=nrf.Radio()
+        self.adc=MCP3008.MCP3008()
+        self.ina219 = INA219(shunt_ohms=0.1, max_expected_amps = 0.6, address=0x40)
+        self.ina219.configure(voltage_range=self.ina219.RANGE_16V,
+                              gain=self.ina219.GAIN_AUTO,
+                              bus_adc=self.ina219.ADC_128SAMP,
+                              shunt_adc=self.ina219.ADC_128SAMP)
 
     def mainThreadLoop(self, stop):
 
@@ -107,12 +117,17 @@ class MainWindow(Tk):
             curMode=self.infoFrame.modeLabel.cget("text")
 
             if curMode == "Drive":
-                self.rf.drive()
+                adc_val = self.adc.read(channel=0)
+                spd = int(utils.translate(adc_val, 0, 1023, 0, 255))
+                print(spd)
+                time.sleep(0.05)
+                self.rf.drive(spd,1)
             elif curMode == "Simulate":
                 self.rf.simulate()
+                time.sleep(0.5)
             elif curMode == "Demo":
-                self.rf.demo()
-                time.sleep(1)
+                self.rf.demo(1,0) # (1,1) = (Start, Forward)
+                time.sleep(0.05)
 
     def sayHitoRpi(self):
         print("hello Rpi!")
