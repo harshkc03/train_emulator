@@ -1,5 +1,7 @@
+from cgitb import text
 from tkinter import *
 import datetime
+import sys
 from resources import utils
 
 class InfoFrame(Frame):
@@ -417,22 +419,23 @@ class SubStatus(Frame):
         self.master=master
         Frame.__init__(self,master,bg="#000000")
         utils.placeGridConfigure(self,4,3,0.003,self)
+        self.images()
         self.createWidgets()
         self.placeWidgets()
 
     def createWidgets(self):
-        self.frame01=Button(self,bg="cyan")
-        self.frame02=Button(self,bg="cyan")
-        self.frame03=Button(self,bg="cyan")
-        self.frame04=Button(self,bg="cyan")
-        self.frame05=Button(self,bg="cyan")
-        self.frame06=Button(self,bg="cyan")
-        self.frame07=Button(self,bg="cyan")
-        self.frame08=Button(self,bg="cyan")
-        self.frame09=Button(self,bg="cyan")
-        self.frame10=Button(self,bg="cyan")
-        self.frame11=Button(self,bg="cyan")
-        self.frame12=Button(self,bg="cyan")
+        self.frame01=Button(self,bg="white",text="AC",font=utils.defaultFont)
+        self.frame02=Button(self,bg="white",text="CAB",font=utils.defaultFont)
+        self.frame03=Button(self,bg="white",image=self.button03_img)
+        self.frame04=Button(self,bg="white",image=self.button04_img)
+        self.frame05=Button(self,bg="white",image=self.button05_img)
+        self.frame06=Button(self,bg="white",image=self.button06_img)
+        self.frame07=Button(self,bg="white",image=self.button07_img)
+        self.frame08=Button(self,bg="white",image=self.button08_img)
+        self.frame09=Button(self,bg="white",image=self.button09_img)
+        self.frame10=Button(self,bg="white",image=self.button10_img)
+        self.frame11=Button(self,bg="white",image=self.button11_img)
+        self.frame12=Button(self,bg="white",image=self.button12_img)
 
     def placeWidgets(self):
         utils.placeInGrid(self,self.frame01,0,0)
@@ -447,6 +450,19 @@ class SubStatus(Frame):
         utils.placeInGrid(self,self.frame10,3,0)
         utils.placeInGrid(self,self.frame11,3,1)
         utils.placeInGrid(self,self.frame12,3,2)
+
+    def images(self):
+        self.button03_img=PhotoImage(file=sys.path[0]+"/images/button01.png")
+        self.button04_img=PhotoImage(file=sys.path[0]+"/images/button02.png")
+        self.button05_img=PhotoImage(file=sys.path[0]+"/images/button03.png")
+        self.button06_img=PhotoImage(file=sys.path[0]+"/images/button04.png")
+        self.button07_img=PhotoImage(file=sys.path[0]+"/images/button05.png")
+        self.button08_img=PhotoImage(file=sys.path[0]+"/images/button06.png")
+        self.button09_img=PhotoImage(file=sys.path[0]+"/images/button07.png")
+        self.button10_img=PhotoImage(file=sys.path[0]+"/images/button08.png")
+        self.button11_img=PhotoImage(file=sys.path[0]+"/images/button09.png")
+        self.button12_img=PhotoImage(file=sys.path[0]+"/images/button10.png")
+
 
 class Frame06(Frame):
     def __init__(self,master,root):

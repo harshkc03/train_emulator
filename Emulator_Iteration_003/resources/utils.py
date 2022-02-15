@@ -37,4 +37,6 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 def convert_int(number,decimals) :
     return str(number).zfill(decimals)
 
+
+
 defaultFont="Calibri 15"
