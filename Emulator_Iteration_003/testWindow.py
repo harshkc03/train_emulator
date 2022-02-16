@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from resources import *
 
 
@@ -13,12 +14,11 @@ class MainWindow:
         self.root.mainloop()
 
     def createWidgets(self):
-       self.button07=child_frames.ButtonHolder(self.root)
+       self.bar=child_frames.Indicator(master=self.root,root=self.root,label="Current",barColor="red",maxValStr="252",unitStr="mA")
      
     def placeWidgets(self):
-        utils.placeInGrid(self,self.button07,0,0)
-        self.button07.configureWidgets()
-        self.button07.placeWidgets()
+        utils.placeInGrid(self,self.bar,0,0)
+        
         
     numberOfRows=1
     numberOfColumns=1

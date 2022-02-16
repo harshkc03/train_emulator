@@ -105,7 +105,7 @@ class ButtonHolder(Frame):
         for key in self.buttonDict:
             self.buttonDict[key].config(text=self.buttonNamesDict[key],value=key,indicatoron=0,
                           variable=self.radioButtonVar,relief='flat',
-                          bg="#FFFFFF",offrelief='flat',command= lambda temp=key: self.displayFrame(temp))
+                          bg="#FFFFFF",offrelief='flat',command= lambda temp=key: self.displayFrame(temp),font=utils.defaultFont)
         
         
 
@@ -313,9 +313,9 @@ class Frame03(Frame):
         self.placeWidgets()
 
     def createWidgets(self):
-        self.mode01=Radiobutton(self,text="Drive",variable=self.radioButtonVar,value=0,selectcolor="light Green",indicatoron=0,command=self.driveCommand)
-        self.mode02=Radiobutton(self,text="Simulate",variable=self.radioButtonVar,value=1,selectcolor="light Green",indicatoron=0,command=self.simCommand)
-        self.mode03=Radiobutton(self,text="Demo",variable=self.radioButtonVar,value=2,selectcolor="light Green",indicatoron=0,command=self.demoCommand)
+        self.mode01=Radiobutton(self,text="Drive",variable=self.radioButtonVar,value=0,selectcolor="light Green",indicatoron=0,command=self.driveCommand,font=utils.defaultFont)
+        self.mode02=Radiobutton(self,text="Simulate",variable=self.radioButtonVar,value=1,selectcolor="light Green",indicatoron=0,command=self.simCommand,font=utils.defaultFont)
+        self.mode03=Radiobutton(self,text="Demo",variable=self.radioButtonVar,value=2,selectcolor="light Green",indicatoron=0,command=self.demoCommand,font=utils.defaultFont)
 
     def placeWidgets(self):
         self.mode01.grid(row=0,column=0,sticky="news",padx=2,pady=2)
@@ -347,18 +347,23 @@ class Frame05(Frame):
         self.root=root
         self.master=master
         Frame.__init__(self,master,bg="white")
-        utils.placeGridConfigure(self,20,20,0.001,self)
+        utils.placeGridConfigure(self,20,20,0.002,self)        
         self.createWidgets()
         self.configureWidgets()
         self.placeWidgets()
 
 
     def createWidgets(self):
+
+        self.beautyFrame=Frame(self,bg="black")
+
         self.vFrame=Frame(self,bg="#000000")
         self.vLabel=Label(self.vFrame,text="OHE Voltage",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+        self.vValue=Label(self.vFrame,text="0",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
         
         self.cFrame=Frame(self,bg="#000000")
-        self.cLabel=Label(self.cFrame,text="OHE Current",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+        self.cLabel=Label(self.cFrame,text="OHE Current",bg="#000000",fg="#FFFFFF",font=utils.defaultFont)
+        self.cValue=Label(self.cFrame,text="0",bg="#000000",fg="#FFFFFF",font=utils.defaultFont)
 
         self.coastFrame=Frame(self,bg="#000000")
         self.coastLabel=Label(self.coastFrame,text="MODE",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
@@ -368,101 +373,110 @@ class Frame05(Frame):
 
         self.beautyFrame=Frame(self,bg="#000000")
 
-        self.statusFrame1=Frame(self,bg='grey')
-        self.unit1Label=Label(self.statusFrame1,fg="white",bg="#000000",text="Unit 1",font=utils.defaultFont)
+        self.statusFrame1=Frame(self.beautyFrame,bg='grey')
+        self.unit1Label=Label(self.statusFrame1,fg="white",bg="grey",text="Unit 1",font=utils.defaultFont)
         self.subStatus01=SubStatus(self.statusFrame1,self)
 
-        self.statusFrame2=Frame(self,bg='grey')
-        self.unit2Label=Label(self.statusFrame2,fg="white",bg="#000000",text="Unit 2",font=utils.defaultFont)
+        self.statusFrame2=Frame(self.beautyFrame,bg='grey')
+        self.unit2Label=Label(self.statusFrame2,fg="white",bg="grey",text="Unit 2",font=utils.defaultFont)
         self.subStatus02=SubStatus(self.statusFrame2,self)
 
-        self.statusFrame3=Frame(self,bg='grey')
-        self.unit3Label=Label(self.statusFrame3,fg="white",bg="#000000",text="Unit 3",font=utils.defaultFont)
+        self.statusFrame3=Frame(self.beautyFrame,bg='grey')
+        self.unit3Label=Label(self.statusFrame3,fg="white",bg="grey",text="Unit 3",font=utils.defaultFont)
         self.subStatus03=SubStatus(self.statusFrame3,self)
 
+       
 
 
         
 
     def configureWidgets(self):
+        utils.placeGridConfigure(self,17,20,0.002,self.beautyFrame)
         utils.gridConfigure(10,1,self.statusFrame1)
         utils.gridConfigure(10,1,self.statusFrame2)
         utils.gridConfigure(10,1,self.statusFrame3)
 
     def placeWidgets(self):
+
+
+        utils.placeInGrid(self,self.beautyFrame,3,0,17,20)   
+
         utils.placeInGrid(self,self.vFrame,0,0,columnspan=6,rowspan=3)
         self.vLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')
+        self.vValue.place(relx=0.3,rely=0.4,relheight=0.4,relwidth=0.4,anchor='nw')
+
         utils.placeInGrid(self,self.cFrame,0,6,columnspan=6,rowspan=3)
-        self.cLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')        
+        self.cLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')       
+        self.cValue.place(relx=0.3,rely=0.4,relheight=0.4,relwidth=0.4,anchor='nw') 
+
         utils.placeInGrid(self,self.coastFrame,0,12,columnspan=4,rowspan=3)
         self.coastLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')
+
         utils.placeInGrid(self,self.speedFrame,0,16,columnspan=4,rowspan=3)
         self.speedLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.6,anchor='nw')
 
 
-
-        utils.placeInGrid(self,self.statusFrame1,4,1,15,4)
+        utils.placeInGrid(self,self.statusFrame1,1,1,12,4)
         self.unit1Label.grid(row=0,column=0,sticky="news")
         self.subStatus01.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)
 
-        utils.placeInGrid(self,self.statusFrame2,4,6,15,4)
+        utils.placeInGrid(self,self.statusFrame2,1,6,12,4)
         self.unit2Label.grid(row=0,column=0,sticky="news")
         self.subStatus02.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)
 
-        utils.placeInGrid(self,self.statusFrame3,4,11,15,4)
+        utils.placeInGrid(self,self.statusFrame3,1,11,12,4)
         self.unit3Label.grid(row=0,column=0,sticky="news")
-        self.subStatus03.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)        
+        self.subStatus03.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)    
         
 class SubStatus(Frame):
     def __init__(self,master,root):
         self.root=root
         self.master=master
         Frame.__init__(self,master,bg="#000000")
-        utils.placeGridConfigure(self,4,3,0.003,self)
+        utils.placeGridConfigure(self,5,2,0.003,self)
         self.images()
         self.createWidgets()
         self.placeWidgets()
 
     def createWidgets(self):
-        self.frame01=Button(self,bg="white",text="AC",font=utils.defaultFont)
-        self.frame02=Button(self,bg="white",text="CAB",font=utils.defaultFont)
-        self.frame03=Button(self,bg="white",image=self.button03_img)
-        self.frame04=Button(self,bg="white",image=self.button04_img)
-        self.frame05=Button(self,bg="white",image=self.button05_img)
-        self.frame06=Button(self,bg="white",image=self.button06_img)
-        self.frame07=Button(self,bg="white",image=self.button07_img)
-        self.frame08=Button(self,bg="white",image=self.button08_img)
-        self.frame09=Button(self,bg="white",image=self.button09_img)
-        self.frame10=Button(self,bg="white",image=self.button10_img)
-        self.frame11=Button(self,bg="white",image=self.button11_img)
-        self.frame12=Button(self,bg="white",image=self.button12_img)
+        self.frame01=Label(self,bg="white",text="AC",font=utils.defaultFont,highlightbackground="white")
+        self.frame02=Label(self,bg="white",text="CAB",font=utils.defaultFont,highlightbackground="white")
+        self.frame03=Label(self,bg="white",image=self.button03_img,highlightbackground="white",borderwidth=0)
+        self.frame04=Label(self,bg="white",image=self.button04_img,highlightbackground="white",borderwidth=0)
+        self.frame05=Label(self,bg="white",image=self.button05_img,highlightbackground="white",borderwidth=0)
+        self.frame06=Label(self,bg="white",image=self.button06_img,highlightbackground="white",borderwidth=0)
+        self.frame07=Label(self,bg="white",image=self.button07_img,highlightbackground="white",borderwidth=0)
+        self.frame08=Label(self,bg="white",image=self.button08_img,highlightbackground="white",borderwidth=0)
+        self.frame09=Label(self,bg="white",image=self.button09_img,highlightbackground="white",borderwidth=0)
+        self.frame10=Label(self,bg="white",image=self.button10_img,highlightbackground="white",borderwidth=0)
+        self.frame11=Label(self,bg="white",image=self.button11_img,highlightbackground="white",borderwidth=0)
+        self.frame12=Label(self,bg="white",image=self.button12_img,highlightbackground="white",borderwidth=0)
 
     def placeWidgets(self):
         utils.placeInGrid(self,self.frame01,0,0)
         utils.placeInGrid(self,self.frame02,0,1)
-        utils.placeInGrid(self,self.frame03,0,2)
-        utils.placeInGrid(self,self.frame04,1,0)
-        utils.placeInGrid(self,self.frame05,1,1)
-        utils.placeInGrid(self,self.frame06,1,2)
-        utils.placeInGrid(self,self.frame07,2,0)
-        utils.placeInGrid(self,self.frame08,2,1)
-        utils.placeInGrid(self,self.frame09,2,2)
-        utils.placeInGrid(self,self.frame10,3,0)
-        utils.placeInGrid(self,self.frame11,3,1)
-        utils.placeInGrid(self,self.frame12,3,2)
+        utils.placeInGrid(self,self.frame03,1,0)
+        utils.placeInGrid(self,self.frame04,1,1)
+        utils.placeInGrid(self,self.frame05,2,0)
+        utils.placeInGrid(self,self.frame06,2,1)
+        utils.placeInGrid(self,self.frame07,3,0)
+        utils.placeInGrid(self,self.frame08,3,1)
+        utils.placeInGrid(self,self.frame09,4,0)
+        utils.placeInGrid(self,self.frame10,4,1)
+        utils.placeInGrid(self,self.frame11,5,0)
+        utils.placeInGrid(self,self.frame12,5,1)
 
     def images(self):
-        self.button03_img=PhotoImage(file=sys.path[0]+"/images/button01.png")
-        self.button04_img=PhotoImage(file=sys.path[0]+"/images/button02.png")
-        self.button05_img=PhotoImage(file=sys.path[0]+"/images/button03.png")
-        self.button06_img=PhotoImage(file=sys.path[0]+"/images/button04.png")
-        self.button07_img=PhotoImage(file=sys.path[0]+"/images/button05.png")
-        self.button08_img=PhotoImage(file=sys.path[0]+"/images/button06.png")
-        self.button09_img=PhotoImage(file=sys.path[0]+"/images/button07.png")
-        self.button10_img=PhotoImage(file=sys.path[0]+"/images/button08.png")
-        self.button11_img=PhotoImage(file=sys.path[0]+"/images/button09.png")
-        self.button12_img=PhotoImage(file=sys.path[0]+"/images/button10.png")
-
+        self.button03_img=PhotoImage(file=sys.path[0]+"/images/button03.png").subsample(3,4)
+        self.button04_img=PhotoImage(file=sys.path[0]+"/images/button04.png").subsample(4,4)
+        self.button05_img=PhotoImage(file=sys.path[0]+"/images/button05.png").subsample(4,4)
+        self.button06_img=PhotoImage(file=sys.path[0]+"/images/button06.png").subsample(4,4)
+        self.button07_img=PhotoImage(file=sys.path[0]+"/images/button07.png").subsample(4,4)
+        self.button08_img=PhotoImage(file=sys.path[0]+"/images/button08.png").subsample(4,4)
+        self.button09_img=PhotoImage(file=sys.path[0]+"/images/button09.png").subsample(4,4)
+        self.button10_img=PhotoImage(file=sys.path[0]+"/images/button10.png").subsample(4,4)
+        self.button11_img=PhotoImage(file=sys.path[0]+"/images/button11.png").subsample(4,4)
+        self.button12_img=PhotoImage(file=sys.path[0]+"/images/button12.png").subsample(4,4)
 
 class Frame06(Frame):
     def __init__(self,master,root):
@@ -499,4 +513,34 @@ class Frame11(Frame):
         self.root=root
         self.master=master
         Frame.__init__(self,master,bg="#000000")
+
+class Indicator(Frame):
+    def __init__(self,master,root,label,barColor,maxValStr,unitStr):
+        self.root=root
+        self.master=master
+        Frame.__init__(self,master,bg="white")
+
+        utils.placeGridConfigure(self, 12, 12, 0, self)
+
+        self.labelText=label
+        self.barColor=barColor
+        self.maxVal=maxValStr
+        self.unitStr=unitStr
+
+        self.createWidgets()
+        self.placeWidgets()
+
+    def createWidgets(self):
+        self.mainLabel=Label(self,bg="red",text=self.labelText,font="Calibri 32",fg="white",anchor="center")
+        self.maxLabel=Label(self,bg="green",text=self.maxVal,font=utils.defaultFont,fg="white")
+        self.unitLabel=Label(self,bg="blue",text=self.unitStr,font=utils.defaultFont,fg="white")
+
+        self.barFrame=Label(self,bg="pink")
+
+    def placeWidgets(self):
+        utils.placeInGrid(self,self.mainLabel,0,0,4,4)
+        utils.placeInGrid(self,self.maxLabel,0,10,2,2)
+        utils.placeInGrid(self,self.unitLabel,2,10,2,2)
+
+        utils.placeInGrid(self,self.barFrame,5,1,6,10)
 

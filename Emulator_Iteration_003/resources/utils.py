@@ -39,4 +39,4 @@ def convert_int(number,decimals) :
 
 
 
-defaultFont="Calibri 15"
+defaultFont="Calibri 20"

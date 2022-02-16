@@ -9,7 +9,7 @@ class MainWindow(Tk):
     def __init__(self):
         Tk.__init__(self)
         self.geometry("1200x800")
-        self.attributes("-fullscreen")
+        self.attributes("-fullscreen",True)
         self.config(bg="#000000")
         utils.gridConfigure(self.numberOfRows,self.numberOfColumns,self)
         self.createWidgets()
@@ -109,6 +109,21 @@ class MainWindow(Tk):
                               gain=self.ina219.GAIN_AUTO,
                               bus_adc=self.ina219.ADC_128SAMP,
                               shunt_adc=self.ina219.ADC_128SAMP)
+        
+        self.inaThread=threading.Thread(target=self.getVoltageAndCurrent,args=(self.stop,))
+        self.inaThread.start()
+        
+
+        
+    def getVoltageAndCurrent(self,stop):
+        while not stop.isSet():
+            self.volt=self.ina219.voltage()
+            self.curr=self.ina219.current()
+
+            self.frame05.vValue.config(text=str(self.volt)+'V')
+            self.frame05.cValue.config(text=str(self.curr)[:5]+'mA')
+
+            time.sleep(0.5)
 
     def mainThreadLoop(self, stop):
 

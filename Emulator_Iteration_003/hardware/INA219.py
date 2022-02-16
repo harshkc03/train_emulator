@@ -1,4 +1,5 @@
 from ina219 import INA219
+import time
 
 ina = INA219(shunt_ohms=0.1,
              max_expected_amps = 0.6,
@@ -16,6 +17,4 @@ while 1:
     
     print('{0:0.1f}V {1:0.1f}mA'.format(v, i))
     print('\n{0:0.1f} Watts'.format(p/1000))
-    sleep(1)
-
-class
+    time.sleep(1)
