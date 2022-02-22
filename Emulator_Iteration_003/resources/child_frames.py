@@ -358,8 +358,8 @@ class Frame05(Frame):
         self.beautyFrame=Frame(self,bg="black")
 
         self.vFrame=Frame(self,bg="#000000")
-        self.vLabel=Label(self.vFrame,text="OHE Voltage",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
-        self.vValue=Label(self.vFrame,text="0",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+        self.vLabel=Label(self.vFrame,text="OHE Voltage",bg="#000000",fg="#FFFFFF", font=utils.defaultFont)
+        self.vValue=Label(self.vFrame,text="0"+"V",bg="#000000",fg="#FFFFFF",font=utils.defaultFont)        
         
         self.cFrame=Frame(self,bg="#000000")
         self.cLabel=Label(self.cFrame,text="OHE Current",bg="#000000",fg="#FFFFFF",font=utils.defaultFont)
@@ -370,6 +370,7 @@ class Frame05(Frame):
 
         self.speedFrame=Frame(self,bg="#000000")
         self.speedLabel=Label(self.speedFrame,text="Speed(km/hr)",bg="#000000",fg="#FFFFFF",font=utils.defaultFont )
+        self.speedValue=Label(self.speedFrame,text="0",bg="#000000",fg="#FFFFFF",font=utils.defaultFont)
 
         self.beautyFrame=Frame(self,bg="#000000")
 
@@ -402,8 +403,8 @@ class Frame05(Frame):
         utils.placeInGrid(self,self.beautyFrame,3,0,17,20)   
 
         utils.placeInGrid(self,self.vFrame,0,0,columnspan=6,rowspan=3)
-        self.vLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')
-        self.vValue.place(relx=0.3,rely=0.4,relheight=0.4,relwidth=0.4,anchor='nw')
+        self.vLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor="nw")
+        self.vValue.place(relx=0.3,rely=0.4,relheight=0.4,relwidth=0.4,anchor="nw")
 
         utils.placeInGrid(self,self.cFrame,0,6,columnspan=6,rowspan=3)
         self.cLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.4,anchor='nw')       
@@ -414,6 +415,7 @@ class Frame05(Frame):
 
         utils.placeInGrid(self,self.speedFrame,0,16,columnspan=4,rowspan=3)
         self.speedLabel.place(relx=0,rely=0,relheight=0.3,relwidth=0.6,anchor='nw')
+        self.speedValue.place(relx=0.3,rely=0.4,relheight=0.4,relwidth=0.4,anchor="nw")
 
 
         utils.placeInGrid(self,self.statusFrame1,1,1,12,4)
@@ -428,29 +430,29 @@ class Frame05(Frame):
         self.unit3Label.grid(row=0,column=0,sticky="news")
         self.subStatus03.grid(row=1,column=0,rowspan=9,sticky="news",padx=5,pady=5)    
         
-class SubStatus(Frame):
+class SubStatus(Frame): 
     def __init__(self,master,root):
         self.root=root
         self.master=master
         Frame.__init__(self,master,bg="#000000")
-        utils.placeGridConfigure(self,5,2,0.003,self)
+        utils.placeGridConfigure(self,6,2,0.003,self)
         self.images()
         self.createWidgets()
         self.placeWidgets()
 
     def createWidgets(self):
-        self.frame01=Label(self,bg="white",text="AC",font=utils.defaultFont,highlightbackground="white")
-        self.frame02=Label(self,bg="white",text="CAB",font=utils.defaultFont,highlightbackground="white")
-        self.frame03=Label(self,bg="white",image=self.button03_img,highlightbackground="white",borderwidth=0)
-        self.frame04=Label(self,bg="white",image=self.button04_img,highlightbackground="white",borderwidth=0)
-        self.frame05=Label(self,bg="white",image=self.button05_img,highlightbackground="white",borderwidth=0)
-        self.frame06=Label(self,bg="white",image=self.button06_img,highlightbackground="white",borderwidth=0)
-        self.frame07=Label(self,bg="white",image=self.button07_img,highlightbackground="white",borderwidth=0)
-        self.frame08=Label(self,bg="white",image=self.button08_img,highlightbackground="white",borderwidth=0)
-        self.frame09=Label(self,bg="white",image=self.button09_img,highlightbackground="white",borderwidth=0)
-        self.frame10=Label(self,bg="white",image=self.button10_img,highlightbackground="white",borderwidth=0)
-        self.frame11=Label(self,bg="white",image=self.button11_img,highlightbackground="white",borderwidth=0)
-        self.frame12=Label(self,bg="white",image=self.button12_img,highlightbackground="white",borderwidth=0)
+        self.frame01=Label(self,bg="white",text="AC",font=utils.defaultFont)
+        self.frame02=Label(self,bg="white",text="CAB",font=utils.defaultFont)
+        self.frame03=Label(self,bg=self.blue,image=self.button03_img,borderwidth=0)
+        self.frame04=Label(self,bg=self.red,image=self.button04_img,borderwidth=0)
+        self.frame05=Label(self,bg="white",image=self.button05_img,borderwidth=0)
+        self.frame06=Label(self,bg=self.blue,image=self.button06_img,borderwidth=0)
+        self.frame07=Label(self,bg="white",image=self.button07_img,borderwidth=0)
+        self.frame08=Label(self,bg=self.blue,image=self.button08_img,borderwidth=0)
+        self.frame09=Label(self,bg="white",image=self.button09_img,borderwidth=0)
+        self.frame10=Label(self,bg=self.yellow,image=self.button10_img,borderwidth=0)
+        self.frame11=Label(self,bg="white",image=self.button11_img,borderwidth=0)
+        self.frame12=Label(self,bg=self.green,image=self.button12_img,borderwidth=0)
 
     def placeWidgets(self):
         utils.placeInGrid(self,self.frame01,0,0)
@@ -467,7 +469,7 @@ class SubStatus(Frame):
         utils.placeInGrid(self,self.frame12,5,1)
 
     def images(self):
-        self.button03_img=PhotoImage(file=sys.path[0]+"/images/button03.png").subsample(3,4)
+        self.button03_img=PhotoImage(file=sys.path[0]+"/images/button03.png").subsample(4,4)
         self.button04_img=PhotoImage(file=sys.path[0]+"/images/button04.png").subsample(4,4)
         self.button05_img=PhotoImage(file=sys.path[0]+"/images/button05.png").subsample(4,4)
         self.button06_img=PhotoImage(file=sys.path[0]+"/images/button06.png").subsample(4,4)
@@ -477,6 +479,11 @@ class SubStatus(Frame):
         self.button10_img=PhotoImage(file=sys.path[0]+"/images/button10.png").subsample(4,4)
         self.button11_img=PhotoImage(file=sys.path[0]+"/images/button11.png").subsample(4,4)
         self.button12_img=PhotoImage(file=sys.path[0]+"/images/button12.png").subsample(4,4)
+
+    yellow="#ECCC11"
+    blue="#2332F6"
+    green="#54CC11"
+    red="#DA4040"
 
 class Frame06(Frame):
     def __init__(self,master,root):
@@ -518,7 +525,7 @@ class Indicator(Frame):
     def __init__(self,master,root,label,barColor,maxValStr,unitStr):
         self.root=root
         self.master=master
-        Frame.__init__(self,master,bg="white")
+        Frame.__init__(self,master,bg="#000000")
 
         utils.placeGridConfigure(self, 12, 12, 0, self)
 
@@ -526,21 +533,58 @@ class Indicator(Frame):
         self.barColor=barColor
         self.maxVal=maxValStr
         self.unitStr=unitStr
+        
 
         self.createWidgets()
         self.placeWidgets()
+        
 
     def createWidgets(self):
-        self.mainLabel=Label(self,bg="red",text=self.labelText,font="Calibri 32",fg="white",anchor="center")
-        self.maxLabel=Label(self,bg="green",text=self.maxVal,font=utils.defaultFont,fg="white")
-        self.unitLabel=Label(self,bg="blue",text=self.unitStr,font=utils.defaultFont,fg="white")
+        self.mainLabel=Label(self,bg="#000000",text=self.labelText,font=utils.defaultFont,fg="white",anchor="center")
+        self.maxLabel=Label(self,bg="#000000",text=str(self.maxVal),font=utils.defaultFont,fg="white")
+        self.unitLabel=Label(self,bg="#000000",text=self.unitStr,font=utils.defaultFont,fg="white")
 
-        self.barFrame=Label(self,bg="pink")
+        self.canvas=Canvas(master=self,bg="#000000",border=0)
+        utils.placeInGrid(self,self.canvas,5,1,6,10)
+
+        self.rect=Frame(self.canvas,bg=self.barColor)
+
+        
+        self.bar=self.canvas.create_window(utils.returnCoord(self,self.canvas,0,0.25),window=self.rect,width=self.canvas.winfo_width(),anchor="nw")
+
+        self.createCanvas()
+        
 
     def placeWidgets(self):
         utils.placeInGrid(self,self.mainLabel,0,0,4,4)
         utils.placeInGrid(self,self.maxLabel,0,10,2,2)
         utils.placeInGrid(self,self.unitLabel,2,10,2,2)
 
-        utils.placeInGrid(self,self.barFrame,5,1,6,10)
+
+
+
+
+    def createCanvas(self):
+        self.canvas.update()
+        l1=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.001,0,1,0),fill="white",width=3,state=DISABLED)
+        l2=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.1,0.2,0.6,0),fill="grey",width=3,state=DISABLED)
+        l3=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.2,0,1,0),fill="white",width=3,state=DISABLED)
+        l4=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.3,0.2,0.6,0),fill="grey",width=3,state=DISABLED)
+        l5=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.4,0,1,0),fill="white",width=3,state=DISABLED)
+        l6=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.5,0.2,0.6,0),fill="grey",width=3,state=DISABLED)
+        l7=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.6,0,1,0),fill="white",width=3,state=DISABLED)
+        l8=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.7,0.2,0.6,0),fill="grey",width=3,state=DISABLED)
+        l9=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.8,0,1,0),fill="white",width=3,state=DISABLED)
+        l10=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.9,0.2,0.6,0),fill="grey",width=3,state=DISABLED)
+        l11=self.canvas.create_line(utils.rectCoord(self,self.canvas,0.999,0,1,0),fill="white",width=3,state=DISABLED)
+
+
+    def updateWidth(self,val):
+        self.rect.place(relx=0,rely=0.25,relheight=0.5,relwidth=(val/self.maxVal))
+
+    
+
+        
+
+        
 

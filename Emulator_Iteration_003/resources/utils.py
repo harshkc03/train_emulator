@@ -37,6 +37,21 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 def convert_int(number,decimals) :
     return str(number).zfill(decimals)
 
+def rectCoord(self,canvas,relx,rely,relheight,relwidth):
+    canvas.update()
+    x1=relx*canvas.winfo_width()
+    y1=rely*canvas.winfo_height()
 
+    x2=(relx+relwidth)*canvas.winfo_width()
+    y2=(rely+relheight)*canvas.winfo_height()
+
+    return (x1,y1,x2,y2)
+
+def returnCoord(self,canvas,relx,rely):
+    canvas.update()
+    x1=relx*canvas.winfo_width()
+    y1=rely*canvas.winfo_height()
+
+    return (x1,y1)
 
 defaultFont="Calibri 20"

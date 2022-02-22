@@ -112,9 +112,7 @@ class MainWindow(Tk):
         
         self.inaThread=threading.Thread(target=self.getVoltageAndCurrent,args=(self.stop,))
         self.inaThread.start()
-        
 
-        
     def getVoltageAndCurrent(self,stop):
         while not stop.isSet():
             self.volt=self.ina219.voltage()
@@ -134,6 +132,7 @@ class MainWindow(Tk):
             if curMode == "Drive":
                 adc_val = self.adc.read(channel=0)
                 spd = int(utils.translate(adc_val, 0, 1023, 0, 255))
+                self.frame05.speedValue.config(text=str(((spd)/256)*100)[:6])
                 print(spd)
                 time.sleep(0.05)
                 self.rf.drive(spd,1)

@@ -14,7 +14,8 @@ class MainWindow:
         self.root.mainloop()
 
     def createWidgets(self):
-       self.bar=child_frames.Indicator(master=self.root,root=self.root,label="Current",barColor="red",maxValStr="252",unitStr="mA")
+    #    self.bar=child_frames.Indicator(self.root,self.root,"Current","Red","22","A")
+        self.bar=Canvas()
      
     def placeWidgets(self):
         utils.placeInGrid(self,self.bar,0,0)
