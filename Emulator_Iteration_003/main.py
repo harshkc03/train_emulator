@@ -8,14 +8,17 @@ import time
 class MainWindow(Tk):
     def __init__(self):
         Tk.__init__(self)
+        self.dir=1
         self.geometry("1200x800")
         self.attributes("-fullscreen",True)
         self.config(bg="#000000")
         utils.gridConfigure(self.numberOfRows,self.numberOfColumns,self)
+        self.register=shift_register.Shifter(16,20,21,5,32,"F")
+        self.mux=Multiplexer.Multi(self,[0x20,0x21,0x24],[14,17,27],self.register,"F")
         self.createWidgets()
+        self.eventControl=True
         self.configureWidgets()
         self.placeWidgets()
-        self.initWidgets()
         self.launchLogin()
         self.startTasks()
 
@@ -79,11 +82,10 @@ class MainWindow(Tk):
 
         self.loginFrame.place(relx=0.5,rely=0.5,relheight=1,relwidth=0.8,anchor='center')
      
-    def initWidgets(self):
-        print("Initializing......")
+    
        
     def launchLogin(self):
-        print("launching login")
+        print("Launching Login")
         self.buttonsFrame.disableButtonsExcept([1])
         self.buttonsFrame.button01.invoke()   
     
@@ -93,6 +95,7 @@ class MainWindow(Tk):
         elif state == "Maintenance":
             self.buttonsFrame.enableAll()
         elif state=="Exit":
+            self.shutdown()
             quit()
         elif state=="Lock":
             self.buttonsFrame.disableButtonsExcept([1])
@@ -104,15 +107,15 @@ class MainWindow(Tk):
 
         self.rf=nrf.Radio()
         self.adc=MCP3008.MCP3008()
-        self.ina219 = INA219(shunt_ohms=0.1, max_expected_amps = 0.6, address=0x40)
-        self.ina219.configure(voltage_range=self.ina219.RANGE_16V,
-                              gain=self.ina219.GAIN_AUTO,
-                              bus_adc=self.ina219.ADC_128SAMP,
-                              shunt_adc=self.ina219.ADC_128SAMP)
+        # self.ina219 = INA219(shunt_ohms=0.1, max_expected_amps = 0.6, address=0x40)
+        # self.ina219.configure(voltage_range=self.ina219.RANGE_16V,
+        #                       gain=self.ina219.GAIN_AUTO,
+        #                       bus_adc=self.ina219.ADC_128SAMP,
+        #                       shunt_adc=self.ina219.ADC_128SAMP)
         
-        self.inaThread=threading.Thread(target=self.getVoltageAndCurrent,args=(self.stop,))
-        self.inaThread.start()
-
+        # self.inaThread=threading.Thread(target=self.getVoltageAndCurrent,args=(self.stop,))
+        # self.inaThread.start()
+                
     def getVoltageAndCurrent(self,stop):
         while not stop.isSet():
             self.volt=self.ina219.voltage()
@@ -131,20 +134,45 @@ class MainWindow(Tk):
 
             if curMode == "Drive":
                 adc_val = self.adc.read(channel=0)
-                spd = int(utils.translate(adc_val, 0, 1023, 0, 255))
-                self.frame05.speedValue.config(text=str(((spd)/256)*100)[:6])
-                print(spd)
+                self.spd = int(utils.translate(adc_val, 0, 1023, 0, 255))
+                self.changeDState(self.spd)
+                
+                # print(self.spd)
                 time.sleep(0.05)
-                self.rf.drive(spd,1)
+                self.rf.drive(self.spd,self.dir)
+                self.frame05.speedValue.config(text=str(int(((self.rf.sendingSpeed)/133)*100)))
             elif curMode == "Simulate":
                 self.rf.simulate()
+                
                 time.sleep(0.5)
             elif curMode == "Demo":
                 self.rf.demo(1,0) # (1,1) = (Start, Forward)
                 time.sleep(0.05)
 
-    def sayHitoRpi(self):
-        print("hello Rpi!")
+    def changeDState(self,spd):
+        if spd==0:
+            self.frame05.subStatus01.frame12.config(bg=utils.pink)
+            self.frame05.subStatus01.frame07.config(bg=utils.white)
+
+            self.frame05.subStatus02.frame12.config(bg=utils.pink)
+            self.frame05.subStatus02.frame07.config(bg=utils.white)
+
+            self.frame05.subStatus03.frame12.config(bg=utils.pink)
+            self.frame05.subStatus03.frame07.config(bg=utils.white)
+        else:
+            self.frame05.subStatus01.frame12.config(bg=utils.white)
+            self.frame05.subStatus01.frame07.config(bg=utils.blue)
+
+            self.frame05.subStatus02.frame12.config(bg=utils.white)
+            self.frame05.subStatus02.frame07.config(bg=utils.blue)
+            
+            self.frame05.subStatus03.frame12.config(bg=utils.white)
+            self.frame05.subStatus03.frame07.config(bg=utils.blue)
+
+    def shutdown(self)  :
+        
+        self.register.clearPins()
+        
         
 
     #Variables
@@ -152,7 +180,8 @@ class MainWindow(Tk):
     numberOfColumns=11
     mainRadioButtonVar=1
     modeSelectButtonVar=2
-    defaultFont="Calibri 15"
+    defaultFont="Merryweather 15"
+    
 
 app=MainWindow()
 app.mainloop()

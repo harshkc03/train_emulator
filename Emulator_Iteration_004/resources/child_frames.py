@@ -266,7 +266,6 @@ class Login(Frame):
                 self.entryBoxLabel.config(text="")
             elif entry_text == "69":
                 # self.root.shutDown()
-                self.root.stop.set()
                 self.root.setState("Exit")
                 # self.root.eventControl=False
 
@@ -315,32 +314,16 @@ class Frame02(Frame):
 
     
     def resetSignals(self):
-        self.root.register.reset()
+        pass
     
     def changeDirection(self):
-        if self.root.register.direction=="F":
-            self.root.register.direction="B"
-            self.root.register.reset()
-
-            self.root.mux.direction="B"
-        elif self.root.register.direction=="B":
-            self.root.register.direction="F"
-            self.root.register.reset()
-
-            self.root.mux.direction="F"
+        pass
     
     def fault(self):
-        if self.root.register.direction=="F":
-            self.root.register.forward=[[1,0,0,0],[0,0,0,1],[0,0,0,1],[0,0,0,1]]
-            self.root.register.push()
-            
-        elif self.root.register.direction=="B":
-            self.root.register.backward=[[1,0,1,0],[0,0,1,0],[0,0,0,1],[0,1,0,0]]
-            self.root.register.push()
+        pass
 
     def audio(self):
-        self.root.register.stopAudio()
-        print("Stopping Audio")
+        pass
 
 class Frame03(Frame):
 
@@ -385,12 +368,7 @@ class Frame04(Frame):
         self.fault.place(relx=0.5,rely=0.875,anchor="center",relheight=0.248,relwidth=0.25)
 
     def fault(self):
-        if self.root.spd==0 and self.root.dir==1:
-            self.root.dir=0
-        elif self.root.spd==0 and self.root.dir==0:
-            self.root.dir=1
-
-        print(self.root.dir)
+        pass
 
 class Frame05(Frame):
     def __init__(self,master,root):

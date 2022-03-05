@@ -54,7 +54,7 @@ def returnCoord(self,canvas,relx,rely):
 
     return (x1,y1)
 
-defaultFont="Arial 20"
+defaultFont="Calibri 20"
 # yellow="#ECCC11"
 # red="#ff5252"
 blue="#52ffff"
