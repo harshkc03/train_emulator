@@ -482,185 +482,44 @@ class MCP23017(object):
         self.i2c.readU8(MCP23017_GPIOB)
 
 class Multi:
-    def __init__(self,root,addresses,interruptPins,shiftReg,direction):
-        
-        self.root=root
-        self.shift=shiftReg
-        self.direction=direction
-        # self.magSwitches={0x20:[8,9,10,11]}
-        self.MCP=[]
-        for add in addresses:
-            self.MCP.append(MCP23017(address = add, num_gpios = 16))
+    def __init__(self,addresses,interruptPins,shiftReg,signals,aws):
+      {"Class which instantiates into a multiplexer object, which can be used to control all mutiplexers connected."}
+      {"addresses: a list containing all the addresses at which each multiplexer is connected"}
+      {"interruptPins: a list containing all the GPIO pins to which the interrupt pins of the MUX are connected"}
+      {"shiftReg: the shift register object to which the signals are connected"}
+      {"signals: a dictionary with MUX addresses for keys and {pin : signal with the magnetic switch connected to pin} as values"}
+      self.shifter=shiftReg                                       
+      self.MCP=[] 
+      self.signals=signals
+      self.monitor=aws
 
-        for mcp in self.MCP :
-            for inpin in range(16):
-                mcp.pinMode(inpin,mcp.INPUT)
-                mcp.pullUp(inpin,1)
-                mcp.configSystemInterrupt(mcp.INTMIRRORON,mcp.INTPOLACTIVEHIGH)
-                mcp.configPinInterrupt(inpin, mcp.INTERRUPTON, mcp.INTERRUPTCOMPAREPREVIOUS)
+      for add in addresses:
+          self.MCP.append(MCP23017(address = add, num_gpios = 16))
 
+      for mcp in self.MCP :
+          for inpin in range(16):
+              mcp.pinMode(inpin,mcp.INPUT)
+              mcp.pullUp(inpin,1)
+              mcp.configSystemInterrupt(mcp.INTMIRRORON,mcp.INTPOLACTIVEHIGH)
+              mcp.configPinInterrupt(inpin, mcp.INTERRUPTON, mcp.INTERRUPTCOMPAREPREVIOUS)
+
+      for intpin in self.interruptPins:
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(interruptPins[0],GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(interruptPins[0],GPIO.RISING, callback=self.inthappened1, bouncetime=5) 
+        GPIO.setup(intpin,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
+        GPIO.add_event_detect(intpin,GPIO.RISING, callback=self.inthappened, bouncetime=5)
 
-        GPIO.setup(interruptPins[1],GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(interruptPins[1],GPIO.RISING, callback=self.inthappened2, bouncetime=5) 
-
-        GPIO.setup(interruptPins[2],GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(interruptPins[2],GPIO.RISING, callback=self.inthappened3, bouncetime=5) 
-
-    def inthappened1(self,pin):
-        
-        pin, value = self.MCP[0].readInterrupt()
-        if self.direction=="F":
-          
-          if pin==8:
-            if self.shift.forward[0][0]==1:
-              self.shift.launchAudio()
-            elif self.shift.forward[0][3]==1:
-              self.shift.stopAudio()
-              self.stopTrain()
-            elif self.shift.forward[0]==[1,0,1,0]or[0,1,0,0]:
-              self.shift.stopAudio() 
-
-            self.shift.forward[0]=[0,0,0,1]
-            self.shift.push()
-            
-          elif pin==9:
-            if self.shift.forward[1][0]==1:
-              self.shift.launchAudio()
-            elif self.shift.forward[1][3]==1:
-              self.shift.stopAudio()
-              self.stopTrain()
-            elif self.shift.forward[1]==[1,0,1,0]or[0,1,0,0]:
-              self.shift.stopAudio()
-
-            self.shift.forward[0]=[1,0,0,0]
-            self.shift.forward[1]=[0,0,0,1]
-            self.shift.push()
-          
-          elif pin==10:
-            if self.shift.forward[2][0]==1:
-              self.shift.launchAudio()
-            elif self.shift.forward[2][3]==1:
-              self.shift.stopAudio()
-              self.stopTrain()
-            elif self.shift.forward[2]==[1,0,1,0]or[0,1,0,0]:
-              self.shift.stopAudio()
-            self.shift.forward[0]=[1,0,1,0]
-            self.shift.forward[1]=[1,0,0,0]
-            self.shift.forward[2]=[0,0,0,1]
-            self.shift.push()
-            # self.shift.launchAudio()
-
-          elif pin==11:
-            if self.shift.forward[3][0]==1:
-              self.shift.launchAudio()
-            elif self.shift.forward[3][3]==1:
-              self.shift.stopAudio()
-              self.stopTrain()
-            elif self.shift.forward[3]==[1,0,1,0]or[0,1,0,0]:
-              self.shift.stopAudio()
-            self.shift.forward[0]=[0,1,0,0]
-            self.shift.forward[1]=[1,0,1,0]
-            self.shift.forward[2]=[1,0,0,0]
-            self.shift.forward[3]=[0,0,0,1]
-            self.shift.push()
-
-        elif self.direction=="B" :
-          # self.shift.forward=[[0,0,0,1],[0,0,0,1],[0,0,0,1],[0,0,0,1]]
-          # self.shift.backward=[[0,0,0,1],[0,0,0,1],[0,0,0,1],[0,0,0,1]]
-
-          # self.shift.push()
-          if pin==11:
-            # if self.shift.backward[0][0]==1:
-              # self.shift.launchAudio()
-            self.shift.backward[0]=[0,0,0,1]
-            self.shift.backward[1]=[0,1,0,0]
-            self.shift.push()
-
-          if pin==10:
-            if self.shift.backward[1][0]==1:
-              self.shift.launchAudio
-            self.shift.backward[0]=[1,1,0,0]
-            self.shift.backward[1]=[0,0,0,0]
-            self.shift.push()
-          
-          elif pin==9:
-              self.shift.backward[0]=[1,0,0,0]
-              self.shift.backward[1]=[1,0,1,0]
-              self.shift.backward[2]=[0,0,0,1]
-              self.shift.backward[3]=[0,1,0,0]
-              self.shift.push()
-          
-          elif pin==8:
-            self.shift.backward[0]=[0,0,1,0]
-            self.shift.backward[1]=[1,0,0,1]
-            self.shift.backward[2]=[1,1,0,0]
-            self.shift.backward[3]=[0,0,0,0]
-            self.shift.push()
-            # self.shift.launchAudio()
-
-        
-
-        print("1: %s    %s    " % (pin, value))
-    
-    def inthappened2(self,pin):
-        pin, value = self.MCP[1].readInterrupt()
-
-        if (pin==7) :
-            self.shift.setForward([0,0,0,1,
-                                   0,0,0,0,
-                                   0,0,0,0,
-                                   0,0,0,0])
-
-        if pin==6:
-            self.shift.launchAudio()
-
-        if pin == 5:
-            self.shift.clearPins()
-
-        print("2: %s    %s    " % (pin, value))
-    
-    def inthappened3(self,pin):
-        pin, value = self.MCP[2].readInterrupt()
-        print("3: %s    %s    " % (pin, value))
-
-    # def checkInterrupts(self,pin):
-    #   for mcp in self.MCP:
-    #     pin,value,address=mcp.readInterruptWithAdd()
-    #     if pin != None:
-    #       print("Interrupt at address {:02X} pin {} value: {} ".format(address,pin,value))
-    #       for key in self.magSwitches:
-    #         if address==key:
-    #           self.magSwitchFunc(pin)
-        
-    # def magSwitchFunc(self,pin,direction):
-    #   index=pin-8
-    #   if direction[index][1]==1:
-    #     self.switch.launchAudio()
-    #   else:
-    #     for i in range(4):
-    #       if (index-i) > -1:
-    #         direction[index-i]=[]
-
-    def stopTrain(self):
-        while self.root.spd>=0:
-          if self.root.result:
-            self.root.spd-=1
-            self.root.rf.drive(self.root.spd,1)
-
-
+    def inthappened(self,pin):
+      for mcp in self.MCP:
+        pin,value,address=mcp.readInterruptWithAdd()
+        if pin != None:
+          print("Interrupt at address {:02X} pin {} value: {} ".format(address,pin,value))
+          if address in self.signals:
+            self.monitor.signalCrossed(signals[address][pin])
 
     def cleanup(self):
         for mcp in self.MCP:
             mcp.cleanup()
         GPIO.cleanup()
-
-if __name__=="__main__":
-    mcp=Multi([0x20,0x21,0x24],[14,17,27])
-    while True:
-        time.sleep(2)
         
         
         

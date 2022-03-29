@@ -385,9 +385,9 @@ class Frame04(Frame):
         self.fault.place(relx=0.5,rely=0.875,anchor="center",relheight=0.248,relwidth=0.25)
 
     def fault(self):
-        if self.root.spd==0 and self.root.dir==1:
+        if self.root.dir==1:
             self.root.dir=0
-        elif self.root.spd==0 and self.root.dir==0:
+        elif self.root.dir==0:
             self.root.dir=1
 
         print(self.root.dir)

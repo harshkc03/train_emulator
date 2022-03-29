@@ -85,7 +85,6 @@ class Radio():
         
         print("Radio is ready to go")
 
-    # def getEncoderVal(self):
         
             
 # if __name__=="__main__":
