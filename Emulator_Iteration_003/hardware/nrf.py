@@ -35,6 +35,7 @@ class Radio():
         temp1=int(spd[1])
         temp2=int(spd[2])
         temp="DR"+str(temp0)+str(temp1)+str(temp2)+str(direction)+".\x00"
+        print(temp)
         buffer=bytes(temp, encoding='utf8')
         self.result=self.radio.write(buffer)
 

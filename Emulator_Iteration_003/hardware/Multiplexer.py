@@ -512,9 +512,11 @@ class Multi:
     def inthappened1(self,pin):
         
         pin, value = self.MCP[0].readInterrupt()
+        print("Interrupt at  pin {} value: {} ".format(pin,value))
         if self.direction=="F":
           
-          if pin==8:
+          if pin==15:
+
             if self.shift.forward[0][0]==1:
               self.shift.launchAudio()
             elif self.shift.forward[0][3]==1:
@@ -526,7 +528,7 @@ class Multi:
             self.shift.forward[0]=[0,0,0,1]
             self.shift.push()
             
-          elif pin==9:
+          elif pin==14:
             if self.shift.forward[1][0]==1:
               self.shift.launchAudio()
             elif self.shift.forward[1][3]==1:
@@ -539,7 +541,7 @@ class Multi:
             self.shift.forward[1]=[0,0,0,1]
             self.shift.push()
           
-          elif pin==10:
+          elif pin==13:
             if self.shift.forward[2][0]==1:
               self.shift.launchAudio()
             elif self.shift.forward[2][3]==1:
@@ -553,7 +555,7 @@ class Multi:
             self.shift.push()
             # self.shift.launchAudio()
 
-          elif pin==11:
+          elif pin==12:
             if self.shift.forward[3][0]==1:
               self.shift.launchAudio()
             elif self.shift.forward[3][3]==1:
@@ -660,6 +662,7 @@ class Multi:
 if __name__=="__main__":
     mcp=Multi([0x20,0x21,0x24],[14,17,27])
     while True:
+        # mcp.checkInterrupts()
         time.sleep(2)
         
         

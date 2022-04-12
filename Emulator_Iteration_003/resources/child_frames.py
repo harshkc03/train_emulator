@@ -390,7 +390,7 @@ class Frame04(Frame):
         elif self.root.dir==0:
             self.root.dir=1
 
-        print(self.root.dir)
+        # print(self.root.dir)
 
 class Frame05(Frame):
     def __init__(self,master,root):

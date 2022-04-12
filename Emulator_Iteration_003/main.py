@@ -8,7 +8,7 @@ import time
 class MainWindow(Tk):
     def __init__(self):
         Tk.__init__(self)
-        self.dir=1
+        self.dir=0
         self.geometry("1200x800")
         self.attributes("-fullscreen",True)
         self.config(bg="#000000")
@@ -140,6 +140,7 @@ class MainWindow(Tk):
                 # print(self.spd)
                 time.sleep(0.05)
                 self.rf.drive(self.spd,self.dir)
+                # self.rf.drive(self.spd,1)
                 self.frame05.speedValue.config(text=str(int(((self.rf.sendingSpeed)/133)*100)))
             elif curMode == "Simulate":
                 self.rf.simulate()
