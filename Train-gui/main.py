@@ -103,19 +103,20 @@ class MainWindow(Tk):
 
             # Remove the variable trace (to save system resources by an infinitesimal amount)
             self.login_frame.entry_text.trace_remove(*self.login_frame.entry_text.trace_info()[0])
+            self.login_frame.entry_text.set("")
 
             # Enable all the Radiobuttons
             for i in range(1, 11):
                 self.main_frame.button_list[i].configure(state=NORMAL)
 
             # Change the text of all the enabled Radiobuttons
-            self.change_button_text(2, "Mode select")
+            self.change_button_text(2, "Mode")
             self.change_button_text(3, "Overview")
             self.change_button_text(4, "Recreate")
-            self.change_button_text(5, "Train pos")
+            self.change_button_text(5, "Position")
             self.change_button_text(6, "Camera")
             self.change_button_text(7, "Events")
-            self.change_button_text(8, "Auto-mode")
+            self.change_button_text(8, "Auto-run")
             self.change_button_text(9, "Legends")
             self.change_button_text(10, "Brightness")
             self.change_button_text(11, "Backlight")
